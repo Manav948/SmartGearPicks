@@ -1,26 +1,207 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ───────────────────────────────────────────────────────────────
+   Pickora Design System — Stitch: project/1847021904551923770
+   Light mode, editorial-minimalist, Indigo primary
+─────────────────────────────────────────────────────────────── */
 
+@custom-variant dark (&:is(.dark *));
+
+/* Tailwind v4 theme inline overrides */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Brand colours */
+  --color-primary:                  #4648d4;
+  --color-primary-container:        #6063ee;
+  --color-on-primary:               #ffffff;
+  --color-on-primary-container:     #fffbff;
+  --color-primary-fixed:            #e1e0ff;
+  --color-primary-fixed-dim:        #c0c1ff;
+  --color-on-primary-fixed:         #07006c;
+  --color-on-primary-fixed-variant: #2f2ebe;
+  --color-inverse-primary:          #c0c1ff;
+  --color-surface-tint:             #494bd6;
+
+  /* Secondary */
+  --color-secondary:                #565e74;
+  --color-secondary-container:      #dae2fd;
+  --color-on-secondary:             #ffffff;
+  --color-on-secondary-container:   #5c647a;
+  --color-secondary-fixed:          #dae2fd;
+  --color-secondary-fixed-dim:      #bec6e0;
+  --color-on-secondary-fixed:       #131b2e;
+  --color-on-secondary-fixed-variant: #3f465c;
+
+  /* Tertiary */
+  --color-tertiary:                 #595c5e;
+  --color-tertiary-container:       #727577;
+  --color-on-tertiary:              #ffffff;
+  --color-on-tertiary-container:    #fbfdff;
+  --color-tertiary-fixed:           #e0e3e5;
+  --color-tertiary-fixed-dim:       #c4c7c9;
+  --color-on-tertiary-fixed:        #191c1e;
+  --color-on-tertiary-fixed-variant: #444749;
+
+  /* Error */
+  --color-error:                    #ba1a1a;
+  --color-error-container:          #ffdad6;
+  --color-on-error:                 #ffffff;
+  --color-on-error-container:       #93000a;
+
+  /* Surface scale */
+  --color-surface:                  #f8f9ff;
+  --color-surface-dim:              #cbdbf5;
+  --color-surface-bright:           #f8f9ff;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low:    #eff4ff;
+  --color-surface-container:        #e5eeff;
+  --color-surface-container-high:   #dce9ff;
+  --color-surface-container-highest:#d3e4fe;
+  --color-surface-variant:          #d3e4fe;
+
+  /* On-surface */
+  --color-on-surface:               #0b1c30;
+  --color-on-surface-variant:       #464554;
+  --color-inverse-surface:          #213145;
+  --color-inverse-on-surface:       #eaf1ff;
+
+  /* Outline */
+  --color-outline:                  #767586;
+  --color-outline-variant:          #c7c4d7;
+
+  /* Background */
+  --color-background:               #f8f9ff;
+  --color-on-background:            #0b1c30;
+
+  /* Shadcn compat aliases */
+  --color-foreground:               #0b1c30;
+  --color-card:                     #ffffff;
+  --color-card-foreground:          #0b1c30;
+  --color-popover:                  #ffffff;
+  --color-popover-foreground:       #0b1c30;
+  --color-muted:                    #eff4ff;
+  --color-muted-foreground:         #767586;
+  --color-accent:                   #e5eeff;
+  --color-accent-foreground:        #0b1c30;
+  --color-destructive:              #ba1a1a;
+  --color-border:                   #c7c4d7;
+  --color-input:                    #c7c4d7;
+  --color-ring:                     #4648d4;
+
+  /* Radius scale */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius: 0.5rem;
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: 'Geist', system-ui, sans-serif;
+  --font-mono: 'Geist Mono', monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ── Base ──────────────────────────────────────────────────── */
+@layer base {
+  *, *::before, *::after {
+    @apply border-border;
+  }
+
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+    color-scheme: light;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #f8f9ff;
+    color: #0b1c30;
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Geist', system-ui, sans-serif;
+    letter-spacing: -0.02em;
+  }
+
+  ::selection {
+    background-color: #dae2fd;
+    color: #0b1c30;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ── Utilities ─────────────────────────────────────────────── */
+@layer utilities {
+  /* Glassmorphism panel */
+  .glass-panel {
+    background: rgba(248, 249, 255, 0.72);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(199, 196, 215, 0.4);
+  }
+
+  /* Hide scrollbar */
+  .hide-scrollbar::-webkit-scrollbar { display: none; }
+  .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* Minimal scrollbar */
+  .thin-scrollbar::-webkit-scrollbar { width: 4px; }
+  .thin-scrollbar::-webkit-scrollbar-track { background: transparent; }
+  .thin-scrollbar::-webkit-scrollbar-thumb {
+    background: #c7c4d7;
+    border-radius: 9999px;
+  }
+
+  /* Admin bottom-border style input */
+  .admin-input {
+    border: none;
+    border-bottom: 1px solid #c7c4d7;
+    border-radius: 0;
+    background-color: transparent;
+    transition: all 0.2s ease-in-out;
+    outline: none;
+  }
+  .admin-input:focus {
+    border: 1px solid #4648d4;
+    border-radius: 0.25rem;
+    box-shadow: 0 0 0 1px #4648d4;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  /* Text balance */
+  .text-balance { text-wrap: balance; }
+
+  /* Premium button press */
+  .btn-primary {
+    background: #0f172a;
+    color: #ffffff;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    transition: background 0.15s, transform 0.1s;
+  }
+  .btn-primary:hover { background: #1e293b; transform: translateY(-1px); }
+  .btn-primary:active { transform: scale(0.97); }
+
+  /* Surface elevation card */
+  .card-elevated {
+    background: #ffffff;
+    border: 1px solid rgba(199, 196, 215, 0.4);
+    border-radius: 0.75rem;
+    transition: box-shadow 0.3s, transform 0.3s;
+  }
+  .card-elevated:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
+  }
+
+  /* Indigo chip / badge */
+  .chip-primary {
+    background: rgba(70, 72, 212, 0.1);
+    color: #4648d4;
+    border: 1px solid rgba(70, 72, 212, 0.2);
+  }
 }

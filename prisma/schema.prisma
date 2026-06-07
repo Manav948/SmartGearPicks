@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "mongodb"
+}
+
+model Admin {
+  id       String @id @default(cuid()) @map("_id")
+  email    String @unique
+  password String
+}
+
+model Product {
+  id            String       @id @default(cuid()) @map("_id")
+  name          String
+  description   String
+  imageUrl      String
+  affiliateLink String
+  category      Category
+  clicks        Int          @default(0)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  productTags   ProductTag[]
+}
+
+model ProductTag {
+  id        String  @id @default(cuid()) @map("_id")
+  productId String
+  tag       Tag
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+enum Category {
+  ELECTRONICS
+  FASHION
+  BEAUTY_PERSONAL_CARE
+  HEALTH_FITNESS
+  BOOKS_EDUCATION
+  HOME_KITCHEN
+  GAMING
+  SPORTS_OUTDOORS
+  TOYS_KIDS
+  AUTOMOTIVE
+  OFFICE_PRODUCTIVITY
+  PET_SUPPLIES
+  FOOD_BEVERAGES
+  GIFT_CATEGORIES
+  TRAVEL
+  CREATOR_ESSENTIALS
+}
+
+enum Tag {
+  TRENDING
+  BEST_SELLER
+  HOT_DEAL
+  RECOMMENDED
+  EDITORS_PICK
+  NEW_ARRIVAL
+  LIMITED_TIME
+  PREMIUM
+  BUDGET_FRIENDLY
+  TOP_RATED
+  MOST_POPULAR
+  FEATURED
+  AMAZON_CHOICE
+  GIFT_IDEA
+  CREATOR_FAVORITE
+  STUDENT_PICK
+  WORK_FROM_HOME
+  TRAVEL_FRIENDLY
+  GAMING_ESSENTIAL
+  SMART_HOME
+}
