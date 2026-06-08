@@ -19,6 +19,8 @@ export async function POST(req: NextRequest) {
     const affiliateLink = formData.get("affiliateLink") as string;
     const category = formData.get("category") as string;
     const image = formData.get("image") as File | null;
+    const priceRaw = formData.get("price") as string | null;
+    const price = priceRaw ? parseFloat(priceRaw) : null;
 
     // 3. Validate fields
     if (!name || !description || !affiliateLink || !category || !image) {
@@ -63,7 +65,8 @@ export async function POST(req: NextRequest) {
         description,
         imageUrl,
         affiliateLink,
-        category: category as any, // Cast string to Category enum
+        category: category as any,
+        ...(price !== null && !isNaN(price) ? { price } : {}),
       },
     });
 

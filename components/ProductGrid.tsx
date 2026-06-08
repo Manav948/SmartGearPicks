@@ -11,6 +11,7 @@ interface Product {
   imageUrl: string;
   affiliateLink: string;
   category: string;
+  price?: number | null;
   productTags?: { tag: string }[];
 }
 
@@ -29,12 +30,12 @@ const CATEGORY_MAP: Record<string, string> = {
   SPORTS_OUTDOORS: "Sports & Outdoors",
   TOYS_KIDS: "Toys & Kids",
   AUTOMOTIVE: "Automotive",
-  OFFICE_PRODUCTIVITY: "Office & Productivity",
+  OFFICE_PRODUCTIVITY: "Office",
   PET_SUPPLIES: "Pet Supplies",
-  FOOD_BEVERAGES: "Food & Beverages",
+  FOOD_BEVERAGES: "Food & Drinks",
   GIFT_CATEGORIES: "Gifts",
   TRAVEL: "Travel",
-  CREATOR_ESSENTIALS: "Creator Gear",
+  CREATOR_ESSENTIALS: "Creator",
 };
 
 export default function ProductGrid({ initialProducts }: ProductGridProps) {
@@ -57,69 +58,56 @@ export default function ProductGrid({ initialProducts }: ProductGridProps) {
   }, [initialProducts, searchTerm, selectedCategory]);
 
   return (
-    <div className="space-y-8">
-      {/* ── Search & Filter Bar ─────────────────────── */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        {/* Search */}
-        <div
-          className="relative w-full md:max-w-sm flex items-center px-4 py-2.5 rounded-full border transition-colors focus-within:border-[#4648d4]"
-          style={{ backgroundColor: "#eff4ff", borderColor: "rgba(199,196,215,0.5)" }}
+    <div className="space-y-6">
+      {/* ── Filter bar ── */}
+      <div className="flex items-center gap-2 overflow-x-auto pb-1" style={{ scrollbarWidth: "none" }}>
+        <button
+          onClick={() => setSelectedCategory(null)}
+          className="px-4 py-1.5 rounded-full text-xs font-semibold border transition-all duration-200 whitespace-nowrap flex-shrink-0"
+          style={{
+            fontFamily: "Geist, sans-serif",
+            backgroundColor: !selectedCategory ? "#0f172a" : "#ffffff",
+            color: !selectedCategory ? "#ffffff" : "#464554",
+            borderColor: !selectedCategory ? "#0f172a" : "#c7c4d7",
+          }}
         >
-          <span
-            className="material-symbols-outlined text-[20px] mr-2 select-none"
-            style={{ color: "#767586", fontVariationSettings: "'FILL' 0" }}
-          >
-            search
-          </span>
-          <input
-            type="text"
-            placeholder="Search curated products..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="bg-transparent border-none outline-none text-sm w-full placeholder:text-[#767586]"
-            style={{ color: "#0b1c30" }}
-          />
-        </div>
-
-        {/* Category chips */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-1 hide-scrollbar">
+          All Curations
+        </button>
+        {activeCategories.map((cat) => (
           <button
-            onClick={() => setSelectedCategory(null)}
-            className="px-4 py-1.5 rounded-full text-xs font-semibold border transition-all duration-200 whitespace-nowrap"
+            key={cat}
+            onClick={() => setSelectedCategory(cat)}
+            className="px-4 py-1.5 rounded-full text-xs font-semibold border transition-all duration-200 whitespace-nowrap flex-shrink-0"
             style={{
               fontFamily: "Geist, sans-serif",
-              letterSpacing: "0.02em",
-              backgroundColor: !selectedCategory ? "#0f172a" : "#ffffff",
-              color: !selectedCategory ? "#ffffff" : "#464554",
-              borderColor: !selectedCategory ? "#0f172a" : "#c7c4d7",
+              backgroundColor: selectedCategory === cat ? "#0f172a" : "#ffffff",
+              color: selectedCategory === cat ? "#ffffff" : "#464554",
+              borderColor: selectedCategory === cat ? "#0f172a" : "#c7c4d7",
             }}
           >
-            All Items
+            {CATEGORY_MAP[cat] || cat}
           </button>
-          {activeCategories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setSelectedCategory(category)}
-              className="px-4 py-1.5 rounded-full text-xs font-semibold border transition-all duration-200 whitespace-nowrap"
-              style={{
-                fontFamily: "Geist, sans-serif",
-                letterSpacing: "0.02em",
-                backgroundColor: selectedCategory === category ? "#0f172a" : "#ffffff",
-                color: selectedCategory === category ? "#ffffff" : "#464554",
-                borderColor: selectedCategory === category ? "#0f172a" : "#c7c4d7",
-              }}
-            >
-              {CATEGORY_MAP[category] || category}
-            </button>
-          ))}
+        ))}
+
+        {/* Sort label — right side */}
+        <div className="ml-auto flex items-center gap-1.5 flex-shrink-0">
+          <span className="text-xs text-[#767586] font-medium" style={{ fontFamily: "Geist, sans-serif" }}>
+            Sort by:
+          </span>
+          <span
+            className="text-xs font-semibold"
+            style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30" }}
+          >
+            Trending Now ▾
+          </span>
         </div>
       </div>
 
-      {/* ── Grid ────────────────────────────────────── */}
+      {/* ── Grid ── */}
       {filteredProducts.length === 0 ? (
         <div
           className="text-center py-20 rounded-2xl border"
-          style={{ backgroundColor: "#ffffff", borderColor: "#c7c4d7" }}
+          style={{ backgroundColor: "#ffffff", borderColor: "#e2e2e8" }}
         >
           <span
             className="material-symbols-outlined text-[56px] mb-4 block"
@@ -135,7 +123,7 @@ export default function ProductGrid({ initialProducts }: ProductGridProps) {
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
           {filteredProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
@@ -147,130 +135,133 @@ export default function ProductGrid({ initialProducts }: ProductGridProps) {
 
 function ProductCard({ product }: { product: Product }) {
   const [hovered, setHovered] = useState(false);
+  const categoryLabel = CATEGORY_MAP[product.category] || product.category;
+
+  /* Collect all label chips: category + up to 2 tags */
+  const chips = [
+    categoryLabel,
+    ...(product.productTags?.slice(0, 2).map((t) =>
+      t.tag.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
+    ) ?? []),
+  ];
 
   return (
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="flex flex-col rounded-2xl overflow-hidden border transition-all duration-300 cursor-pointer"
+      className="flex flex-col bg-white rounded-xl overflow-hidden transition-all duration-300"
       style={{
-        backgroundColor: "#ffffff",
-        borderColor: hovered ? "rgba(199,196,215,0.8)" : "rgba(199,196,215,0.35)",
+        border: "1px solid #e8e8f0",
         boxShadow: hovered
-          ? "0 12px 20px -8px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.04)"
-          : "0 1px 3px 0 rgba(0,0,0,0.02)",
-        transform: hovered ? "translateY(-4px)" : "translateY(0)",
+          ? "0 8px 24px -4px rgba(0,0,0,0.10), 0 2px 8px -2px rgba(0,0,0,0.04)"
+          : "0 1px 3px rgba(0,0,0,0.04)",
+        transform: hovered ? "translateY(-3px)" : "translateY(0)",
       }}
     >
-      {/* Clickable image → product detail */}
-      <Link href={`/product/${product.id}`} className="block">
-        <div
-          className="relative overflow-hidden"
-          style={{ height: "230px", backgroundColor: "#e5eeff" }}
-        >
-          <Image
-            src={product.imageUrl}
-            alt={product.name}
-            fill
-            sizes="(max-width: 768px) 100vw, 33vw"
-            className="object-cover transition-transform duration-500"
-            style={{ transform: hovered ? "scale(1.03)" : "scale(1)" }}
-            priority
-            unoptimized
-          />
+      {/* ── Image ── */}
+      <Link href={`/product/${product.id}`} className="block relative overflow-hidden flex-shrink-0" style={{ height: "200px", backgroundColor: "#f0f0f5" }}>
+        <Image
+          src={product.imageUrl}
+          alt={product.name}
+          fill
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+          className="object-cover transition-transform duration-500"
+          style={{ transform: hovered ? "scale(1.06)" : "scale(1)" }}
+          priority
+          unoptimized
+        />
 
-          {/* Quick-view hover overlay */}
-          <div
-            className="absolute inset-0 flex items-center justify-center transition-all duration-300 bg-black/10"
-            style={{
-              opacity: hovered ? 1 : 0,
-            }}
+        {/* Hover overlay pill */}
+        <div
+          className="absolute inset-0 flex items-end justify-center pb-4 transition-opacity duration-300"
+          style={{ opacity: hovered ? 1 : 0, background: "linear-gradient(to top, rgba(0,0,0,0.18) 0%, transparent 60%)" }}
+        >
+          <span
+            className="px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg"
+            style={{ backgroundColor: "rgba(255,255,255,0.95)", color: "#0b1c30", fontFamily: "Geist, sans-serif" }}
           >
-            <div
-              className="flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold shadow-md transition-all active:scale-95"
-              style={{
-                backgroundColor: "#ffffff",
-                color: "#0b1c30",
-                fontFamily: "Geist, sans-serif",
-              }}
-            >
-              <span className="material-symbols-outlined text-[16px]">visibility</span>
-              View Details
-            </div>
-          </div>
+            View Details →
+          </span>
         </div>
       </Link>
 
-      {/* Body */}
-      <div className="flex-1 p-5 flex flex-col justify-between">
-        <div>
-          {/* Category & Tags Row (Below Image) */}
-          <div className="flex flex-wrap gap-1.5 mb-2.5">
+      {/* ── Body ── */}
+      <div className="flex flex-col flex-1 p-4 gap-2">
+        {/* Chips row */}
+        <div className="flex flex-wrap gap-1.5">
+          {chips.map((chip, i) => (
             <span
-              className="text-[10px] font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded"
+              key={i}
+              className="text-[10px] font-semibold px-2 py-0.5 rounded-full"
               style={{
                 fontFamily: "Geist, sans-serif",
-                backgroundColor: "rgba(70,72,212,0.06)",
-                color: "#4648d4",
-                border: "1px solid rgba(70,72,212,0.12)",
+                letterSpacing: "0.02em",
+                backgroundColor: i === 0 ? "rgba(70,72,212,0.07)" : "#f4f4f8",
+                color: i === 0 ? "#4648d4" : "#5c5c72",
+                border: i === 0 ? "1px solid rgba(70,72,212,0.14)" : "1px solid #e2e2ec",
               }}
             >
-              {CATEGORY_MAP[product.category] || product.category}
+              {chip}
             </span>
-            {product.productTags?.slice(0, 1).map((t, idx) => (
-              <span
-                key={idx}
-                className="text-[10px] font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded"
-                style={{
-                  fontFamily: "Geist, sans-serif",
-                  backgroundColor: "#eff4ff",
-                  color: "#464554",
-                  border: "1px solid rgba(199,196,215,0.45)",
-                }}
-              >
-                {t.tag.replace(/_/g, " ").toLowerCase()}
-              </span>
-            ))}
-          </div>
-
-          {/* Title */}
-          <Link href={`/product/${product.id}`}>
-            <h3
-              className="font-semibold text-base leading-snug line-clamp-1 transition-colors mt-2"
-              style={{
-                fontFamily: "Geist, sans-serif",
-                color: hovered ? "#4648d4" : "#0b1c30",
-                letterSpacing: "-0.01em",
-              }}
-            >
-              {product.name}
-            </h3>
-          </Link>
-
-          {/* Description */}
-          <p className="text-sm mt-1.5 leading-relaxed line-clamp-2" style={{ color: "#464554" }}>
-            {product.description}
-          </p>
+          ))}
         </div>
 
-        {/* Single Fill CTA Button */}
-        <div className="mt-5">
-          <a
-            href={`/api/redirect/${product.id}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-sm font-medium transition-all active:scale-[0.98]"
+        {/* Title */}
+        <Link href={`/product/${product.id}`}>
+          <h3
+            className="font-semibold leading-snug line-clamp-2 transition-colors"
             style={{
-              backgroundColor: "#0b1c30",
-              color: "#ffffff",
-              fontFamily: "Geist, sans-serif",
-              borderTop: "1px solid rgba(255,255,255,0.12)",
+              fontFamily: "Geist, system-ui, sans-serif",
+              fontSize: "15px",
+              color: hovered ? "#4648d4" : "#0d0d14",
+              letterSpacing: "-0.015em",
+              lineHeight: "1.35",
             }}
           >
-            {product.affiliateLink.toLowerCase().includes("amazon") ? "View on Amazon" : "View Deal"}{" "}
-            <span className="font-sans ml-0.5">→</span>
-          </a>
-        </div>
+            {product.name}
+          </h3>
+        </Link>
+
+        {/* Description */}
+        <p
+          className="text-xs leading-relaxed line-clamp-2 flex-1"
+          style={{ color: "#767586", lineHeight: "1.55" }}
+        >
+          {product.description}
+        </p>
+
+        {/* Price (if set) */}
+        {product.price != null && (
+          <p
+            className="font-bold"
+            style={{
+              fontFamily: "Geist, sans-serif",
+              fontSize: "16px",
+              color: "#0d0d14",
+              letterSpacing: "-0.02em",
+              marginTop: "2px",
+            }}
+          >
+            ₹{product.price.toLocaleString("en-IN")}
+          </p>
+        )}
+
+        {/* CTA */}
+        <a
+          href={`/api/redirect/${product.id}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-1 w-full flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-xs font-semibold transition-all active:scale-[0.98]"
+          style={{
+            backgroundColor: "#0f172a",
+            color: "#ffffff",
+            fontFamily: "Geist, sans-serif",
+            letterSpacing: "0.01em",
+          }}
+        >
+          {product.affiliateLink.toLowerCase().includes("amazon") ? "View on Amazon" : "View Deal"}
+          <span style={{ fontSize: "13px" }}>→</span>
+        </a>
       </div>
     </div>
   );

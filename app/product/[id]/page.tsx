@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import RatingSection from "./RatingSection";
 import Footer from "@/components/Footer";
+import SimilarProducts from "@/components/SimilarProducts";
 
 export const revalidate = 0;
 
@@ -33,11 +34,41 @@ export default async function ProductDetailPage({
   const { id } = await params;
 
   let product = null;
+  let similarProducts: {
+    id: string;
+    name: string;
+    description: string;
+    imageUrl: string;
+    affiliateLink: string;
+    category: string;
+    price?: number | null;
+  }[] = [];
+
   try {
     product = await prisma.product.findUnique({
       where: { id },
       include: { productTags: true },
     });
+
+    if (product) {
+      similarProducts = await prisma.product.findMany({
+        where: {
+          category: product.category,
+          id: { not: id },
+        },
+        orderBy: { clicks: "desc" },
+        take: 10,
+        select: {
+          id: true,
+          name: true,
+          description: true,
+          imageUrl: true,
+          affiliateLink: true,
+          category: true,
+          price: true,
+        },
+      });
+    }
   } catch {
     // DB not connected
   }
@@ -208,8 +239,29 @@ export default async function ProductDetailPage({
                 <span className="material-symbols-outlined text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>
                   verified
                 </span>
-                Curator&apos;s Pick — Handpicked & Tested
+                Curator&apos;s Pick — Handpicked &amp; Tested
               </div>
+
+              {/* Price display */}
+              {product.price != null && (
+                <div
+                  className="mt-5 flex items-baseline gap-3 px-5 py-4 rounded-2xl border"
+                  style={{ backgroundColor: "#eff4ff", borderColor: "rgba(70,72,212,0.12)" }}
+                >
+                  <span
+                    className="text-xs font-semibold uppercase tracking-wider"
+                    style={{ fontFamily: "Geist, sans-serif", color: "#767586", letterSpacing: "0.06em" }}
+                  >
+                    Price
+                  </span>
+                  <span
+                    className="text-3xl font-bold tracking-tight"
+                    style={{ fontFamily: "Geist, system-ui, sans-serif", color: "#0b1c30", letterSpacing: "-0.03em" }}
+                  >
+                    ₹{product.price.toLocaleString("en-IN")}
+                  </span>
+                </div>
+              )}
             </div>
 
             {/* Divider */}
@@ -333,6 +385,23 @@ export default async function ProductDetailPage({
           </div>
         </div>
       </main>
+
+      {/* ── Similar Products ────────────────────────── */}
+      {similarProducts.length > 0 && (
+        <section
+          className="max-w-[1280px] mx-auto px-4 md:px-8 pb-16"
+        >
+          <div
+            className="border-t pt-10"
+            style={{ borderColor: "rgba(199,196,215,0.4)" }}
+          >
+            <SimilarProducts
+              products={similarProducts}
+              currentProductId={id}
+            />
+          </div>
+        </section>
+      )}
 
       <Footer />
     </div>

@@ -14,7 +14,8 @@ export default async function HomePage() {
     imageUrl: string;
     affiliateLink: string;
     category: string;
-    productTags?: { tag: string }[];
+    price: number | null;
+    productTags: { tag: string }[];
   }[] = [];
 
   try {
@@ -27,6 +28,7 @@ export default async function HomePage() {
         imageUrl: true,
         affiliateLink: true,
         category: true,
+        price: true,
         productTags: {
           select: {
             tag: true,
@@ -34,8 +36,8 @@ export default async function HomePage() {
         },
       },
     });
-  } catch {
-    // DATABASE_URL not configured — render empty state gracefully
+  } catch (err) {
+    console.error("[HomePage] Failed to fetch products:", err);
   }
 
   return (

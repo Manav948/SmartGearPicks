@@ -49,6 +49,7 @@ export default function AddProductForm() {
   const [description, setDescription] = useState("");
   const [affiliateLink, setAffiliateLink] = useState("");
   const [category, setCategory] = useState("ELECTRONICS");
+  const [price, setPrice] = useState("");
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [featured, setFeatured] = useState(false);
@@ -82,6 +83,7 @@ export default function AddProductForm() {
       formData.append("affiliateLink", affiliateLink);
       formData.append("category", category);
       formData.append("image", imageFile);
+      if (price) formData.append("price", price);
 
       const res = await fetch("/api/products", { method: "POST", body: formData });
       const data = await res.json();
@@ -137,9 +139,9 @@ export default function AddProductForm() {
                   />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-2">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-2">
                   {/* Affiliate Link */}
-                  <div>
+                  <div className="md:col-span-2">
                     <label htmlFor="affiliate-link" style={LABEL_STYLE} className="block mb-1.5">
                       Affiliate URL
                     </label>
@@ -171,34 +173,69 @@ export default function AddProductForm() {
                     </div>
                   </div>
 
-                  {/* Category */}
+                  {/* Price */}
                   <div>
-                    <label htmlFor="product-category" style={LABEL_STYLE} className="block mb-1.5">
-                      Category
+                    <label htmlFor="product-price" style={LABEL_STYLE} className="block mb-1.5">
+                      Price (optional)
                     </label>
-                    <div className="relative">
-                      <select
-                        id="product-category"
-                        value={category}
-                        onChange={(e) => setCategory(e.target.value)}
-                        className="w-full appearance-none border rounded-lg px-4 py-3 text-sm outline-none transition-all focus:border-[#4648d4] focus:ring-1 focus:ring-[#4648d4] bg-transparent"
-                        style={{ borderColor: "#c7c4d7", color: "#0b1c30" }}
+                    <div
+                      className="flex items-center border rounded-lg overflow-hidden transition-all focus-within:border-[#4648d4] focus-within:ring-1 focus-within:ring-[#4648d4]"
+                      style={{ borderColor: "#c7c4d7" }}
+                    >
+                      <div
+                        className="px-3 py-3 border-r flex items-center shrink-0"
+                        style={{ borderColor: "#c7c4d7", backgroundColor: "#eff4ff" }}
                       >
-                        {CATEGORIES.map((cat) => (
-                          <option key={cat.value} value={cat.value}>
-                            {cat.label}
-                          </option>
-                        ))}
-                      </select>
-                      <span
-                        className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"
-                        style={{ color: "#767586", fontVariationSettings: "'FILL' 0" }}
-                      >
-                        expand_more
-                      </span>
+                        <span
+                          className="text-sm font-semibold select-none"
+                          style={{ color: "#4648d4", fontFamily: "Geist, sans-serif" }}
+                        >
+                          ₹
+                        </span>
+                      </div>
+                      <input
+                        id="product-price"
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        value={price}
+                        onChange={(e) => setPrice(e.target.value)}
+                        placeholder="0.00"
+                        className="flex-1 bg-transparent border-0 outline-none px-4 py-3 text-sm placeholder:text-[#767586]/60"
+                        style={{ color: "#0b1c30" }}
+                      />
                     </div>
                   </div>
                 </div>
+
+                {/* Category — full row */}
+                <div className="mt-5">
+                  <label htmlFor="product-category" style={LABEL_STYLE} className="block mb-1.5">
+                    Category
+                  </label>
+                  <div className="relative">
+                    <select
+                      id="product-category"
+                      value={category}
+                      onChange={(e) => setCategory(e.target.value)}
+                      className="w-full appearance-none border rounded-lg px-4 py-3 text-sm outline-none transition-all focus:border-[#4648d4] focus:ring-1 focus:ring-[#4648d4] bg-transparent"
+                      style={{ borderColor: "#c7c4d7", color: "#0b1c30" }}
+                    >
+                      {CATEGORIES.map((cat) => (
+                        <option key={cat.value} value={cat.value}>
+                          {cat.label}
+                        </option>
+                      ))}
+                    </select>
+                    <span
+                      className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"
+                      style={{ color: "#767586", fontVariationSettings: "'FILL' 0" }}
+                    >
+                      expand_more
+                    </span>
+                  </div>
+                </div>
+
               </div>
             </section>
 
@@ -450,6 +487,16 @@ export default function AddProductForm() {
                   <p className="text-xs leading-relaxed line-clamp-2" style={{ color: "#767586" }}>
                     {description || "Your editorial description will appear here, giving context to why you picked this item."}
                   </p>
+                  {price && (
+                    <div className="mt-3 flex items-baseline gap-1.5">
+                      <span
+                        className="text-xl font-bold tracking-tight"
+                        style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30" }}
+                      >
+                        ₹{parseFloat(price).toLocaleString("en-IN")}
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
             </section>
