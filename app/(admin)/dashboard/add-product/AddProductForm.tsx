@@ -23,6 +23,29 @@ const CATEGORIES = [
   { value: "CREATOR_ESSENTIALS", label: "Creator Gear" },
 ];
 
+const TAGS = [
+  { value: "TRENDING", label: "Trending" },
+  { value: "BEST_SELLER", label: "Best Seller" },
+  { value: "HOT_DEAL", label: "Hot Deal" },
+  { value: "RECOMMENDED", label: "Recommended" },
+  { value: "EDITORS_PICK", label: "Editor's Pick" },
+  { value: "NEW_ARRIVAL", label: "New Arrival" },
+  { value: "LIMITED_TIME", label: "Limited Time" },
+  { value: "PREMIUM", label: "Premium" },
+  { value: "BUDGET_FRIENDLY", label: "Budget Friendly" },
+  { value: "TOP_RATED", label: "Top Rated" },
+  { value: "MOST_POPULAR", label: "Most Popular" },
+  { value: "FEATURED", label: "Featured" },
+  { value: "AMAZON_CHOICE", label: "Amazon's Choice" },
+  { value: "GIFT_IDEA", label: "Gift Idea" },
+  { value: "CREATOR_FAVORITE", label: "Creator Favorite" },
+  { value: "STUDENT_PICK", label: "Student Pick" },
+  { value: "WORK_FROM_HOME", label: "Work From Home" },
+  { value: "TRAVEL_FRIENDLY", label: "Travel Friendly" },
+  { value: "GAMING_ESSENTIAL", label: "Gaming Essential" },
+  { value: "SMART_HOME", label: "Smart Home" },
+];
+
 const LABEL_STYLE: React.CSSProperties = {
   fontFamily: "Geist, sans-serif",
   fontSize: "10px",
@@ -54,7 +77,14 @@ export default function AddProductForm() {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [featured, setFeatured] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const router = useRouter();
+
+  const handleTagToggle = (tagVal: string) => {
+    setSelectedTags((prev) =>
+      prev.includes(tagVal) ? prev.filter((t) => t !== tagVal) : [...prev, tagVal]
+    );
+  };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -84,6 +114,7 @@ export default function AddProductForm() {
       formData.append("category", category);
       formData.append("image", imageFile);
       if (price) formData.append("price", price);
+      formData.append("tags", JSON.stringify(selectedTags));
 
       const res = await fetch("/api/products", { method: "POST", body: formData });
       const data = await res.json();
@@ -233,6 +264,34 @@ export default function AddProductForm() {
                     >
                       expand_more
                     </span>
+                  </div>
+                </div>
+
+                {/* Tags Selector */}
+                <div className="mt-5">
+                  <label style={LABEL_STYLE} className="block mb-2.5">
+                    Product Tags / Badges
+                  </label>
+                  <div className="flex flex-wrap gap-2">
+                    {TAGS.map((t) => {
+                      const isSelected = selectedTags.includes(t.value);
+                      return (
+                        <button
+                          key={t.value}
+                          type="button"
+                          onClick={() => handleTagToggle(t.value)}
+                          className="px-3.5 py-1.5 rounded-full text-xs font-semibold border transition-all duration-200 cursor-pointer"
+                          style={{
+                            fontFamily: "Geist, sans-serif",
+                            backgroundColor: isSelected ? "rgba(70, 72, 212, 0.08)" : "#ffffff",
+                            color: isSelected ? "#4648d4" : "#767586",
+                            borderColor: isSelected ? "#4648d4" : "rgba(199, 196, 215, 0.5)",
+                          }}
+                        >
+                          {t.label}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
 
@@ -478,12 +537,39 @@ export default function AddProductForm() {
                       open_in_new
                     </span>
                   </div>
-                  <p
-                    className="text-[11px] font-semibold uppercase tracking-wider mb-2"
-                    style={{ fontFamily: "Geist, sans-serif", color: "#767586", letterSpacing: "0.05em" }}
-                  >
-                    {selectedCategoryLabel}
-                  </p>
+                  {/* Chips row */}
+                  <div className="flex flex-wrap gap-1.5 mb-2">
+                    <span
+                      className="text-[9px] font-semibold px-2 py-0.5 rounded-full"
+                      style={{
+                        fontFamily: "Geist, sans-serif",
+                        letterSpacing: "0.02em",
+                        backgroundColor: "rgba(70,72,212,0.07)",
+                        color: "#4648d4",
+                        border: "1px solid rgba(70,72,212,0.14)",
+                      }}
+                    >
+                      {selectedCategoryLabel}
+                    </span>
+                    {selectedTags.map((tagVal) => {
+                      const tagLabel = TAGS.find((t) => t.value === tagVal)?.label || tagVal;
+                      return (
+                        <span
+                          key={tagVal}
+                          className="text-[9px] font-semibold px-2 py-0.5 rounded-full"
+                          style={{
+                            fontFamily: "Geist, sans-serif",
+                            letterSpacing: "0.02em",
+                            backgroundColor: "#f4f4f8",
+                            color: "#5c5c72",
+                            border: "1px solid #e2e2ec",
+                          }}
+                        >
+                          {tagLabel}
+                        </span>
+                      );
+                    })}
+                  </div>
                   <p className="text-xs leading-relaxed line-clamp-2" style={{ color: "#767586" }}>
                     {description || "Your editorial description will appear here, giving context to why you picked this item."}
                   </p>

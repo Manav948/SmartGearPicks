@@ -58,6 +58,10 @@ export async function POST(req: NextRequest) {
 
     const imageUrl = uploadResult.secure_url;
 
+    // Parse tags
+    const tagsRaw = formData.get("tags") as string | null;
+    const tags = tagsRaw ? (JSON.parse(tagsRaw) as string[]) : [];
+
     // 5. Create product in DB
     const product = await prisma.product.create({
       data: {
@@ -67,6 +71,9 @@ export async function POST(req: NextRequest) {
         affiliateLink,
         category: category as any,
         ...(price !== null && !isNaN(price) ? { price } : {}),
+        productTags: {
+          create: tags.map((tag) => ({ tag: tag as any })),
+        },
       },
     });
 
