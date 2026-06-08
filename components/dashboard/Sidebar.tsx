@@ -34,7 +34,7 @@ export default function Sidebar() {
           className="text-lg font-bold tracking-tighter"
           style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30" }}
         >
-          SmartyGearPicks Admin
+          SmartGearPicks Admin
         </Link>
         <button
           onClick={toggleSidebar}

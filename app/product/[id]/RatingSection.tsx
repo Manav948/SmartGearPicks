@@ -10,7 +10,7 @@ interface Review {
   date: string;
 }
 
-const STORAGE_KEY = (id: string) => `smartygearpicks_ratings_${id}`;
+const STORAGE_KEY = (id: string) => `smartgearpicks_ratings_${id}`;
 
 export default function RatingSection({ productId }: { productId: string }) {
   const [reviews, setReviews] = useState<Review[]>([]);

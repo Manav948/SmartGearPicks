@@ -81,7 +81,7 @@ const SignInCard = () => {
                   <input
                     id="email"
                     type="email"
-                    placeholder="admin@smartygearpicks.com"
+                    placeholder="admin@smartgearpicks.com"
                     disabled={loading}
                     autoComplete="email"
                     {...field}

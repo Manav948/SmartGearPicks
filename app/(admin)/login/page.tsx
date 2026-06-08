@@ -38,7 +38,7 @@ export default async function LoginPage() {
               letterSpacing: "-0.02em",
             }}
           >
-            SmartyGearPicks
+            SmartGearPicks
           </h1>
           <p className="text-sm" style={{ color: "#767586" }}>
             Admin Portal Access

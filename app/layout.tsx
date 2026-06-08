@@ -3,7 +3,7 @@ import "./globals.css";
 import SessionProviderWrapper from "@/components/SessionProviderWrapper";
 
 export const metadata: Metadata = {
-  title: "SmartyGearPicks – Handpicked Products Worth Buying",
+  title: "SmartGearPicks – Handpicked Products Worth Buying",
   description:
     "Skip the endless scrolling. We discover, test, and curate only the exceptional tools, lifestyle objects, and tech that elevate your daily routine.",
   keywords: ["affiliate", "curated products", "handpicked", "recommendations"],

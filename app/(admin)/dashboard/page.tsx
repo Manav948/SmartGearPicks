@@ -39,191 +39,324 @@ export default async function AdminDashboardPage() {
     [totalProducts, products] = await Promise.all([
       prisma.product.count(),
       prisma.product.findMany({
-        orderBy: { clicks: "desc" }, // order by clicks for the chart
+        orderBy: { createdAt: "desc" },
+        include: { productTags: true },
       }),
     ]);
-  } catch {
-    // DATABASE_URL not configured
+  } catch (err) {
+    console.error("[Dashboard] DB error:", err);
   }
 
   const totalClicks = products.reduce((sum: number, p: any) => sum + (p.clicks || 0), 0);
-
-  // Top 7 products by clicks for the bar chart
-  const chartProducts = products.slice(0, 7);
+  const chartProducts = [...products].sort((a, b) => b.clicks - a.clicks).slice(0, 7);
   const maxClicks = Math.max(...chartProducts.map((p: any) => p.clicks || 0), 1);
+  const topTrending = chartProducts.slice(0, 3);
 
-  // Top trending (most clicks)
-  const topTrending = products.slice(0, 3);
+  // New Arrivals — latest 3
+  const newArrivals = products.slice(0, 3);
+  // Top Picks — most clicked, next 4
+  const topPicks = [...products].sort((a, b) => b.clicks - a.clicks).slice(0, 4);
+  // Category breakdown
+  const catBreakdown: Record<string, number> = {};
+  products.forEach((p: any) => {
+    catBreakdown[p.category] = (catBreakdown[p.category] || 0) + 1;
+  });
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen" style={{ backgroundColor: "#f8f9ff", color: "#0b1c30" }}>
-      {/* ── Sidebar ──────────────────────────────────── */}
+    <div className="flex flex-col md:flex-row min-h-screen" style={{ backgroundColor: "#f4f5fb", color: "#0b1c30" }}>
       <Sidebar />
 
-      {/* ── Main Content ──────────────────────────────── */}
-      <main className="flex-1 min-h-screen p-4 sm:p-6 md:p-8">
-        {/* Header */}
-        <header className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4 mb-8 md:mb-12 pt-4">
+      <main className="flex-1 min-h-screen p-4 sm:p-6 md:p-8 space-y-10">
+        {/* ── Header ── */}
+        <header className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4 pt-4">
           <div>
-            <h1 className="text-4xl md:text-5xl font-semibold tracking-tighter" style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30", letterSpacing: "-0.04em" }}>
+            <h1
+              className="text-4xl md:text-5xl font-semibold tracking-tighter"
+              style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30", letterSpacing: "-0.04em" }}
+            >
               Overview
             </h1>
-            <p className="mt-2 text-base md:text-lg" style={{ color: "#464554" }}>
+            <p className="mt-2 text-base" style={{ color: "#767586" }}>
               Here&apos;s what&apos;s happening with your curations.
             </p>
           </div>
           <div className="flex items-center gap-3">
-            <div
+            <span
               className="text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-full border"
-              style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30", backgroundColor: "#d3e4fe", borderColor: "rgba(199,196,215,0.3)", letterSpacing: "0.05em" }}
+              style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30", backgroundColor: "#dae2fd", borderColor: "rgba(199,196,215,0.3)", letterSpacing: "0.05em" }}
             >
               All Time
-            </div>
+            </span>
             <LogoutButton />
           </div>
         </header>
 
-        {/* Stats Grid */}
-        <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          {/* Total Products */}
-          <div
-            className="rounded-xl p-6 flex flex-col justify-between border transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_15px_-3px_rgba(0,0,0,0.05)] group"
-            style={{ backgroundColor: "#ffffff", borderColor: "rgba(199,196,215,0.35)" }}
-          >
-            <div className="flex justify-between items-start mb-4">
-              <div className="p-2 rounded-lg" style={{ backgroundColor: "rgba(70,72,212,0.1)", color: "#4648d4" }}>
-                <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 0" }}>inventory_2</span>
-              </div>
-            </div>
-            <div>
-              <h3 className="text-sm mb-1" style={{ color: "#767586" }}>Total Products</h3>
-              <p className="text-4xl font-semibold" style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30", letterSpacing: "-0.02em" }}>
-                {totalProducts}
-              </p>
-            </div>
-            {/* Sparkline based on real data */}
-            <div className="mt-4 h-8 flex items-end gap-1 opacity-60 group-hover:opacity-100 transition-opacity">
-              {(products.length > 0 ? products.slice(0, 6) : Array(6).fill({ clicks: 0 })).map((p: any, i: number) => {
-                const h = maxClicks > 0 ? Math.max(10, (p.clicks / maxClicks) * 100) : 15;
-                return (
-                  <div key={i} className="flex-1 rounded-t-sm" style={{ height: `${h}%`, backgroundColor: `rgba(70,72,212,${0.2 + i * 0.12})` }} />
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Total Clicks */}
-          <div
-            className="rounded-xl p-6 flex flex-col justify-between border transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_15px_-3px_rgba(0,0,0,0.05)] group"
-            style={{ backgroundColor: "#ffffff", borderColor: "rgba(199,196,215,0.35)" }}
-          >
-            <div className="flex justify-between items-start mb-4">
-              <div className="p-2 rounded-lg" style={{ backgroundColor: "rgba(86,94,116,0.12)", color: "#565e74" }}>
-                <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 0" }}>touch_app</span>
-              </div>
-            </div>
-            <div>
-              <h3 className="text-sm mb-1" style={{ color: "#767586" }}>Total Clicks</h3>
-              <p className="text-4xl font-semibold" style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30", letterSpacing: "-0.02em" }}>
-                {totalClicks > 1000 ? `${(totalClicks / 1000).toFixed(1)}k` : totalClicks}
-              </p>
-            </div>
-            <div className="mt-4 h-8 flex items-end gap-1 opacity-60 group-hover:opacity-100 transition-opacity">
-              {(products.length > 0 ? products.slice(0, 6) : Array(6).fill({ clicks: 0 })).map((p: any, i: number) => {
-                const h = maxClicks > 0 ? Math.max(10, (p.clicks / maxClicks) * 100) : 20;
-                return (
-                  <div key={i} className="flex-1 rounded-t-sm" style={{ height: `${h}%`, backgroundColor: `rgba(86,94,116,${0.15 + i * 0.12})` }} />
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Top Performer */}
-          <div
-            className="rounded-xl p-6 flex flex-col justify-between border transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_15px_-3px_rgba(0,0,0,0.05)] relative overflow-hidden"
-            style={{ backgroundColor: "#ffffff", borderColor: "rgba(199,196,215,0.35)" }}
-          >
-            <div className="absolute -right-6 -top-6 w-24 h-24 rounded-full blur-2xl" style={{ backgroundColor: "rgba(211,228,254,0.5)" }} />
-            <div className="flex justify-between items-start mb-4 relative z-10">
-              <div className="p-2 rounded-lg" style={{ backgroundColor: "#d3e4fe", color: "#767586" }}>
-                <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 0" }}>trending_up</span>
-              </div>
-            </div>
-            <div className="relative z-10">
-              <h3 className="text-sm mb-1" style={{ color: "#767586" }}>Top Products by Clicks</h3>
-              <p className="text-4xl font-semibold" style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30", letterSpacing: "-0.02em" }}>
-                {topTrending.length}
-              </p>
-            </div>
-            <div className="mt-4 flex flex-col gap-2 relative z-10">
-              {topTrending.length > 0 ? topTrending.map((p: any) => (
-                <div key={p.id} className="flex items-center justify-between text-sm">
-                  <span className="truncate w-36" style={{ color: "#767586" }}>{p.name}</span>
-                  <span className="font-semibold" style={{ color: "#4648d4" }}>↑ {p.clicks}</span>
+        {/* ── Stat Cards ── */}
+        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {[
+            {
+              label: "Total Products",
+              value: totalProducts,
+              icon: "inventory_2",
+              color: "#4648d4",
+              bg: "rgba(70,72,212,0.08)",
+              sub: `${totalProducts} live`,
+            },
+            {
+              label: "Total Clicks",
+              value: totalClicks > 1000 ? `${(totalClicks / 1000).toFixed(1)}k` : String(totalClicks),
+              icon: "touch_app",
+              color: "#0b7a5e",
+              bg: "rgba(11,122,94,0.08)",
+              sub: "affiliate traffic",
+            },
+            {
+              label: "Avg Clicks / Product",
+              value: totalProducts > 0 ? Math.round(totalClicks / totalProducts) : 0,
+              icon: "analytics",
+              color: "#c47d00",
+              bg: "rgba(196,125,0,0.08)",
+              sub: "per listing",
+            },
+            {
+              label: "Categories",
+              value: Object.keys(catBreakdown).length,
+              icon: "category",
+              color: "#6644d4",
+              bg: "rgba(102,68,212,0.08)",
+              sub: "active categories",
+            },
+          ].map(({ label, value, icon, color, bg, sub }) => (
+            <div
+              key={label}
+              className="rounded-2xl p-5 border flex flex-col gap-4 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
+              style={{ backgroundColor: "#ffffff", borderColor: "rgba(199,196,215,0.3)" }}
+            >
+              <div className="flex items-center justify-between">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: bg }}>
+                  <span className="material-symbols-outlined text-[22px]" style={{ color, fontVariationSettings: "'FILL' 0" }}>
+                    {icon}
+                  </span>
                 </div>
-              )) : (
-                <span className="text-xs" style={{ color: "#c7c4d7" }}>No products yet</span>
-              )}
+                <span className="text-xs font-medium" style={{ color: "#767586" }}>{sub}</span>
+              </div>
+              <div>
+                <p className="text-[11px] font-semibold uppercase tracking-wider mb-1" style={{ color: "#767586", letterSpacing: "0.06em" }}>{label}</p>
+                <p className="text-3xl font-bold" style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30", letterSpacing: "-0.03em" }}>
+                  {value}
+                </p>
+              </div>
             </div>
-          </div>
+          ))}
         </section>
 
-        {/* Click Performance Chart (Real Data) */}
-        <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
-          {/* Real Bar Chart */}
-          <div className="lg:col-span-2 rounded-xl p-6 border flex flex-col" style={{ backgroundColor: "#ffffff", borderColor: "rgba(199,196,215,0.35)" }}>
-            <div className="flex justify-between items-center mb-8">
+        {/* ── New Arrivals — Magazine Layout ── */}
+        {newArrivals.length > 0 && (
+          <section>
+            <div className="flex items-end justify-between mb-5">
               <div>
-                <h2 className="text-xl font-medium tracking-tight" style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30", letterSpacing: "-0.02em" }}>
-                  Click Performance
+                <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: "#4648d4", letterSpacing: "0.1em" }}>
+                  New Arrivals
+                </p>
+                <h2 className="text-2xl font-semibold tracking-tight" style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30", letterSpacing: "-0.03em" }}>
+                  The latest additions to your curated library.
                 </h2>
-                <p className="text-sm mt-1" style={{ color: "#767586" }}>Top products by affiliate clicks</p>
               </div>
+              <Link
+                href="/dashboard/add-product"
+                className="text-xs font-semibold flex items-center gap-1 transition-colors hover:text-[#4648d4] whitespace-nowrap ml-4"
+                style={{ color: "#767586", fontFamily: "Geist, sans-serif" }}
+              >
+                View All →
+              </Link>
             </div>
 
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4" style={{ height: "420px" }}>
+              {/* Large featured card */}
+              {newArrivals[0] && (
+                <Link
+                  href={`/product/${newArrivals[0].id}`}
+                  className="relative rounded-2xl overflow-hidden group block"
+                  style={{ height: "420px" }}
+                >
+                  <Image
+                    src={newArrivals[0].imageUrl}
+                    alt={newArrivals[0].name}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    unoptimized
+                  />
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.2) 45%, transparent 70%)" }} />
+                  {/* Category chip */}
+                  <div className="absolute top-4 left-4">
+                    <span
+                      className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full"
+                      style={{ backgroundColor: "rgba(255,255,255,0.18)", backdropFilter: "blur(8px)", color: "#fff", border: "1px solid rgba(255,255,255,0.3)", letterSpacing: "0.08em" }}
+                    >
+                      {CATEGORY_MAP[newArrivals[0].category] || newArrivals[0].category}
+                    </span>
+                  </div>
+                  {/* Bottom content */}
+                  <div className="absolute bottom-0 left-0 right-0 p-5">
+                    <h3 className="text-white font-bold text-xl leading-snug mb-1" style={{ fontFamily: "Geist, sans-serif", letterSpacing: "-0.02em" }}>
+                      {newArrivals[0].name}
+                    </h3>
+                    <p className="text-white/70 text-sm line-clamp-2 mb-4" style={{ lineHeight: "1.5" }}>
+                      {newArrivals[0].description}
+                    </p>
+                    {newArrivals[0].price && (
+                      <p className="text-white font-bold text-lg mb-3" style={{ letterSpacing: "-0.02em" }}>
+                        ₹{newArrivals[0].price.toLocaleString("en-IN")}
+                      </p>
+                    )}
+                    <span
+                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-semibold transition-all"
+                      style={{ backgroundColor: "#ffffff", color: "#0b1c30", fontFamily: "Geist, sans-serif" }}
+                    >
+                      View Details →
+                    </span>
+                  </div>
+                </Link>
+              )}
+
+              {/* Two stacked small cards */}
+              <div className="flex flex-col gap-4">
+                {newArrivals.slice(1, 3).map((product: any) => (
+                  <Link
+                    key={product.id}
+                    href={`/product/${product.id}`}
+                    className="relative rounded-2xl overflow-hidden group flex-1 block"
+                    style={{ minHeight: "196px" }}
+                  >
+                    <Image
+                      src={product.imageUrl}
+                      alt={product.name}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      unoptimized
+                    />
+                    <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 60%)" }} />
+                    <div className="absolute bottom-0 left-0 right-0 p-4">
+                      <h3 className="text-white font-semibold text-base leading-snug" style={{ fontFamily: "Geist, sans-serif", letterSpacing: "-0.01em" }}>
+                        {product.name}
+                      </h3>
+                      {product.price && (
+                        <p className="text-white/80 text-sm font-semibold mt-0.5">
+                          ₹{product.price.toLocaleString("en-IN")}
+                        </p>
+                      )}
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ── Top Picks — horizontal scroll strip ── */}
+        {topPicks.length > 0 && (
+          <section>
+            <div className="flex items-end justify-between mb-5">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: "#4648d4", letterSpacing: "0.1em" }}>
+                  Top Picks
+                </p>
+                <h2 className="text-2xl font-semibold tracking-tight" style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30", letterSpacing: "-0.03em" }}>
+                  Your highest performing products.
+                </h2>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+              {topPicks.map((product: any) => (
+                <Link
+                  key={product.id}
+                  href={`/product/${product.id}`}
+                  className="group block rounded-2xl overflow-hidden border transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                  style={{ backgroundColor: "#ffffff", borderColor: "rgba(199,196,215,0.3)" }}
+                >
+                  <div className="relative overflow-hidden" style={{ height: "180px", backgroundColor: "#e5eeff" }}>
+                    <Image
+                      src={product.imageUrl}
+                      alt={product.name}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      unoptimized
+                    />
+                    {/* Clicks badge */}
+                    <div
+                      className="absolute top-2.5 right-2.5 flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold"
+                      style={{ backgroundColor: "rgba(255,255,255,0.92)", backdropFilter: "blur(6px)", color: "#4648d4" }}
+                    >
+                      ↑ {product.clicks}
+                    </div>
+                  </div>
+                  <div className="p-3">
+                    <span
+                      className="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full"
+                      style={{ backgroundColor: "rgba(70,72,212,0.08)", color: "#4648d4", letterSpacing: "0.07em" }}
+                    >
+                      {CATEGORY_MAP[product.category] || product.category}
+                    </span>
+                    <h3 className="text-sm font-semibold mt-2 line-clamp-1" style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30", letterSpacing: "-0.01em" }}>
+                      {product.name}
+                    </h3>
+                    {product.price && (
+                      <p className="text-sm font-bold mt-0.5" style={{ color: "#0b1c30" }}>
+                        ₹{product.price.toLocaleString("en-IN")}
+                      </p>
+                    )}
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* ── Click Performance Chart + Category Breakdown ── */}
+        <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Bar chart */}
+          <div className="lg:col-span-2 rounded-2xl p-6 border flex flex-col" style={{ backgroundColor: "#ffffff", borderColor: "rgba(199,196,215,0.3)" }}>
+            <div className="flex justify-between items-center mb-8">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: "#767586", letterSpacing: "0.08em" }}>Performance</p>
+                <h2 className="text-xl font-semibold tracking-tight" style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30", letterSpacing: "-0.02em" }}>
+                  Click Performance
+                </h2>
+              </div>
+            </div>
             {chartProducts.length === 0 ? (
               <div className="flex-1 flex items-center justify-center min-h-[200px]">
                 <p className="text-sm" style={{ color: "#c7c4d7" }}>No data yet — add products to see clicks here.</p>
               </div>
             ) : (
-              <div className="flex-1 relative min-h-[240px]">
-                {/* Chart bars */}
-                <div className="flex items-end gap-3 h-[200px] pb-0">
+              <div className="flex-1">
+                <div className="flex items-end gap-3 h-[180px]">
                   {chartProducts.map((p: any, i: number) => {
                     const pct = maxClicks > 0 ? Math.max(4, (p.clicks / maxClicks) * 100) : 4;
                     return (
                       <div key={p.id} className="flex-1 flex flex-col items-center gap-1 group/bar">
-                        {/* Click count tooltip */}
-                        <span
-                          className="text-xs font-semibold opacity-0 group-hover/bar:opacity-100 transition-opacity"
-                          style={{ fontFamily: "Geist, sans-serif", color: "#4648d4" }}
-                        >
+                        <span className="text-xs font-semibold opacity-0 group-hover/bar:opacity-100 transition-opacity" style={{ color: "#4648d4" }}>
                           {p.clicks}
                         </span>
                         <Link href={`/product/${p.id}`} className="w-full" title={p.name}>
                           <div
-                            className="w-full rounded-t-md transition-all duration-300 cursor-pointer"
+                            className="w-full rounded-t-lg transition-all duration-300 cursor-pointer"
                             style={{
-                              height: `${(pct / 100) * 160}px`,
+                              height: `${(pct / 100) * 150}px`,
                               minHeight: "8px",
-                              backgroundColor: i === 0 ? "#4648d4" : `rgba(70,72,212,${0.7 - i * 0.08})`,
+                              backgroundColor: i === 0 ? "#4648d4" : `rgba(70,72,212,${0.65 - i * 0.07})`,
                             }}
-                            title={`${p.name}: ${p.clicks} clicks`}
                           />
                         </Link>
                       </div>
                     );
                   })}
                 </div>
-                {/* X-axis labels */}
-                <div className="flex gap-3 mt-2">
+                <div className="flex gap-3 mt-3 border-t pt-3" style={{ borderColor: "rgba(199,196,215,0.3)" }}>
                   {chartProducts.map((p: any) => (
                     <div key={p.id} className="flex-1 text-center">
-                      <span
-                        className="text-[10px] leading-tight block truncate"
-                        style={{ color: "#767586", fontFamily: "Geist, sans-serif" }}
-                        title={p.name}
-                      >
+                      <span className="text-[10px] leading-tight block truncate" style={{ color: "#767586" }} title={p.name}>
                         {p.name.split(" ").slice(0, 2).join(" ")}
                       </span>
                     </div>
@@ -233,47 +366,56 @@ export default async function AdminDashboardPage() {
             )}
           </div>
 
-          {/* Quick Stats Panel */}
-          <div className="rounded-xl p-6 border flex flex-col" style={{ backgroundColor: "#ffffff", borderColor: "rgba(199,196,215,0.35)" }}>
-            <h2 className="text-xl font-medium tracking-tight mb-6" style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30", letterSpacing: "-0.02em" }}>
-              Quick Stats
-            </h2>
-            <div className="flex flex-col gap-4">
-              {[
-                { label: "Products Published", value: totalProducts, icon: "inventory_2", color: "#4648d4" },
-                { label: "Total Affiliate Clicks", value: totalClicks, icon: "touch_app", color: "#565e74" },
-                { label: "Avg Clicks / Product", value: totalProducts > 0 ? Math.round(totalClicks / totalProducts) : 0, icon: "analytics", color: "#595c5e" },
-              ].map(({ label, value, icon, color }) => (
-                <div key={label} className="flex items-center gap-4 p-4 rounded-xl" style={{ backgroundColor: "#f8f9ff", border: "1px solid rgba(199,196,215,0.3)" }}>
-                  <div className="p-2 rounded-lg shrink-0" style={{ backgroundColor: `${color}18`, color }}>
-                    <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 0" }}>{icon}</span>
-                  </div>
-                  <div>
-                    <p className="text-xs" style={{ color: "#767586" }}>{label}</p>
-                    <p className="text-2xl font-semibold" style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30", letterSpacing: "-0.02em" }}>
-                      {value.toLocaleString()}
-                    </p>
-                  </div>
-                </div>
-              ))}
+          {/* Category breakdown */}
+          <div className="rounded-2xl p-6 border flex flex-col" style={{ backgroundColor: "#ffffff", borderColor: "rgba(199,196,215,0.3)" }}>
+            <div className="mb-6">
+              <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: "#767586", letterSpacing: "0.08em" }}>Breakdown</p>
+              <h2 className="text-xl font-semibold tracking-tight" style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30", letterSpacing: "-0.02em" }}>
+                By Category
+              </h2>
+            </div>
+            <div className="flex flex-col gap-3 flex-1">
+              {Object.entries(catBreakdown).length === 0 ? (
+                <p className="text-sm text-center m-auto" style={{ color: "#c7c4d7" }}>No categories yet</p>
+              ) : (
+                Object.entries(catBreakdown)
+                  .sort((a, b) => b[1] - a[1])
+                  .map(([cat, count]) => {
+                    const pct = Math.round((count / totalProducts) * 100);
+                    return (
+                      <div key={cat}>
+                        <div className="flex justify-between text-xs mb-1">
+                          <span style={{ fontFamily: "Geist, sans-serif", color: "#464554", fontWeight: 500 }}>
+                            {CATEGORY_MAP[cat] || cat}
+                          </span>
+                          <span style={{ color: "#767586" }}>{count} item{count !== 1 ? "s" : ""}</span>
+                        </div>
+                        <div className="h-2 rounded-full overflow-hidden" style={{ backgroundColor: "rgba(199,196,215,0.3)" }}>
+                          <div
+                            className="h-full rounded-full"
+                            style={{ width: `${pct}%`, backgroundColor: "#4648d4" }}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })
+              )}
             </div>
           </div>
         </section>
 
-        {/* Products Table — only real uploaded products */}
-        <section className="rounded-xl border p-6" style={{ backgroundColor: "#ffffff", borderColor: "rgba(199,196,215,0.35)" }}>
-          <div className="flex justify-between items-center mb-6">
+        {/* ── Products Table ── */}
+        <section className="rounded-2xl border overflow-hidden" style={{ backgroundColor: "#ffffff", borderColor: "rgba(199,196,215,0.3)" }}>
+          <div className="flex justify-between items-center p-6 border-b" style={{ borderColor: "rgba(199,196,215,0.3)" }}>
             <div>
-              <h2 className="text-xl font-medium tracking-tight" style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30", letterSpacing: "-0.02em" }}>
-                Affiliate Item Catalog
+              <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: "#767586", letterSpacing: "0.08em" }}>Catalog</p>
+              <h2 className="text-xl font-semibold tracking-tight" style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30", letterSpacing: "-0.02em" }}>
+                Affiliate Items
               </h2>
-              <p className="text-sm mt-0.5" style={{ color: "#767586" }}>
-                {totalProducts} product{totalProducts !== 1 ? "s" : ""} published
-              </p>
             </div>
             <Link
               href="/dashboard/add-product"
-              className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all active:scale-95"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium transition-all active:scale-95"
               style={{ backgroundColor: "#0b1c30", color: "#ffffff", fontFamily: "Geist, sans-serif", borderTop: "1px solid rgba(255,255,255,0.12)" }}
             >
               <span className="material-symbols-outlined text-[16px]" style={{ fontVariationSettings: "'FILL' 0" }}>add</span>
@@ -288,64 +430,67 @@ export default async function AdminDashboardPage() {
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse">
+              <table className="w-full text-left">
                 <thead>
-                  <tr className="border-b text-xs font-semibold uppercase tracking-wider" style={{ borderColor: "rgba(199,196,215,0.4)", color: "#767586", fontFamily: "Geist, sans-serif", letterSpacing: "0.05em" }}>
-                    <th className="pb-3 pr-4">Product</th>
-                    <th className="pb-3 pr-4">Category</th>
-                    <th className="pb-3 pr-4">Clicks</th>
-                    <th className="pb-3 pr-4">Affiliate Link</th>
-                    <th className="pb-3">Added On</th>
+                  <tr className="text-xs font-semibold uppercase tracking-wider border-b" style={{ borderColor: "rgba(199,196,215,0.3)", color: "#767586", letterSpacing: "0.05em" }}>
+                    <th className="px-6 py-3">Product</th>
+                    <th className="px-6 py-3">Category</th>
+                    <th className="px-6 py-3">Price</th>
+                    <th className="px-6 py-3">Clicks</th>
+                    <th className="px-6 py-3">Added</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y text-sm" style={{ borderColor: "rgba(199,196,215,0.2)" }}>
-                  {/* Show ALL real products sorted by clicks */}
-                  {[...products].sort((a: any, b: any) => b.clicks - a.clicks).map((product: any) => (
-                    <tr key={product.id} className="hover:bg-[#f8f9ff] transition-colors">
-                      <td className="py-4 pr-4">
+                <tbody>
+                  {[...products].sort((a: any, b: any) => b.clicks - a.clicks).map((product: any, i: number) => (
+                    <tr
+                      key={product.id}
+                      className="border-b transition-colors hover:bg-[#f8f9ff]"
+                      style={{ borderColor: "rgba(199,196,215,0.2)" }}
+                    >
+                      <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
-                          <div className="relative w-10 h-10 rounded-lg border overflow-hidden shrink-0" style={{ borderColor: "rgba(199,196,215,0.4)", backgroundColor: "#eff4ff" }}>
-                            <Image src={product.imageUrl} alt={product.name} fill sizes="40px" className="object-cover" unoptimized />
+                          <div className="relative w-11 h-11 rounded-xl border overflow-hidden shrink-0" style={{ borderColor: "rgba(199,196,215,0.35)", backgroundColor: "#eff4ff" }}>
+                            <Image src={product.imageUrl} alt={product.name} fill sizes="44px" className="object-cover" unoptimized />
                           </div>
                           <div>
                             <Link
                               href={`/product/${product.id}`}
-                              className="font-medium text-sm hover:text-[#4648d4] transition-colors"
+                              className="font-medium text-sm hover:text-[#4648d4] transition-colors line-clamp-1"
                               style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30" }}
                             >
                               {product.name}
                             </Link>
-                            <p className="text-xs mt-0.5 truncate max-w-[160px]" style={{ color: "#767586" }}>
-                              {product.description.slice(0, 50)}…
+                            <p className="text-xs mt-0.5 line-clamp-1 max-w-[180px]" style={{ color: "#767586" }}>
+                              {product.description.slice(0, 60)}…
                             </p>
                           </div>
                         </div>
                       </td>
-                      <td className="py-4 pr-4">
+                      <td className="px-6 py-4">
                         <span
-                          className="text-xs font-semibold uppercase tracking-wider px-2 py-1 rounded-full"
+                          className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full"
                           style={{ fontFamily: "Geist, sans-serif", backgroundColor: "rgba(70,72,212,0.08)", color: "#4648d4", letterSpacing: "0.05em" }}
                         >
                           {CATEGORY_MAP[product.category] || product.category}
                         </span>
                       </td>
-                      <td className="py-4 pr-4">
+                      <td className="px-6 py-4">
+                        <span className="text-sm font-semibold" style={{ color: "#0b1c30" }}>
+                          {product.price ? `₹${product.price.toLocaleString("en-IN")}` : "—"}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4">
                         <div className="flex items-center gap-1.5">
-                          <span className="font-mono font-semibold" style={{ color: "#4648d4" }}>{product.clicks}</span>
+                          <span className="font-mono font-bold text-sm" style={{ color: "#4648d4" }}>{product.clicks}</span>
                           {product.clicks > 0 && (
-                            <span className="text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded-full" style={{ backgroundColor: "rgba(70,72,212,0.08)", color: "#4648d4" }}>
+                            <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full" style={{ backgroundColor: "rgba(70,72,212,0.08)", color: "#4648d4" }}>
                               ↑ active
                             </span>
                           )}
                         </div>
                       </td>
-                      <td className="py-4 pr-4 max-w-[180px] truncate text-xs font-mono" style={{ color: "#767586" }}>
-                        <a href={product.affiliateLink} target="_blank" rel="noopener noreferrer" className="hover:underline hover:text-[#4648d4] transition-colors">
-                          {product.affiliateLink.replace(/^https?:\/\//, "").slice(0, 35)}…
-                        </a>
-                      </td>
-                      <td className="py-4 text-xs font-mono" style={{ color: "#767586" }}>
-                        {new Date(product.createdAt).toLocaleDateString()}
+                      <td className="px-6 py-4 text-xs font-mono" style={{ color: "#767586" }}>
+                        {new Date(product.createdAt).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" })}
                       </td>
                     </tr>
                   ))}
@@ -355,7 +500,7 @@ export default async function AdminDashboardPage() {
           )}
         </section>
 
-        <div className="pb-16" />
+        <div className="pb-10" />
       </main>
     </div>
   );

@@ -97,7 +97,7 @@ export default async function ProductDetailPage({
             className="text-2xl font-bold tracking-tighter mr-8 select-none"
             style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30" }}
           >
-            SmartyGearPicks
+            SmartGearPicks
           </Link>
           <Link
             href="/"

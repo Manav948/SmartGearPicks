@@ -35,7 +35,7 @@ export default function Footer() {
                 className="text-2xl font-bold tracking-tighter select-none"
                 style={{ fontFamily: "Geist, sans-serif", color: "#ffffff" }}
               >
-                SmartyGearPicks
+                SmartGearPicks
               </Link>
               <p
                 className="text-sm mt-3 leading-relaxed max-w-sm"
@@ -165,7 +165,7 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between gap-6 items-start md:items-center">
           <div className="text-xs max-w-2xl" style={{ color: "#64748b" }}>
             <p className="mb-2">
-              © {new Date().getFullYear()} SmartyGearPicks. All rights reserved. Handpicked Curation for the modern workspace and daily life.
+              © {new Date().getFullYear()} SmartGearPicks. All rights reserved. Handpicked Curation for the modern workspace and daily life.
             </p>
             <p className="leading-relaxed">
               <strong>Affiliate Disclosure:</strong> As an associate and curator, we earn from qualifying purchases. When you click on links to various merchants on this site and make a purchase, this can result in this site earning a commission. Affiliate programs and affiliations include, but are not limited to, the eBay Partner Network, Amazon Associates, and others.

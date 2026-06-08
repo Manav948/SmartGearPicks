@@ -159,7 +159,7 @@ function ProductCard({ product }: { product: Product }) {
       }}
     >
       {/* ── Image ── */}
-      <Link href={`/product/${product.id}`} className="block relative overflow-hidden flex-shrink-0" style={{ height: "200px", backgroundColor: "#f0f0f5" }}>
+      <Link href={`/product/${product.id}`} className="block relative overflow-hidden flex-shrink-0" style={{ height: "260px", backgroundColor: "#f0f0f5" }}>
         <Image
           src={product.imageUrl}
           alt={product.name}
@@ -174,7 +174,7 @@ function ProductCard({ product }: { product: Product }) {
         {/* Hover overlay pill */}
         <div
           className="absolute inset-0 flex items-end justify-center pb-4 transition-opacity duration-300"
-          style={{ opacity: hovered ? 1 : 0, background: "linear-gradient(to top, rgba(0,0,0,0.18) 0%, transparent 60%)" }}
+          style={{ opacity: hovered ? 1 : 0, background: "linear-gradient(to top, rgba(0,0,0,0.22) 0%, transparent 55%)" }}
         >
           <span
             className="px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg"
