@@ -176,6 +176,7 @@ function ProductCard({ product }: { product: Product }) {
             className="object-cover transition-transform duration-500"
             style={{ transform: hovered ? "scale(1.03)" : "scale(1)" }}
             priority
+            unoptimized
           />
 
           {/* Quick-view hover overlay */}

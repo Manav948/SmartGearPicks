@@ -305,7 +305,7 @@ export default async function AdminDashboardPage() {
                       <td className="py-4 pr-4">
                         <div className="flex items-center gap-3">
                           <div className="relative w-10 h-10 rounded-lg border overflow-hidden shrink-0" style={{ borderColor: "rgba(199,196,215,0.4)", backgroundColor: "#eff4ff" }}>
-                            <Image src={product.imageUrl} alt={product.name} fill sizes="40px" className="object-cover" />
+                            <Image src={product.imageUrl} alt={product.name} fill sizes="40px" className="object-cover" unoptimized />
                           </div>
                           <div>
                             <Link
