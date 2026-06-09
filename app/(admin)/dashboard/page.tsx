@@ -63,10 +63,10 @@ export default async function AdminDashboardPage() {
   });
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen" style={{ backgroundColor: "#f4f5fb", color: "#0b1c30" }}>
+    <div className="flex flex-col md:flex-row min-h-screen w-full max-w-full overflow-x-hidden" style={{ backgroundColor: "#f4f5fb", color: "#0b1c30" }}>
       <Sidebar />
 
-      <main className="flex-1 min-h-screen p-4 sm:p-6 md:p-8 space-y-10">
+      <main className="flex-1 min-w-0 p-4 sm:p-6 md:p-8 space-y-10">
         {/* ── Header ── */}
         <header className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4 pt-4">
           <div>
@@ -171,81 +171,114 @@ export default async function AdminDashboardPage() {
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4" style={{ height: "420px" }}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-auto md:h-[440px]">
               {/* Large featured card */}
               {newArrivals[0] && (
                 <Link
                   href={`/product/${newArrivals[0].id}`}
-                  className="relative rounded-2xl overflow-hidden group block"
-                  style={{ height: "420px" }}
+                  className="relative rounded-2xl overflow-hidden group block h-[340px] md:h-full shadow-md border hover:shadow-xl transition-all duration-500 hover:-translate-y-0.5"
+                  style={{ borderColor: "rgba(199,196,215,0.35)" }}
                 >
                   <Image
                     src={newArrivals[0].imageUrl}
                     alt={newArrivals[0].name}
                     fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                     unoptimized
                   />
                   {/* Gradient overlay */}
-                  <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.2) 45%, transparent 70%)" }} />
+                  <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 50%, transparent 85%)" }} />
                   {/* Category chip */}
-                  <div className="absolute top-4 left-4">
+                  <div className="absolute top-3 left-3 md:top-4 md:left-4">
                     <span
-                      className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full"
-                      style={{ backgroundColor: "rgba(255,255,255,0.18)", backdropFilter: "blur(8px)", color: "#fff", border: "1px solid rgba(255,255,255,0.3)", letterSpacing: "0.08em" }}
+                      className="text-[9px] md:text-[10px] font-bold uppercase tracking-widest px-2 md:px-2.5 py-0.5 md:py-1 rounded-full"
+                      style={{
+                        backgroundColor: "rgba(255,255,255,0.2)",
+                        backdropFilter: "blur(12px)",
+                        WebkitBackdropFilter: "blur(12px)",
+                        color: "#fff",
+                        border: "1px solid rgba(255,255,255,0.3)",
+                        letterSpacing: "0.08em"
+                      }}
                     >
                       {CATEGORY_MAP[newArrivals[0].category] || newArrivals[0].category}
                     </span>
                   </div>
                   {/* Bottom content */}
-                  <div className="absolute bottom-0 left-0 right-0 p-5">
-                    <h3 className="text-white font-bold text-xl leading-snug mb-1" style={{ fontFamily: "Geist, sans-serif", letterSpacing: "-0.02em" }}>
+                  <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 flex flex-col justify-end">
+                    <h3 className="text-white font-bold text-lg sm:text-xl md:text-2xl leading-snug mb-1 md:mb-1.5" style={{ fontFamily: "Geist, sans-serif", letterSpacing: "-0.02em" }}>
                       {newArrivals[0].name}
                     </h3>
-                    <p className="text-white/70 text-sm line-clamp-2 mb-4" style={{ lineHeight: "1.5" }}>
+                    <p className="text-white/80 text-xs md:text-sm line-clamp-2 mb-3 md:mb-4 max-w-lg" style={{ lineHeight: "1.5" }}>
                       {newArrivals[0].description}
                     </p>
-                    {newArrivals[0].price && (
-                      <p className="text-white font-bold text-lg mb-3" style={{ letterSpacing: "-0.02em" }}>
-                        ₹{newArrivals[0].price.toLocaleString("en-IN")}
-                      </p>
-                    )}
-                    <span
-                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-semibold transition-all"
-                      style={{ backgroundColor: "#ffffff", color: "#0b1c30", fontFamily: "Geist, sans-serif" }}
-                    >
-                      View Details →
-                    </span>
+                    <div className="flex items-center justify-between gap-4">
+                      {newArrivals[0].price != null && (
+                        <p className="text-white font-bold text-base md:text-xl" style={{ letterSpacing: "-0.02em" }}>
+                          ₹{newArrivals[0].price.toLocaleString("en-IN")}
+                        </p>
+                      )}
+                      <span
+                        className="inline-flex items-center gap-1 px-3 py-1.5 md:px-4.5 md:py-2.5 rounded-lg text-xs font-semibold transition-all group-hover:bg-[#4648d4] group-hover:text-white"
+                        style={{ backgroundColor: "#ffffff", color: "#0b1c30", fontFamily: "Geist, sans-serif" }}
+                      >
+                        View Details
+                        <span className="text-[14px]">→</span>
+                      </span>
+                    </div>
                   </div>
                 </Link>
               )}
 
               {/* Two stacked small cards */}
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-4 md:gap-5 h-auto md:h-full justify-between">
                 {newArrivals.slice(1, 3).map((product: any) => (
                   <Link
                     key={product.id}
                     href={`/product/${product.id}`}
-                    className="relative rounded-2xl overflow-hidden group flex-1 block"
-                    style={{ minHeight: "196px" }}
+                    className="relative rounded-2xl overflow-hidden group block h-[180px] sm:h-[200px] md:h-[210px] shadow-md border hover:shadow-xl transition-all duration-500 hover:-translate-y-0.5"
+                    style={{ borderColor: "rgba(199,196,215,0.35)" }}
                   >
                     <Image
                       src={product.imageUrl}
                       alt={product.name}
                       fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                       unoptimized
                     />
-                    <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 60%)" }} />
-                    <div className="absolute bottom-0 left-0 right-0 p-4">
-                      <h3 className="text-white font-semibold text-base leading-snug" style={{ fontFamily: "Geist, sans-serif", letterSpacing: "-0.01em" }}>
+                    {/* Gradient overlay */}
+                    <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 60%, transparent 90%)" }} />
+                    {/* Category chip */}
+                    <div className="absolute top-3 left-3 md:top-4 md:left-4">
+                      <span
+                        className="text-[9px] font-bold uppercase tracking-widest px-2.5 py-0.5 md:py-1 rounded-full"
+                        style={{
+                          backgroundColor: "rgba(255,255,255,0.2)",
+                          backdropFilter: "blur(12px)",
+                          WebkitBackdropFilter: "blur(12px)",
+                          color: "#fff",
+                          border: "1px solid rgba(255,255,255,0.3)",
+                          letterSpacing: "0.08em"
+                        }}
+                      >
+                        {CATEGORY_MAP[product.category] || product.category}
+                      </span>
+                    </div>
+                    {/* Bottom content */}
+                    <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5">
+                      <h3 className="text-white font-bold text-base md:text-lg leading-snug mb-1" style={{ fontFamily: "Geist, sans-serif", letterSpacing: "-0.015em" }}>
                         {product.name}
                       </h3>
-                      {product.price && (
-                        <p className="text-white/80 text-sm font-semibold mt-0.5">
-                          ₹{product.price.toLocaleString("en-IN")}
-                        </p>
-                      )}
+                      <div className="flex items-center justify-between gap-4">
+                        {product.price != null && (
+                          <p className="text-white/90 text-xs md:text-sm font-semibold">
+                            ₹{product.price.toLocaleString("en-IN")}
+                          </p>
+                        )}
+                        <span className="text-white/80 text-xs font-semibold group-hover:text-white transition-colors flex items-center gap-1">
+                          View Details <span className="text-[13px]">→</span>
+                        </span>
+                      </div>
                     </div>
                   </Link>
                 ))}
@@ -267,7 +300,7 @@ export default async function AdminDashboardPage() {
                 </h2>
               </div>
             </div>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
               {topPicks.map((product: any) => (
                 <Link
                   key={product.id}

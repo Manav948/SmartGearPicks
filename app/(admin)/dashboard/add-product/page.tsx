@@ -13,12 +13,12 @@ export default async function AddProductPage() {
   }
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen" style={{ backgroundColor: "#f8f9ff", color: "#0b1c30" }}>
+    <div className="flex flex-col md:flex-row min-h-screen w-full max-w-full overflow-x-hidden" style={{ backgroundColor: "#f8f9ff", color: "#0b1c30" }}>
       {/* ── Sidebar ──────────────────────────────────── */}
       <Sidebar />
 
       {/* ── Main Area ──────────────────────────────────── */}
-      <div className="flex-1 flex flex-col min-h-screen">
+      <div className="flex-1 flex flex-col min-w-0">
         {/* Top Action Bar */}
         <header
           className="sticky top-0 z-30 border-b px-4 md:px-8 py-4 flex justify-between items-center"

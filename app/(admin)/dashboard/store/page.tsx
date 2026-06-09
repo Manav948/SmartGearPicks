@@ -34,12 +34,12 @@ export default async function AdminStorePage() {
   }
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen" style={{ backgroundColor: "#f8f9ff", color: "#0b1c30" }}>
+    <div className="flex flex-col md:flex-row min-h-screen w-full max-w-full overflow-x-hidden" style={{ backgroundColor: "#f8f9ff", color: "#0b1c30" }}>
       {/* ── Sidebar ──────────────────────────────────── */}
       <Sidebar />
 
       {/* ── Main Content ──────────────────────────────── */}
-      <main className="flex-1 min-h-screen p-4 sm:p-6 md:p-8">
+      <main className="flex-1 min-w-0 p-4 sm:p-6 md:p-8">
         {/* Header */}
         <header className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4 mb-8 md:mb-12 pt-4">
           <div>
