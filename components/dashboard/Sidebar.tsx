@@ -61,7 +61,7 @@ export default function Sidebar() {
 
       {/* Sidebar Drawer */}
       <nav
-        className={`fixed md:sticky top-0 left-0 h-screen w-64 flex flex-col gap-4 p-4 border-r z-50 transition-transform duration-300 md:translate-x-0 ${
+        className={`fixed top-0 left-0 h-screen w-64 flex flex-col gap-4 p-4 border-r z-50 transition-transform duration-300 md:translate-x-0 ${
           isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
         }`}
         style={{ backgroundColor: "#eff4ff", borderColor: "rgba(199,196,215,0.25)" }}

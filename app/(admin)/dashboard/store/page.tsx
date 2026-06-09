@@ -39,7 +39,7 @@ export default async function AdminStorePage() {
       <Sidebar />
 
       {/* ── Main Content ──────────────────────────────── */}
-      <main className="flex-1 min-w-0 p-4 sm:p-6 md:p-8">
+      <main className="flex-1 min-w-0 md:ml-64 p-4 sm:p-6 md:p-8">
         {/* Header */}
         <header className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4 mb-8 md:mb-12 pt-4">
           <div>

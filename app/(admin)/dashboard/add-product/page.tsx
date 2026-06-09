@@ -18,7 +18,7 @@ export default async function AddProductPage() {
       <Sidebar />
 
       {/* ── Main Area ──────────────────────────────────── */}
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0 md:ml-64">
         {/* Top Action Bar */}
         <header
           className="sticky top-0 z-30 border-b px-4 md:px-8 py-4 flex justify-between items-center"

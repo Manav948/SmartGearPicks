@@ -66,7 +66,7 @@ export default async function AdminDashboardPage() {
     <div className="flex flex-col md:flex-row min-h-screen w-full max-w-full overflow-x-hidden" style={{ backgroundColor: "#f4f5fb", color: "#0b1c30" }}>
       <Sidebar />
 
-      <main className="flex-1 min-w-0 p-4 sm:p-6 md:p-8 space-y-10">
+      <main className="flex-1 min-w-0 md:ml-64 p-4 sm:p-6 md:p-8 space-y-10">
         {/* ── Header ── */}
         <header className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4 pt-4">
           <div>
