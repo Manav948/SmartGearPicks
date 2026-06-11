@@ -379,51 +379,65 @@ export default async function HomePage() {
             {newArrivals[0] && (
               <Link
                 href={`/product/${newArrivals[0].id}`}
-                className="relative rounded-2xl overflow-hidden group block h-[340px] md:h-full shadow-md border hover:shadow-xl transition-all duration-500 hover:-translate-y-0.5"
+                className="relative rounded-2xl overflow-hidden group flex flex-col md:flex-row h-auto md:h-full shadow-md border hover:shadow-2xl transition-all duration-500 hover:-translate-y-0.5 bg-white"
                 style={{ borderColor: "rgba(199,196,215,0.35)" }}
               >
-                <Image
-                  src={newArrivals[0].imageUrl}
-                  alt={newArrivals[0].name}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-                  unoptimized
-                />
-                {/* Gradient overlay */}
-                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 50%, transparent 85%)" }} />
-                {/* Category chip */}
-                <div className="absolute top-3 left-3 md:top-4 md:left-4">
-                  <span
-                    className="text-[9px] md:text-[10px] font-bold uppercase tracking-widest px-2 md:px-2.5 py-0.5 md:py-1 rounded-full"
-                    style={{
-                      backgroundColor: "rgba(255,255,255,0.2)",
-                      backdropFilter: "blur(12px)",
-                      WebkitBackdropFilter: "blur(12px)",
-                      color: "#fff",
-                      border: "1px solid rgba(255,255,255,0.3)",
-                      letterSpacing: "0.08em"
-                    }}
-                  >
-                    {CATEGORY_MAP[newArrivals[0].category] || newArrivals[0].category}
-                  </span>
+                {/* Left image wrapper */}
+                <div className="relative w-full h-[240px] md:h-full md:w-[52%] shrink-0 bg-[#f8f9ff] overflow-hidden border-b md:border-b-0 md:border-r border-slate-100">
+                  <Image
+                    src={newArrivals[0].imageUrl}
+                    alt={newArrivals[0].name}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                    unoptimized
+                  />
+                  {/* Category chip */}
+                  <div className="absolute top-4 left-4 z-10">
+                    <span
+                      className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-sm"
+                      style={{
+                        backgroundColor: "rgba(255, 255, 255, 0.9)",
+                        backdropFilter: "blur(8px)",
+                        color: "#4648d4",
+                        border: "1px solid rgba(70,72,212,0.15)",
+                      }}
+                    >
+                      {CATEGORY_MAP[newArrivals[0].category] || newArrivals[0].category}
+                    </span>
+                  </div>
                 </div>
-                {/* Bottom content */}
-                <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 flex flex-col justify-end">
-                  <h3 className="text-white font-bold text-lg sm:text-xl md:text-2xl leading-snug mb-1 md:mb-1.5" style={{ fontFamily: "Geist, sans-serif", letterSpacing: "-0.02em" }}>
-                    {newArrivals[0].name}
-                  </h3>
-                  <p className="text-white/80 text-xs md:text-sm line-clamp-2 mb-3 md:mb-4 max-w-lg" style={{ lineHeight: "1.5" }}>
-                    {newArrivals[0].description}
-                  </p>
-                  <div className="flex items-center justify-between gap-4">
+
+                {/* Right content area */}
+                <div className="flex flex-col justify-between p-6 md:p-8 flex-1">
+                  <div>
+                    {/* Editorial Badge */}
+                    <div className="flex items-center gap-1.5 mb-3 text-[#4648d4]">
+                      <span className="material-symbols-outlined text-[16px]" style={{ fontVariationSettings: "'FILL' 1" }}>
+                        verified
+                      </span>
+                      <span className="text-[10px] font-bold uppercase tracking-widest" style={{ fontFamily: "Geist, sans-serif" }}>
+                        Featured Arrival
+                      </span>
+                    </div>
+
+                    <h3 className="text-[#0b1c30] font-bold text-xl md:text-2xl leading-tight mb-3 group-hover:text-[#4648d4] transition-colors duration-300" style={{ fontFamily: "Geist, sans-serif", letterSpacing: "-0.02em" }}>
+                      {newArrivals[0].name}
+                    </h3>
+
+                    <p className="text-[#464554] text-xs md:text-sm line-clamp-3 md:line-clamp-4 leading-relaxed mb-4">
+                      {newArrivals[0].description}
+                    </p>
+                  </div>
+
+                  <div className="flex items-center justify-between gap-4 mt-4 pt-4 border-t border-slate-100">
                     {newArrivals[0].price != null && (
-                      <p className="text-white font-bold text-base md:text-xl" style={{ letterSpacing: "-0.02em" }}>
+                      <p className="text-[#0b1c30] font-extrabold text-lg md:text-xl" style={{ letterSpacing: "-0.02em" }}>
                         ₹{newArrivals[0].price.toLocaleString("en-IN")}
                       </p>
                     )}
                     <span
-                      className="inline-flex items-center gap-1 px-3 py-1.5 md:px-4.5 md:py-2.5 rounded-lg text-xs font-semibold transition-all group-hover:bg-[#4648d4] group-hover:text-white"
-                      style={{ backgroundColor: "#ffffff", color: "#0b1c30", fontFamily: "Geist, sans-serif" }}
+                      className="inline-flex items-center gap-1 px-4 py-2 rounded-lg text-xs font-semibold transition-all duration-300 bg-[#0f172a] text-white group-hover:bg-[#4648d4] group-hover:shadow-lg group-hover:shadow-indigo-500/10"
+                      style={{ fontFamily: "Geist, sans-serif" }}
                     >
                       Explore Pick
                       <span className="text-[14px]">→</span>
@@ -439,46 +453,52 @@ export default async function HomePage() {
                 <Link
                   key={product.id}
                   href={`/product/${product.id}`}
-                  className="relative rounded-2xl overflow-hidden group block h-[180px] sm:h-[200px] md:h-[210px] shadow-md border hover:shadow-xl transition-all duration-500 hover:-translate-y-0.5"
+                  className="relative rounded-2xl overflow-hidden group flex flex-row h-[140px] sm:h-[160px] md:h-[210px] shadow-md border hover:shadow-2xl transition-all duration-500 hover:-translate-y-0.5 bg-white"
                   style={{ borderColor: "rgba(199,196,215,0.35)" }}
                 >
-                  <Image
-                    src={product.imageUrl}
-                    alt={product.name}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-                    unoptimized
-                  />
-                  {/* Gradient overlay */}
-                  <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 60%, transparent 90%)" }} />
-                  {/* Category chip */}
-                  <div className="absolute top-3 left-3 md:top-4 md:left-4">
-                    <span
-                      className="text-[9px] font-bold uppercase tracking-widest px-2.5 py-0.5 md:py-1 rounded-full"
-                      style={{
-                        backgroundColor: "rgba(255,255,255,0.2)",
-                        backdropFilter: "blur(12px)",
-                        WebkitBackdropFilter: "blur(12px)",
-                        color: "#fff",
-                        border: "1px solid rgba(255,255,255,0.3)",
-                        letterSpacing: "0.08em"
-                      }}
-                    >
-                      {CATEGORY_MAP[product.category] || product.category}
-                    </span>
+                  {/* Left image wrapper */}
+                  <div className="relative w-[38%] sm:w-[40%] h-full shrink-0 bg-[#f8f9ff] overflow-hidden border-r border-slate-100">
+                    <Image
+                      src={product.imageUrl}
+                      alt={product.name}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                      unoptimized
+                    />
+                    {/* Category chip */}
+                    <div className="absolute top-2.5 left-2.5 z-10">
+                      <span
+                        className="text-[8px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full shadow-sm"
+                        style={{
+                          backgroundColor: "rgba(255, 255, 255, 0.9)",
+                          backdropFilter: "blur(6px)",
+                          color: "#4648d4",
+                          border: "1px solid rgba(70,72,212,0.15)",
+                        }}
+                      >
+                        {CATEGORY_MAP[product.category] || product.category}
+                      </span>
+                    </div>
                   </div>
-                  {/* Bottom content */}
-                  <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5">
-                    <h3 className="text-white font-bold text-base md:text-lg leading-snug mb-1" style={{ fontFamily: "Geist, sans-serif", letterSpacing: "-0.015em" }}>
-                      {product.name}
-                    </h3>
-                    <div className="flex items-center justify-between gap-4">
+
+                  {/* Right content area */}
+                  <div className="flex flex-col justify-between p-4 sm:p-5 flex-1">
+                    <div>
+                      <div className="text-[9px] font-bold text-[#4648d4] uppercase tracking-wider mb-1">
+                        New Arrival
+                      </div>
+                      <h3 className="text-[#0b1c30] font-bold text-sm sm:text-base md:text-lg leading-snug line-clamp-2 group-hover:text-[#4648d4] transition-colors duration-300" style={{ fontFamily: "Geist, sans-serif", letterSpacing: "-0.015em" }}>
+                        {product.name}
+                      </h3>
+                    </div>
+
+                    <div className="flex items-center justify-between gap-2 mt-2 pt-2 border-t border-slate-100">
                       {product.price != null && (
-                        <p className="text-white/90 text-xs md:text-sm font-semibold">
+                        <p className="text-[#0b1c30] font-extrabold text-sm sm:text-base" style={{ letterSpacing: "-0.02em" }}>
                           ₹{product.price.toLocaleString("en-IN")}
                         </p>
                       )}
-                      <span className="text-white/80 text-xs font-semibold group-hover:text-white transition-colors flex items-center gap-1">
+                      <span className="text-[#4648d4] text-xs font-semibold flex items-center gap-1 group-hover:translate-x-0.5 transition-transform duration-300">
                         View Details <span className="text-[13px]">→</span>
                       </span>
                     </div>
