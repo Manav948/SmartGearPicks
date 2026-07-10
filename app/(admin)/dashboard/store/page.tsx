@@ -35,12 +35,10 @@ export default async function AdminStorePage() {
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen w-full max-w-full overflow-x-hidden" style={{ backgroundColor: "#f8f9ff", color: "#0b1c30" }}>
-      {/* ── Sidebar ──────────────────────────────────── */}
       <Sidebar />
-
-      {/* ── Main Content ──────────────────────────────── */}
+    
       <main className="flex-1 min-w-0 md:ml-64 p-4 sm:p-6 md:p-8">
-        {/* Header */}
+       
         <header className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4 mb-8 md:mb-12 pt-4">
           <div>
             <h1 className="text-4xl md:text-5xl font-semibold tracking-tighter" style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30", letterSpacing: "-0.04em" }}>
@@ -52,9 +50,9 @@ export default async function AdminStorePage() {
           </div>
         </header>
 
-        {/* Product Grid */}
+     
         <div className="w-full">
-          <ProductGrid initialProducts={products} />
+          <ProductGrid initialProducts={products} isAdmin={true} />
         </div>
 
         <div className="pb-16" />

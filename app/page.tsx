@@ -5,7 +5,6 @@ import Footer from "@/components/Footer";
 import Link from "next/link";
 import Image from "next/image";
 
-// Disable page cache to fetch latest products
 export const revalidate = 0;
 
 const CATEGORY_MAP: Record<string, string> = {
@@ -65,14 +64,13 @@ export default async function HomePage() {
     console.error("[HomePage] Failed to fetch products:", err);
   }
 
-  // New Arrivals — latest 3
   const newArrivals = products.slice(0, 3);
-  // Top Picks — most clicked, next 4
+  
   const topPicks = [...products].sort((a, b) => b.clicks - a.clicks).slice(0, 4);
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#f8f9ff", color: "#0b1c30" }}>
-      {/* ── Top Navigation ─────────────────────────────── */}
+     
       <nav
         className="sticky top-0 z-50 border-b"
         style={{
@@ -83,15 +81,15 @@ export default async function HomePage() {
         }}
       >
         <div className="flex justify-between items-center px-4 md:px-8 py-3 max-w-[1280px] mx-auto w-full">
-          {/* Logo */}
+        
           <div
-            className="text-2xl font-bold tracking-tighter flex-shrink-0 mr-8 select-none"
+            className="text-2xl font-bold tracking-tighter shrink-0 mr-8 select-none"
             style={{ fontFamily: "Geist, system-ui, sans-serif", color: "#0b1c30" }}
           >
             SmartGearPicks
           </div>
 
-          {/* Nav links */}
+          
           <div className="hidden md:flex flex-1 items-center gap-1">
             <a
               href="#"
@@ -123,9 +121,9 @@ export default async function HomePage() {
             </a>
           </div>
 
-          {/* Right actions */}
+          
           <div className="flex items-center gap-3">
-            {/* Search */}
+          
             <div
               className="hidden md:flex items-center px-4 py-2 rounded-full border w-64 transition-colors focus-within:border-[#4648d4]"
               style={{
@@ -172,12 +170,12 @@ export default async function HomePage() {
         </div>
       </nav>
 
-      {/* ── Hero Section ───────────────────────────────── */}
+    
       <header className="relative pt-10 md:pt-20 pb-16 md:pb-28 px-4 md:px-8 overflow-hidden">
         <div className="max-w-[1280px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center">
-          {/* Left column */}
+          
           <div className="lg:col-span-6 z-10 space-y-8">
-            {/* Badge */}
+          
             <div
               className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold border tracking-wider uppercase"
               style={{
@@ -197,7 +195,7 @@ export default async function HomePage() {
               Curated Excellence
             </div>
 
-            {/* Headline */}
+          
             <h1
               className="text-balance leading-[1.05] tracking-tight"
               style={{
@@ -216,7 +214,7 @@ export default async function HomePage() {
               tools, lifestyle objects, and tech that elevate your daily routine.
             </p>
 
-            {/* CTAs */}
+         
             <div className="flex flex-col sm:flex-row gap-4 pt-2">
               <a
                 href="#products"
@@ -244,28 +242,28 @@ export default async function HomePage() {
             </div>
           </div>
 
-          {/* Right column — hero image */}
+        
           <div className="lg:col-span-6 relative mt-12 lg:mt-0">
             <div
               className="absolute inset-0 rounded-[40px] transform rotate-3 scale-105 -z-10"
               style={{ backgroundColor: "rgba(70,72,212,0.05)" }}
             />
             <div
-              className="relative rounded-[32px] overflow-hidden border aspect-[4/5] md:aspect-auto md:h-[580px] w-full group shadow-2xl"
+              className="relative rounded-[32px] overflow-hidden border aspect-4/5 md:aspect-auto md:h-[580px] w-full group shadow-2xl"
               style={{
                 borderColor: "rgba(199,196,215,0.25)",
                 boxShadow: "0 25px 50px -12px rgba(70,72,212,0.12)",
               }}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
+             
               <img
                 src="/hero.png"
                 alt="Workspace Essentials"
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-102"
               />
 
-              {/* Text Overlay */}
-              <div className="absolute inset-0 p-8 flex flex-col justify-end bg-gradient-to-t from-black/40 via-black/10 to-transparent">
+            
+              <div className="absolute inset-0 p-8 flex flex-col justify-end bg-linear-to-t from-black/40 via-black/10 to-transparent">
                 <div className="flex items-center gap-2 mb-2">
                   <span
                     className="text-xs font-semibold tracking-wider uppercase px-2 py-1 rounded"
@@ -280,7 +278,6 @@ export default async function HomePage() {
                 <p className="text-white/80 text-sm mt-1">Discover our editor&apos;s top picks</p>
               </div>
 
-              {/* Floating Editor's Choice badge */}
               <div
                 className="absolute bottom-8 left-8 p-4 rounded-xl flex items-center gap-3 max-w-[240px]"
                 style={{
@@ -318,7 +315,6 @@ export default async function HomePage() {
         </div>
       </header>
 
-      {/* ── Trust / Brands Strip ───────────────────────── */}
       <section
         className="py-8 border-y"
         style={{
@@ -347,7 +343,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ── New Arrivals — Magazine Layout ──────────────── */}
+   
       {newArrivals.length > 0 && (
         <section className="py-12 md:py-20 max-w-[1280px] mx-auto px-4 md:px-8 border-b" id="new-arrivals" style={{ borderColor: "rgba(199,196,215,0.3)" }}>
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
@@ -375,15 +371,15 @@ export default async function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-auto md:h-[440px]">
-            {/* Large featured card */}
+         
             {newArrivals[0] && (
               <Link
                 href={`/product/${newArrivals[0].id}`}
                 className="relative rounded-2xl overflow-hidden group flex flex-col md:flex-row h-auto md:h-full shadow-md border hover:shadow-2xl transition-all duration-500 hover:-translate-y-0.5 bg-white"
                 style={{ borderColor: "rgba(199,196,215,0.35)" }}
               >
-                {/* Left image wrapper */}
-                <div className="relative w-full h-[240px] md:h-full md:w-[52%] shrink-0 bg-[#f8f9ff] overflow-hidden border-b md:border-b-0 md:border-r border-slate-100">
+             
+                <div className="relative w-full h-[240px] md:h-full md:w-[52%] shrink-0 bg-[#f8f9ff] overflow-hidden border-b md:border-b-0 md:border-r border-slate-100" style={{ position: "relative" }}>
                   <Image
                     src={newArrivals[0].imageUrl}
                     alt={newArrivals[0].name}
@@ -391,7 +387,7 @@ export default async function HomePage() {
                     className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                     unoptimized
                   />
-                  {/* Category chip */}
+                 
                   <div className="absolute top-4 left-4 z-10">
                     <span
                       className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-sm"
@@ -407,10 +403,10 @@ export default async function HomePage() {
                   </div>
                 </div>
 
-                {/* Right content area */}
+            
                 <div className="flex flex-col justify-between p-6 md:p-8 flex-1">
                   <div>
-                    {/* Editorial Badge */}
+                   
                     <div className="flex items-center gap-1.5 mb-3 text-[#4648d4]">
                       <span className="material-symbols-outlined text-[16px]" style={{ fontVariationSettings: "'FILL' 1" }}>
                         verified
@@ -424,7 +420,7 @@ export default async function HomePage() {
                       {newArrivals[0].name}
                     </h3>
 
-                    <p className="text-[#464554] text-xs md:text-sm line-clamp-3 md:line-clamp-4 leading-relaxed mb-4">
+                    <p className="text-on-surface-variant text-xs md:text-sm line-clamp-3 md:line-clamp-4 leading-relaxed mb-4">
                       {newArrivals[0].description}
                     </p>
                   </div>
@@ -447,7 +443,7 @@ export default async function HomePage() {
               </Link>
             )}
 
-            {/* Two stacked small cards */}
+          
             <div className="flex flex-col gap-4 md:gap-5 h-auto md:h-full justify-between">
               {newArrivals.slice(1, 3).map((product: any) => (
                 <Link
@@ -456,8 +452,8 @@ export default async function HomePage() {
                   className="relative rounded-2xl overflow-hidden group flex flex-row h-[140px] sm:h-[160px] md:h-[210px] shadow-md border hover:shadow-2xl transition-all duration-500 hover:-translate-y-0.5 bg-white"
                   style={{ borderColor: "rgba(199,196,215,0.35)" }}
                 >
-                  {/* Left image wrapper */}
-                  <div className="relative w-[38%] sm:w-[40%] h-full shrink-0 bg-[#f8f9ff] overflow-hidden border-r border-slate-100">
+                
+                  <div className="relative w-[38%] sm:w-[40%] h-full shrink-0 bg-[#f8f9ff] overflow-hidden border-r border-slate-100" style={{ position: "relative" }}>
                     <Image
                       src={product.imageUrl}
                       alt={product.name}
@@ -465,7 +461,7 @@ export default async function HomePage() {
                       className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                       unoptimized
                     />
-                    {/* Category chip */}
+                   
                     <div className="absolute top-2.5 left-2.5 z-10">
                       <span
                         className="text-[8px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full shadow-sm"
@@ -481,7 +477,7 @@ export default async function HomePage() {
                     </div>
                   </div>
 
-                  {/* Right content area */}
+              
                   <div className="flex flex-col justify-between p-4 sm:p-5 flex-1">
                     <div>
                       <div className="text-[9px] font-bold text-[#4648d4] uppercase tracking-wider mb-1">
@@ -510,7 +506,7 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* ── Top Picks — Trending Collection ──────────────── */}
+     
       {topPicks.length > 0 && (
         <section className="py-12 md:py-20 max-w-[1280px] mx-auto px-4 md:px-8 border-b" id="trending" style={{ borderColor: "rgba(199,196,215,0.3)" }}>
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
@@ -549,11 +545,11 @@ export default async function HomePage() {
                     boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
                   }}
                 >
-                  {/* Image wrapper */}
+                
                   <Link
                     href={`/product/${product.id}`}
-                    className="relative block overflow-hidden flex-shrink-0"
-                    style={{ height: "240px", backgroundColor: "#f0f0f5" }}
+                    className="relative block overflow-hidden shrink-0"
+                    style={{ height: "240px", backgroundColor: "#f0f0f5", position: "relative" }}
                   >
                     <Image
                       src={product.imageUrl}
@@ -563,7 +559,6 @@ export default async function HomePage() {
                       unoptimized
                     />
 
-                    {/* Popular Clicks badge */}
                     {product.clicks > 0 && (
                       <div
                         className="absolute top-2.5 right-2.5 flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold shadow-sm"
@@ -582,7 +577,6 @@ export default async function HomePage() {
                     )}
                   </Link>
 
-                  {/* Body */}
                   <div className="flex flex-col flex-1 p-4 gap-2">
                     <div>
                       <span
@@ -636,9 +630,9 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* ── Main Product Section ────────────────────────── */}
+      
       <main className="py-10 md:py-16 max-w-[1280px] mx-auto px-4 md:px-8" id="products">
-        {/* Section header */}
+       
         <div className="flex justify-between items-end mb-8">
           <div>
             <h2
@@ -652,8 +646,6 @@ export default async function HomePage() {
             </p>
           </div>
         </div>
-
-        {/* Product Grid */}
         <ProductGrid initialProducts={products} />
       </main>
 

@@ -67,17 +67,40 @@ const SECTION_TITLE_STYLE: React.CSSProperties = {
 const INPUT_BASE =
   "w-full bg-transparent border-0 border-b py-3 text-sm outline-none transition-colors placeholder:text-[#767586]/60 focus:border-[#4648d4]";
 
-export default function AddProductForm() {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [affiliateLink, setAffiliateLink] = useState("");
-  const [category, setCategory] = useState("ELECTRONICS");
-  const [price, setPrice] = useState("");
+interface ProductFormProps {
+  initialData?: {
+    name: string;
+    description: string;
+    affiliateLink: string;
+    category: string;
+    price: number | null;
+    imageUrl: string;
+    productTags: { tag: string }[];
+  };
+  onSubmit: (formData: FormData) => Promise<void>;
+  submitLabel: string;
+  loading: boolean;
+}
+
+export default function ProductForm({
+  initialData,
+  onSubmit,
+  submitLabel,
+  loading,
+}: ProductFormProps) {
+  const [name, setName] = useState(initialData?.name || "");
+  const [description, setDescription] = useState(initialData?.description || "");
+  const [affiliateLink, setAffiliateLink] = useState(initialData?.affiliateLink || "");
+  const [category, setCategory] = useState(initialData?.category || "ELECTRONICS");
+  const [price, setPrice] = useState(initialData?.price ? String(initialData.price) : "");
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const [featured, setFeatured] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [imagePreview, setImagePreview] = useState<string | null>(initialData?.imageUrl || null);
+  const [featured, setFeatured] = useState(
+    initialData?.productTags.some((pt) => pt.tag === "FEATURED") || false
+  );
+  const [selectedTags, setSelectedTags] = useState<string[]>(
+    initialData?.productTags.map((pt) => pt.tag) || []
+  );
   const router = useRouter();
 
   const handleTagToggle = (tagVal: string) => {
@@ -98,50 +121,48 @@ export default function AddProductForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name || !description || !affiliateLink || !category || !imageFile) {
-      toast.error("Please fill out all fields and select an image.");
+    if (!name || !description || !affiliateLink || !category) {
+      toast.error("Please fill out all required fields.");
+      return;
+    }
+    if (!initialData && !imageFile) {
+      toast.error("Please select a product image.");
       return;
     }
 
-    setLoading(true);
-    const toastId = toast.loading("Uploading image and creating product...");
-
-    try {
-      const formData = new FormData();
-      formData.append("name", name);
-      formData.append("description", description);
-      formData.append("affiliateLink", affiliateLink);
-      formData.append("category", category);
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("affiliateLink", affiliateLink);
+    formData.append("category", category);
+    
+    if (imageFile) {
       formData.append("image", imageFile);
-      if (price) formData.append("price", price);
-      formData.append("tags", JSON.stringify(selectedTags));
-
-      const res = await fetch("/api/products", { method: "POST", body: formData });
-      const data = await res.json();
-
-      if (!res.ok) throw new Error(data.error || "Failed to create product");
-
-      toast.success("Product created successfully!", { id: toastId });
-      router.push("/dashboard");
-      router.refresh();
-    } catch (error: any) {
-      console.error(error);
-      toast.error(error.message || "Failed to create product.", { id: toastId });
-    } finally {
-      setLoading(false);
     }
+    
+    formData.append("price", price);
+
+    let finalTags = [...selectedTags];
+    if (featured && !finalTags.includes("FEATURED")) {
+      finalTags.push("FEATURED");
+    } else if (!featured && finalTags.includes("FEATURED")) {
+      finalTags = finalTags.filter((t) => t !== "FEATURED");
+    }
+    formData.append("tags", JSON.stringify(finalTags));
+
+    await onSubmit(formData);
   };
 
   const selectedCategoryLabel = CATEGORIES.find((c) => c.value === category)?.label || "Uncategorized";
 
   return (
     <form onSubmit={handleSubmit} className="flex-1 flex flex-col">
-      {/* ── Content Grid ──────────────────────────── */}
+    
       <div className="flex-1 w-full max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8 py-6 md:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-          {/* Left Column (8 cols) */}
+         
           <div className="lg:col-span-8 flex flex-col gap-5">
-            {/* Primary Details */}
+         
             <section
               className="rounded-xl p-6 border transition-shadow hover:shadow-sm"
               style={{ backgroundColor: "#ffffff", borderColor: "rgba(199,196,215,0.4)" }}
@@ -153,7 +174,7 @@ export default function AddProductForm() {
                 Primary Details
               </h2>
               <div className="flex flex-col gap-5">
-                {/* Product Name */}
+             
                 <div className="relative group">
                   <label htmlFor="product-name" style={LABEL_STYLE} className="block mb-1.5">
                     Product Name
@@ -171,7 +192,7 @@ export default function AddProductForm() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-2">
-                  {/* Affiliate Link */}
+                
                   <div className="md:col-span-2">
                     <label htmlFor="affiliate-link" style={LABEL_STYLE} className="block mb-1.5">
                       Affiliate URL
@@ -204,7 +225,7 @@ export default function AddProductForm() {
                     </div>
                   </div>
 
-                  {/* Price */}
+               
                   <div>
                     <label htmlFor="product-price" style={LABEL_STYLE} className="block mb-1.5">
                       Price (optional)
@@ -239,7 +260,7 @@ export default function AddProductForm() {
                   </div>
                 </div>
 
-                {/* Category — full row */}
+             
                 <div className="mt-5">
                   <label htmlFor="product-category" style={LABEL_STYLE} className="block mb-1.5">
                     Category
@@ -267,7 +288,7 @@ export default function AddProductForm() {
                   </div>
                 </div>
 
-                {/* Tags Selector */}
+             
                 <div className="mt-5">
                   <label style={LABEL_STYLE} className="block mb-2.5">
                     Product Tags / Badges
@@ -298,7 +319,7 @@ export default function AddProductForm() {
               </div>
             </section>
 
-            {/* Visual Assets */}
+          
             <section
               className="rounded-xl p-6 border transition-shadow hover:shadow-sm"
               style={{ backgroundColor: "#ffffff", borderColor: "rgba(199,196,215,0.4)" }}
@@ -323,7 +344,7 @@ export default function AddProductForm() {
               >
                 {imagePreview ? (
                   <div className="w-full flex flex-col items-center gap-4">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                 
                     <img
                       src={imagePreview}
                       alt="Preview"
@@ -384,7 +405,7 @@ export default function AddProductForm() {
               </label>
             </section>
 
-            {/* Curator Notes & Links */}
+     
             <section
               className="rounded-xl p-6 border transition-shadow hover:shadow-sm"
               style={{ backgroundColor: "#ffffff", borderColor: "rgba(199,196,215,0.4)" }}
@@ -417,9 +438,9 @@ export default function AddProductForm() {
             </section>
           </div>
 
-          {/* Right Column (4 cols) */}
+     
           <div className="lg:col-span-4 flex flex-col gap-5 lg:sticky lg:top-28">
-            {/* Feature Toggle */}
+          
             <section
               className="rounded-xl p-5 border flex items-center justify-between"
               style={{ backgroundColor: "#ffffff", borderColor: "rgba(199,196,215,0.4)" }}
@@ -446,7 +467,7 @@ export default function AddProductForm() {
               </label>
             </section>
 
-            {/* Live Preview */}
+         
             <section>
               <h2
                 className="mb-3 flex items-center gap-1.5"
@@ -462,13 +483,13 @@ export default function AddProductForm() {
                 className="rounded-xl overflow-hidden border group shadow-sm"
                 style={{ backgroundColor: "#ffffff", borderColor: "rgba(199,196,215,0.4)" }}
               >
-                {/* Image preview area */}
+               
                 <div
-                  className="relative aspect-[4/5] overflow-hidden"
+                  className="relative aspect-4/5 overflow-hidden"
                   style={{ backgroundColor: "#e5eeff" }}
                 >
                   {imagePreview ? (
-                    // eslint-disable-next-line @next/next/no-img-element
+                
                     <img
                       src={imagePreview}
                       alt="Preview"
@@ -485,7 +506,7 @@ export default function AddProductForm() {
                     </div>
                   )}
 
-                  {/* Featured badge */}
+                 
                   {featured && (
                     <div className="absolute top-3 left-3 flex items-center gap-1 px-2.5 py-1 rounded-full shadow-sm border text-[10px] font-semibold uppercase"
                       style={{
@@ -505,7 +526,7 @@ export default function AddProductForm() {
                     </div>
                   )}
 
-                  {/* Hover quick-add */}
+                 
                   <div
                     className="absolute inset-x-0 bottom-0 p-4 flex justify-end transition-all duration-300 opacity-0 group-hover:opacity-100"
                     style={{ background: "linear-gradient(to top, rgba(0,0,0,0.4), transparent)" }}
@@ -521,14 +542,14 @@ export default function AddProductForm() {
                   </div>
                 </div>
 
-                {/* Card content */}
+               
                 <div className="p-4">
                   <div className="flex justify-between items-start gap-2 mb-1">
                     <h3
                       className="text-base font-medium leading-snug line-clamp-1"
                       style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30", letterSpacing: "-0.01em" }}
                     >
-                      {name || "New Product Name"}
+                      {name || "Product Name"}
                     </h3>
                     <span
                       className="material-symbols-outlined text-[18px] shrink-0"
@@ -537,7 +558,7 @@ export default function AddProductForm() {
                       open_in_new
                     </span>
                   </div>
-                  {/* Chips row */}
+               
                   <div className="flex flex-wrap gap-1.5 mb-2">
                     <span
                       className="text-[9px] font-semibold px-2 py-0.5 rounded-full"
@@ -590,7 +611,6 @@ export default function AddProductForm() {
         </div>
       </div>
 
-      {/* Sticky submit footer */}
       <div
         className="sticky bottom-0 z-30 border-t py-4 px-4 sm:px-8 flex flex-col sm:flex-row gap-3 sm:gap-0 items-center justify-between"
         style={{
@@ -601,13 +621,7 @@ export default function AddProductForm() {
         }}
       >
         <p className="text-sm text-center sm:text-left" style={{ color: "#767586" }}>
-          {name ? (
-            <span>
-              Ready to publish: <strong style={{ color: "#0b1c30" }}>{name}</strong>
-            </span>
-          ) : (
-            "Fill in the details above to publish your pick."
-          )}
+          Ready to save: <strong style={{ color: "#0b1c30" }}>{name || "Untitled Product"}</strong>
         </p>
         <div className="flex items-center gap-3 w-full sm:w-auto justify-center">
           <button
@@ -617,7 +631,7 @@ export default function AddProductForm() {
             className="px-4 py-2.5 text-sm font-medium transition-colors disabled:opacity-60 cursor-pointer"
             style={{ fontFamily: "Geist, sans-serif", color: "#767586" }}
           >
-            Discard
+            Cancel
           </button>
           <button
             type="submit"
@@ -631,7 +645,7 @@ export default function AddProductForm() {
               boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
             }}
           >
-            {loading ? "Publishing…" : "Publish Pick"}
+            {loading ? "Saving…" : submitLabel}
           </button>
         </div>
       </div>

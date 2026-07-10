@@ -1,23 +1,53 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import { prisma } from "@/lib/prisma";
 import Link from "next/link";
-import AddProductFormWrapper from "./AddProductFormWrapper";
 import Sidebar from "@/components/dashboard/Sidebar";
+import EditProductFormWrapper from "./EditProductFormWrapper";
 
-export default async function AddProductPage() {
+export const revalidate = 0;
+
+export default async function EditProductPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const session = await getServerSession(authOptions);
 
   if (!session) {
     redirect("/login");
   }
 
+  const { id } = await params;
+  if (!id) {
+    redirect("/dashboard");
+  }
+
+  let product = null;
+  try {
+    product = await prisma.product.findUnique({
+      where: { id },
+      include: {
+        productTags: true,
+      },
+    });
+  } catch (err) {
+    console.error("[EditProductPage] Prisma error:", err);
+  }
+
+  if (!product) {
+    redirect("/dashboard");
+  }
+
   return (
     <div className="flex flex-col md:flex-row min-h-screen w-full max-w-full overflow-x-hidden" style={{ backgroundColor: "#f8f9ff", color: "#0b1c30" }}>
-   
+     
       <Sidebar />
 
+      
       <div className="flex-1 flex flex-col min-w-0 md:ml-64">
+     
         <header
           className="sticky top-0 z-30 border-b px-4 md:px-8 py-4 flex justify-between items-center"
           style={{
@@ -42,10 +72,10 @@ export default async function AddProductPage() {
                 className="text-xl font-medium tracking-tight"
                 style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30", letterSpacing: "-0.02em" }}
               >
-                Curate Item
+                Edit Item
               </h1>
               <p className="text-xs mt-0.5" style={{ color: "#767586" }}>
-                Add a new product to your Storefront.
+                Update product information for your Storefront.
               </p>
             </div>
           </div>
@@ -57,7 +87,8 @@ export default async function AddProductPage() {
             ← Back to Dashboard
           </Link>
         </header>
-        <AddProductFormWrapper />
+
+        <EditProductFormWrapper product={product} />
       </div>
     </div>
   );
