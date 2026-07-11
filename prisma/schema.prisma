@@ -30,6 +30,10 @@ model Product {
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
   productTags   ProductTag[]
+
+  @@index([category])
+  @@index([clicks])
+  @@index([createdAt])
 }
 
 model ProductTag {

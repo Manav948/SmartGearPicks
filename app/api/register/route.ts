@@ -4,6 +4,23 @@ import bcrypt from "bcryptjs";
 
 export async function POST(req: NextRequest) {
   try {
+    const registrationSecret = process.env.REGISTRATION_SECRET;
+    
+    if (!registrationSecret) {
+      return NextResponse.json(
+        { error: "Registration is disabled. REGISTRATION_SECRET is not configured on the server." },
+        { status: 403 }
+      );
+    }
+
+    const requestSecret = req.headers.get("X-Registration-Secret");
+    if (requestSecret !== registrationSecret) {
+      return NextResponse.json(
+        { error: "Unauthorized. Invalid registration secret." },
+        { status: 403 }
+      );
+    }
+
     const body = await req.json();
     const { email, password } = body;
 
