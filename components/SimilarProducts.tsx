@@ -132,7 +132,7 @@ function SimilarCard({ product }: { product: Product }) {
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="flex-shrink-0 flex flex-col rounded-2xl overflow-hidden border transition-all duration-300"
+      className="shrink-0 flex flex-col rounded-2xl overflow-hidden border transition-all duration-300"
       style={{
         width: "192px",
         backgroundColor: "#ffffff",
