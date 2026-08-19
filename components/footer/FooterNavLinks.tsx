@@ -105,13 +105,13 @@ export function FooterNavLinks() {
             </Link>
           </li>
           <li>
-            <Link href="#" className="group inline-flex items-center gap-1.5 transition-all duration-200 hover:text-white hover:translate-x-1">
+            <Link href="/privacy" className="group inline-flex items-center gap-1.5 transition-all duration-200 hover:text-white hover:translate-x-1">
               <ChevronRight className="w-3 h-3 text-zinc-600 group-hover:text-emerald-400 transition-colors" />
               <span>Privacy Policy</span>
             </Link>
           </li>
           <li>
-            <Link href="#" className="group inline-flex items-center gap-1.5 transition-all duration-200 hover:text-white hover:translate-x-1">
+            <Link href="/terms" className="group inline-flex items-center gap-1.5 transition-all duration-200 hover:text-white hover:translate-x-1">
               <ChevronRight className="w-3 h-3 text-zinc-600 group-hover:text-emerald-400 transition-colors" />
               <span>Terms & Conditions</span>
             </Link>

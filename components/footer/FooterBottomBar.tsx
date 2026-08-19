@@ -13,9 +13,13 @@ export function FooterBottomBar() {
 
   return (
     <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-2">
-      {/* Copyright & Tagline */}
-      <div className="text-xs text-zinc-400 text-center md:text-left order-3 md:order-1 font-medium">
-        © {new Date().getFullYear()} SmartGearPicks. Built for modern creators. All rights reserved.
+      {/* Copyright & Legal Links */}
+      <div className="text-xs text-zinc-400 text-center md:text-left order-3 md:order-1 font-medium flex flex-wrap items-center justify-center md:justify-start gap-x-3 gap-y-1">
+        <span>© {new Date().getFullYear()} SmartGearPicks. All rights reserved.</span>
+        <span className="hidden sm:inline text-zinc-700">•</span>
+        <a href="/privacy" className="hover:text-indigo-400 transition-colors">Privacy Policy</a>
+        <span className="text-zinc-700">•</span>
+        <a href="/terms" className="hover:text-indigo-400 transition-colors">Terms of Service</a>
       </div>
 
       {/* Social Connect Buttons */}
