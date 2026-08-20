@@ -7,17 +7,7 @@ import { LegalSidebar, LegalSectionItem } from "@/components/legal/LegalSidebar"
 import { LegalSection } from "@/components/legal/LegalSection";
 import { LegalHighlightBox } from "@/components/legal/LegalHighlightBox";
 import { LegalContactCard } from "@/components/legal/LegalContactCard";
-import {
-  ShieldCheck,
-  Lock,
-  Eye,
-  FileText,
-  Cookie,
-  Share2,
-  Database,
-  Mail,
-  ArrowUpRight,
-} from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Privacy Policy – SmartGearPicks",
@@ -29,41 +19,40 @@ export default function PrivacyPolicyPage() {
   const lastUpdated = "August 19, 2026";
 
   const sections: LegalSectionItem[] = [
-    { id: "overview", label: "1. Overview & Scope", icon: ShieldCheck },
-    { id: "information-collected", label: "2. Information We Collect", icon: Eye },
-    { id: "pinterest-api", label: "3. Pinterest & Social Disclosures", icon: Share2 },
-    { id: "cookies", label: "4. Cookies & Tracking", icon: Cookie },
-    { id: "how-we-use-data", label: "5. How We Use Information", icon: FileText },
-    { id: "affiliate-disclosure", label: "6. Affiliate & External Links", icon: ArrowUpRight },
-    { id: "data-security", label: "7. Data Security & Storage", icon: Lock },
-    { id: "user-rights", label: "8. User Rights & Data Deletion", icon: Database },
-    { id: "contact-us", label: "9. Contact Information", icon: Mail },
+    { id: "overview", label: "1. Overview & Scope", iconName: "shield" },
+    { id: "information-collected", label: "2. Information We Collect", iconName: "eye" },
+    { id: "pinterest-api", label: "3. Pinterest & Social Disclosures", iconName: "share" },
+    { id: "cookies", label: "4. Cookies & Tracking", iconName: "cookie" },
+    { id: "how-we-use-data", label: "5. How We Use Information", iconName: "file" },
+    { id: "affiliate-disclosure", label: "6. Affiliate & External Links", iconName: "link" },
+    { id: "data-security", label: "7. Data Security & Storage", iconName: "lock" },
+    { id: "user-rights", label: "8. User Rights & Data Deletion", iconName: "database" },
+    { id: "contact-us", label: "9. Contact Information", iconName: "mail" },
   ];
 
   return (
-    <div className="min-h-screen bg-[#070709] text-zinc-100 flex flex-col font-sans selection:bg-indigo-500/30 selection:text-indigo-200">
+    <div className="min-h-screen bg-[#f8f9ff] text-zinc-900 flex flex-col font-sans selection:bg-zinc-200 selection:text-black">
       <Navbar />
 
-      {/* Clean Modular Hero Banner */}
+     
       <LegalHero
         title="Privacy Policy"
         subtitle="SmartGearPicks values your trust. This document details how we handle user data, cookies, affiliate links, and compliance with platform requirements including Pinterest developer guidelines."
         category="Legal & Trust Compliance"
         lastUpdated={lastUpdated}
-        icon={ShieldCheck}
-        badgeColor="indigo"
+        iconName="shield"
       />
 
-      {/* Main Content Layout */}
+     
       <main className="max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-16 flex-1 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-          {/* Sticky Table of Contents Sidebar */}
+        
           <LegalSidebar sections={sections} />
 
-          {/* Policy Detail Sections */}
-          <div className="lg:col-span-8 space-y-8 text-zinc-300 leading-relaxed">
-            {/* Section 1 */}
-            <LegalSection id="overview" title="1. Overview & Scope" icon={ShieldCheck} iconColor="indigo">
+         
+          <div className="lg:col-span-8 space-y-8 text-zinc-700 leading-relaxed">
+           
+            <LegalSection id="overview" title="1. Overview & Scope" iconName="shield">
               <p>
                 SmartGearPicks (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) operates the digital platform hosted at this domain. We are dedicated to providing curated product recommendations, tech gear reviews, and creator tool showcases.
               </p>
@@ -72,31 +61,30 @@ export default function PrivacyPolicyPage() {
               </p>
             </LegalSection>
 
-            {/* Section 2 */}
-            <LegalSection id="information-collected" title="2. Information We Collect" icon={Eye} iconColor="purple">
+            <LegalSection id="information-collected" title="2. Information We Collect" iconName="eye">
               <p>
                 We collect information to deliver a smooth browsing experience, verify traffic authenticity, and track aggregate product interactions:
               </p>
-              <ul className="list-disc pl-5 space-y-2 text-zinc-300">
+              <ul className="list-disc pl-5 space-y-2 text-zinc-700">
                 <li>
-                  <strong className="text-zinc-100">Automatically Collected Log Data:</strong> IP address, browser type, operating system, device details, referring URLs, pages viewed, timestamp, and exit links.
+                  <strong className="text-zinc-900">Automatically Collected Log Data:</strong> IP address, browser type, operating system, device details, referring URLs, pages viewed, timestamp, and exit links.
                 </li>
                 <li>
-                  <strong className="text-zinc-100">Interaction & Click Analytics:</strong> Click counts on product listings, search queries, and referral link redirects.
+                  <strong className="text-zinc-900">Interaction & Click Analytics:</strong> Click counts on product listings, search queries, and referral link redirects.
                 </li>
                 <li>
-                  <strong className="text-zinc-100">Voluntarily Provided Information:</strong> Email address provided during newsletter subscription or support inquiries.
+                  <strong className="text-zinc-900">Voluntarily Provided Information:</strong> Email address provided during newsletter subscription or support inquiries.
                 </li>
               </ul>
             </LegalSection>
 
-            {/* Section 3: Pinterest */}
-            <LegalSection id="pinterest-api" title="3. Pinterest & Social Disclosures" icon={Share2} iconColor="rose">
+           
+            <LegalSection id="pinterest-api" title="3. Pinterest & Social Disclosures" iconName="share">
               <p>
                 SmartGearPicks integrates social sharing features, including Pinterest API features, Pinterest Save buttons, and metadata tags designed to facilitate product pin creation on Pinterest.
               </p>
 
-              <LegalHighlightBox title="Pinterest Platform Terms Compliance" variant="rose" icon={Share2}>
+              <LegalHighlightBox title="Pinterest Platform Terms Compliance" iconName="share">
                 When you interact with Pinterest features or save our curated products to your Pinterest boards, Pinterest may collect information directly from your browser. We adhere to the Pinterest Developer & API Terms of Service. We do not sell user data obtained through Pinterest APIs to third parties, nor do we attempt to re-identify Pinterest users.
               </LegalHighlightBox>
 
@@ -106,34 +94,34 @@ export default function PrivacyPolicyPage() {
                   href="https://policy.pinterest.com/en/privacy-policy"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-rose-400 hover:underline font-medium inline-flex items-center gap-1"
+                  className="text-black font-semibold underline hover:text-zinc-600 inline-flex items-center gap-1"
                 >
                   Pinterest Privacy Policy <ArrowUpRight className="w-3 h-3" />
                 </a>.
               </p>
             </LegalSection>
 
-            {/* Section 4 */}
-            <LegalSection id="cookies" title="4. Cookies & Tracking Technologies" icon={Cookie} iconColor="amber">
+          
+            <LegalSection id="cookies" title="4. Cookies & Tracking Technologies" iconName="cookie">
               <p>
                 Cookies are small text files stored on your browser. We use first-party and third-party cookies for essential functionality, performance measurement, and affiliate link attribution.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-3">
-                <div className="bg-zinc-900/60 border border-zinc-800 p-4 rounded-xl">
-                  <h4 className="font-semibold text-white text-xs mb-1">Essential Cookies</h4>
-                  <p className="text-xs text-zinc-400">Necessary for website operation, session state, and security routing.</p>
+                <div className="bg-white border border-zinc-200 p-4 rounded-xl shadow-xs">
+                  <h4 className="font-semibold text-zinc-900 text-xs mb-1">Essential Cookies</h4>
+                  <p className="text-xs text-zinc-600">Necessary for website operation, session state, and security routing.</p>
                 </div>
-                <div className="bg-zinc-900/60 border border-zinc-800 p-4 rounded-xl">
-                  <h4 className="font-semibold text-white text-xs mb-1">Affiliate Attribution Cookies</h4>
-                  <p className="text-xs text-zinc-400">Placed by partner networks (such as Amazon Associates) to attribute successful merchant referrals.</p>
+                <div className="bg-white border border-zinc-200 p-4 rounded-xl shadow-xs">
+                  <h4 className="font-semibold text-zinc-900 text-xs mb-1">Affiliate Attribution Cookies</h4>
+                  <p className="text-xs text-zinc-600">Placed by partner networks (such as Amazon Associates) to attribute successful merchant referrals.</p>
                 </div>
               </div>
             </LegalSection>
 
-            {/* Section 5 */}
-            <LegalSection id="how-we-use-data" title="5. How We Use Information" icon={FileText} iconColor="blue">
+          
+            <LegalSection id="how-we-use-data" title="5. How We Use Information" iconName="file">
               <p>We use collected information for the following business purposes:</p>
-              <ul className="list-disc pl-5 space-y-2 text-zinc-300">
+              <ul className="list-disc pl-5 space-y-2 text-zinc-700">
                 <li>To operate, maintain, and optimize our curated product platform.</li>
                 <li>To measure click-through rates and optimize curated recommendations based on audience engagement.</li>
                 <li>To maintain platform security, detect fraudulent clicks, and protect against cyber threats.</li>
@@ -141,33 +129,33 @@ export default function PrivacyPolicyPage() {
               </ul>
             </LegalSection>
 
-            {/* Section 6 */}
-            <LegalSection id="affiliate-disclosure" title="6. Affiliate & External Links Disclosure" icon={ArrowUpRight} iconColor="emerald">
+           
+            <LegalSection id="affiliate-disclosure" title="6. Affiliate & External Links Disclosure" iconName="link">
               <p>
                 SmartGearPicks is a participant in affiliate advertising programs (including the Amazon Services LLC Associates Program and partner affiliate networks). Our product recommendations contain affiliate links. When you click an outbound link and make a purchase on a merchant site, we may earn a referral commission at no extra cost to you.
               </p>
             </LegalSection>
 
-            {/* Section 7 */}
-            <LegalSection id="data-security" title="7. Data Security & Retention" icon={Lock} iconColor="indigo">
+          
+            <LegalSection id="data-security" title="7. Data Security & Retention" iconName="lock">
               <p>
                 We implement administrative, technical, and physical security controls to protect your data. All data transmitted between your browser and our site is encrypted using Transport Layer Security (TLS/HTTPS).
               </p>
             </LegalSection>
 
-            {/* Section 8 */}
-            <LegalSection id="user-rights" title="8. User Rights & Data Deletion" icon={Database} iconColor="teal">
+           
+            <LegalSection id="user-rights" title="8. User Rights & Data Deletion" iconName="database">
               <p>
                 Under applicable privacy laws (GDPR, CCPA), you have rights regarding access, deletion, and restriction of personal data.
               </p>
 
-              <LegalHighlightBox title="Data Deletion Requests" variant="indigo" icon={Database}>
+              <LegalHighlightBox title="Data Deletion Requests" iconName="database">
                 You may request complete deletion of any stored logs or contact data associated with your interaction by emailing our privacy compliance officer.
               </LegalHighlightBox>
             </LegalSection>
 
-            {/* Section 9 */}
-            <LegalSection id="contact-us" title="9. Contact Information" icon={Mail} iconColor="indigo">
+          
+            <LegalSection id="contact-us" title="9. Contact Information" iconName="mail">
               <LegalContactCard
                 officeName="SmartGearPicks Privacy Team"
                 email="privacy@smartgearpicks.com"
