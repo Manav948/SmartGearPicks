@@ -60,7 +60,7 @@ export default async function HomePage() {
       {newArrivals.length > 0 && <NewArrivals products={newArrivals} />}
       {topPicks.length > 0 && <TopPicks products={topPicks} />}
 
-      <main className="py-10 md:py-16 max-w-[1280px] mx-auto px-4 md:px-8" id="products">
+      <main className="py-10 md:py-16 max-w-7xl mx-auto px-4 md:px-8" id="products">
         <div className="flex justify-between items-end mb-8">
           <div>
             <h2

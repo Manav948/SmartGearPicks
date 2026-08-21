@@ -106,7 +106,7 @@ export default function ProductForm({
 
   return (
     <form onSubmit={handleSubmit} className="flex-1 flex flex-col">
-      <div className="flex-1 w-full max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8 py-6 md:py-8">
+      <div className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-6 md:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           
           <div className="lg:col-span-8 flex flex-col gap-5">

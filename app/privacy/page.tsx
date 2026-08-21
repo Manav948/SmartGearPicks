@@ -31,10 +31,10 @@ export default function PrivacyPolicyPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#f8f9ff] text-zinc-900 flex flex-col font-sans selection:bg-zinc-200 selection:text-black">
+    <div className="min-h-screen flex flex-col font-sans" style={{ backgroundColor: "#f8f9ff", color: "#0b1c30" }}>
       <Navbar />
 
-     
+   
       <LegalHero
         title="Privacy Policy"
         subtitle="SmartGearPicks values your trust. This document details how we handle user data, cookies, affiliate links, and compliance with platform requirements including Pinterest developer guidelines."
@@ -46,12 +46,12 @@ export default function PrivacyPolicyPage() {
      
       <main className="max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-16 flex-1 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-        
+         
           <LegalSidebar sections={sections} />
 
-         
-          <div className="lg:col-span-8 space-y-8 text-zinc-700 leading-relaxed">
-           
+        
+          <div className="lg:col-span-8 space-y-8 leading-relaxed" style={{ color: "#464554" }}>
+            
             <LegalSection id="overview" title="1. Overview & Scope" iconName="shield">
               <p>
                 SmartGearPicks (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) operates the digital platform hosted at this domain. We are dedicated to providing curated product recommendations, tech gear reviews, and creator tool showcases.
@@ -61,24 +61,25 @@ export default function PrivacyPolicyPage() {
               </p>
             </LegalSection>
 
+       
             <LegalSection id="information-collected" title="2. Information We Collect" iconName="eye">
               <p>
                 We collect information to deliver a smooth browsing experience, verify traffic authenticity, and track aggregate product interactions:
               </p>
-              <ul className="list-disc pl-5 space-y-2 text-zinc-700">
+              <ul className="list-disc pl-5 space-y-2" style={{ color: "#464554" }}>
                 <li>
-                  <strong className="text-zinc-900">Automatically Collected Log Data:</strong> IP address, browser type, operating system, device details, referring URLs, pages viewed, timestamp, and exit links.
+                  <strong style={{ color: "#0b1c30" }}>Automatically Collected Log Data:</strong> IP address, browser type, operating system, device details, referring URLs, pages viewed, timestamp, and exit links.
                 </li>
                 <li>
-                  <strong className="text-zinc-900">Interaction & Click Analytics:</strong> Click counts on product listings, search queries, and referral link redirects.
+                  <strong style={{ color: "#0b1c30" }}>Interaction & Click Analytics:</strong> Click counts on product listings, search queries, and referral link redirects.
                 </li>
                 <li>
-                  <strong className="text-zinc-900">Voluntarily Provided Information:</strong> Email address provided during newsletter subscription or support inquiries.
+                  <strong style={{ color: "#0b1c30" }}>Voluntarily Provided Information:</strong> Email address provided during newsletter subscription or support inquiries.
                 </li>
               </ul>
             </LegalSection>
 
-           
+          
             <LegalSection id="pinterest-api" title="3. Pinterest & Social Disclosures" iconName="share">
               <p>
                 SmartGearPicks integrates social sharing features, including Pinterest API features, Pinterest Save buttons, and metadata tags designed to facilitate product pin creation on Pinterest.
@@ -94,34 +95,35 @@ export default function PrivacyPolicyPage() {
                   href="https://policy.pinterest.com/en/privacy-policy"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-black font-semibold underline hover:text-zinc-600 inline-flex items-center gap-1"
+                  className="font-semibold underline hover:text-[#4648d4] inline-flex items-center gap-1"
+                  style={{ color: "#4648d4" }}
                 >
                   Pinterest Privacy Policy <ArrowUpRight className="w-3 h-3" />
                 </a>.
               </p>
             </LegalSection>
 
-          
+        
             <LegalSection id="cookies" title="4. Cookies & Tracking Technologies" iconName="cookie">
               <p>
                 Cookies are small text files stored on your browser. We use first-party and third-party cookies for essential functionality, performance measurement, and affiliate link attribution.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-3">
-                <div className="bg-white border border-zinc-200 p-4 rounded-xl shadow-xs">
-                  <h4 className="font-semibold text-zinc-900 text-xs mb-1">Essential Cookies</h4>
-                  <p className="text-xs text-zinc-600">Necessary for website operation, session state, and security routing.</p>
+                <div className="bg-white border rounded-xl p-4 shadow-xs" style={{ borderColor: "rgba(199, 196, 215, 0.4)" }}>
+                  <h4 className="font-semibold text-xs mb-1" style={{ color: "#0b1c30" }}>Essential Cookies</h4>
+                  <p className="text-xs" style={{ color: "#767586" }}>Necessary for website operation, session state, and security routing.</p>
                 </div>
-                <div className="bg-white border border-zinc-200 p-4 rounded-xl shadow-xs">
-                  <h4 className="font-semibold text-zinc-900 text-xs mb-1">Affiliate Attribution Cookies</h4>
-                  <p className="text-xs text-zinc-600">Placed by partner networks (such as Amazon Associates) to attribute successful merchant referrals.</p>
+                <div className="bg-white border rounded-xl p-4 shadow-xs" style={{ borderColor: "rgba(199, 196, 215, 0.4)" }}>
+                  <h4 className="font-semibold text-xs mb-1" style={{ color: "#0b1c30" }}>Affiliate Attribution Cookies</h4>
+                  <p className="text-xs" style={{ color: "#767586" }}>Placed by partner networks (such as Amazon Associates) to attribute successful merchant referrals.</p>
                 </div>
               </div>
             </LegalSection>
 
-          
+            
             <LegalSection id="how-we-use-data" title="5. How We Use Information" iconName="file">
               <p>We use collected information for the following business purposes:</p>
-              <ul className="list-disc pl-5 space-y-2 text-zinc-700">
+              <ul className="list-disc pl-5 space-y-2" style={{ color: "#464554" }}>
                 <li>To operate, maintain, and optimize our curated product platform.</li>
                 <li>To measure click-through rates and optimize curated recommendations based on audience engagement.</li>
                 <li>To maintain platform security, detect fraudulent clicks, and protect against cyber threats.</li>
@@ -154,7 +156,7 @@ export default function PrivacyPolicyPage() {
               </LegalHighlightBox>
             </LegalSection>
 
-          
+            
             <LegalSection id="contact-us" title="9. Contact Information" iconName="mail">
               <LegalContactCard
                 officeName="SmartGearPicks Privacy Team"

@@ -70,7 +70,7 @@ export default function ProductsTable({
                         >
                           {product.name}
                         </Link>
-                        <p className="text-xs mt-0.5 line-clamp-1 max-w-[180px] text-[#767586]">
+                        <p className="text-xs mt-0.5 line-clamp-1 max-w-45 text-[#767586]">
                           {product.description.slice(0, 60)}…
                         </p>
                       </div>

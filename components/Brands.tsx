@@ -9,7 +9,7 @@ export default function Brands() {
         borderColor: "rgba(199,196,215,0.3)",
       }}
     >
-      <div className="max-w-[1280px] mx-auto px-4 md:px-8 flex flex-col items-center">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 flex flex-col items-center">
         <p
           className="text-xs font-semibold uppercase tracking-widest mb-6"
           style={{ color: "#767586", fontFamily: "Geist, sans-serif", letterSpacing: "0.08em" }}

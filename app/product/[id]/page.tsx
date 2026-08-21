@@ -99,7 +99,7 @@ export default async function ProductDetailPage({
       });
     }
   } catch {
-    // DB not connected
+    
   }
 
   if (!product) {
@@ -113,7 +113,7 @@ export default async function ProductDetailPage({
       <ProductNavbar />
       <ProductBreadcrumb categoryLabel={categoryLabel} productName={product.name} />
 
-      <main className="max-w-[1280px] mx-auto px-4 md:px-8 py-6 md:py-8">
+      <main className="max-w-7xl mx-auto px-4 md:px-8 py-6 md:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
           <ProductDetailsLeft
             imageUrl={product.imageUrl}
@@ -134,7 +134,7 @@ export default async function ProductDetailPage({
       </main>
 
       {similarProducts.length > 0 && (
-        <section className="max-w-[1280px] mx-auto px-4 md:px-8 pb-16">
+        <section className="max-w-7xl mx-auto px-4 md:px-8 pb-16">
           <div className="border-t pt-10" style={{ borderColor: "rgba(199,196,215,0.4)" }}>
             <SimilarProducts products={similarProducts} currentProductId={id} />
           </div>

@@ -30,7 +30,7 @@ export default function FeatureToggle({
           onChange={(e) => setFeatured(e.target.checked)}
         />
         <div
-          className="w-11 h-6 rounded-full transition-all peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all"
+          className="w-11 h-6 rounded-full transition-all peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all"
           style={{ backgroundColor: featured ? "#4648d4" : "#d3e4fe" }}
         />
       </label>

@@ -30,12 +30,12 @@ export default function PerformanceMetrics({
           </div>
         </div>
         {chartProducts.length === 0 ? (
-          <div className="flex-1 flex items-center justify-center min-h-[200px]">
+          <div className="flex-1 flex items-center justify-center min-h-50">
             <p className="text-sm text-[#c7c4d7]">No data yet — add products to see clicks here.</p>
           </div>
         ) : (
           <div className="flex-1">
-            <div className="flex items-end gap-3 h-[180px]">
+            <div className="flex items-end gap-3 h-45">
               {chartProducts.map((p, i) => {
                 const clicks = p.clicks ?? 0;
                 const pct = maxClicks > 0 ? Math.max(4, (clicks / maxClicks) * 100) : 4;

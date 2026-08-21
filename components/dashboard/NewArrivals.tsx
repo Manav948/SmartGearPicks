@@ -37,12 +37,12 @@ export default function NewArrivals({
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-auto md:h-[440px]">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-auto md:h-110">
      
         {featured && (
           <Link
             href={`/product/${featured.id}`}
-            className="relative rounded-2xl overflow-hidden group block h-[340px] md:h-full shadow-md border hover:shadow-xl transition-all duration-500 hover:-translate-y-0.5"
+            className="relative rounded-2xl overflow-hidden group block h-85 md:h-full shadow-md border hover:shadow-xl transition-all duration-500 hover:-translate-y-0.5"
             style={{ borderColor: "rgba(199,196,215,0.35)", position: "relative" }}
           >
             <Image
@@ -101,7 +101,7 @@ export default function NewArrivals({
             <Link
               key={product.id}
               href={`/product/${product.id}`}
-              className="relative rounded-2xl overflow-hidden group block h-[180px] sm:h-[200px] md:h-[210px] shadow-md border hover:shadow-xl transition-all duration-500 hover:-translate-y-0.5"
+              className="relative rounded-2xl overflow-hidden group block h-45 sm:h-50 md:h-52.5 shadow-md border hover:shadow-xl transition-all duration-500 hover:-translate-y-0.5"
               style={{ borderColor: "rgba(199,196,215,0.35)", position: "relative" }}
             >
               <Image

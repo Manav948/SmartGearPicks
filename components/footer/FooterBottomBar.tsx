@@ -13,22 +13,22 @@ export function FooterBottomBar() {
 
   return (
     <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-2">
-      {/* Copyright & Legal Links */}
-      <div className="text-xs text-zinc-600 text-center md:text-left order-3 md:order-1 font-medium flex flex-wrap items-center justify-center md:justify-start gap-x-3 gap-y-1">
+     
+      <div className="text-xs text-center md:text-left order-3 md:order-1 font-medium flex flex-wrap items-center justify-center md:justify-start gap-x-3 gap-y-1" style={{ color: "#464554" }}>
         <span>© {new Date().getFullYear()} SmartGearPicks. All rights reserved.</span>
-        <span className="hidden sm:inline text-zinc-300">•</span>
-        <a href="/privacy" className="hover:text-black transition-colors">Privacy Policy</a>
-        <span className="text-zinc-300">•</span>
-        <a href="/terms" className="hover:text-black transition-colors">Terms of Service</a>
+        <span className="hidden sm:inline text-slate-300">•</span>
+        <a href="/privacy" className="hover:text-[#4648d4] transition-colors">Privacy Policy</a>
+        <span className="text-slate-300">•</span>
+        <a href="/terms" className="hover:text-[#4648d4] transition-colors">Terms of Service</a>
       </div>
 
-      {/* Social Connect Buttons */}
+    
       <div className="flex items-center gap-2.5 order-1 md:order-2">
         <a
           href="https://twitter.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="w-9 h-9 rounded-xl flex items-center justify-center bg-zinc-100 border border-zinc-200 text-zinc-600 hover:text-white hover:bg-black hover:border-black transition-all duration-200 hover:-translate-y-0.5 shadow-sm"
+          className="w-9 h-9 rounded-xl flex items-center justify-center bg-white border border-[#c7c4d7]/40 text-on-surface-variant hover:text-[#4648d4] hover:border-[#4648d4] transition-all duration-200 hover:-translate-y-0.5 shadow-xs"
           title="Follow us on X (Twitter)"
         >
           <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
@@ -39,7 +39,7 @@ export function FooterBottomBar() {
           href="https://github.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="w-9 h-9 rounded-xl flex items-center justify-center bg-zinc-100 border border-zinc-200 text-zinc-600 hover:text-white hover:bg-black hover:border-black transition-all duration-200 hover:-translate-y-0.5 shadow-sm"
+          className="w-9 h-9 rounded-xl flex items-center justify-center bg-white border border-[#c7c4d7]/40 text-on-surface-variant hover:text-[#4648d4] hover:border-[#4648d4] transition-all duration-200 hover:-translate-y-0.5 shadow-xs"
           title="Follow us on GitHub"
         >
           <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
@@ -48,15 +48,15 @@ export function FooterBottomBar() {
         </a>
       </div>
 
-      {/* Back to Top */}
+    
       <div className="order-2 md:order-3">
         <button
           onClick={scrollToTop}
-          className="group flex items-center gap-2 px-4 py-2 rounded-xl bg-black border border-black text-white hover:bg-zinc-800 transition-all active:scale-95 cursor-pointer text-xs font-semibold shadow-sm"
-          style={{ fontFamily: "Geist, sans-serif" }}
+          className="group flex items-center gap-2 px-4 py-2 rounded-xl text-white transition-all active:scale-95 cursor-pointer text-xs font-semibold shadow-xs"
+          style={{ backgroundColor: "#0f172a", fontFamily: "Geist, sans-serif" }}
         >
           <span>Back to Top</span>
-          <ArrowUp className="w-3.5 h-3.5 group-hover:-translate-y-0.5 transition-transform duration-200 text-zinc-300 group-hover:text-white" />
+          <ArrowUp className="w-3.5 h-3.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
         </button>
       </div>
     </div>

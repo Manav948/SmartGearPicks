@@ -40,7 +40,7 @@ export default function VisualAssets({
             <img
               src={imagePreview}
               alt="Preview"
-              className="max-h-[200px] object-contain rounded-xl border"
+              className="max-h-50 object-contain rounded-xl border"
               style={{ borderColor: "rgba(199,196,215,0.4)" }}
             />
             <button

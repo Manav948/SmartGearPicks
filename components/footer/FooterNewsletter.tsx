@@ -29,7 +29,7 @@ export function FooterNewsletter() {
             className="text-2xl font-bold tracking-tight select-none inline-flex items-center gap-2.5 hover:opacity-90 transition-opacity text-white"
             style={{ fontFamily: "Geist, sans-serif" }}
           >
-            <span className="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-[1px] flex items-center justify-center shadow-lg shadow-indigo-500/20">
+            <span className="w-8 h-8 rounded-xl bg-linear-to-br from-indigo-500 via-purple-500 to-pink-500 p-px flex items-center justify-center shadow-lg shadow-indigo-500/20">
               <span className="w-full h-full bg-zinc-950 rounded-[11px] flex items-center justify-center text-indigo-400 font-extrabold text-sm">
                 S
               </span>
@@ -93,7 +93,7 @@ export function FooterNewsletter() {
             </div>
             <button
               type="submit"
-              className="px-5 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 active:scale-[0.97] bg-gradient-to-r from-indigo-600 via-indigo-500 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white shadow-lg shadow-indigo-600/25 flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-70 border border-indigo-400/20 shrink-0"
+              className="px-5 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 active:scale-[0.97] bg-linear-to-r from-indigo-600 via-indigo-500 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white shadow-lg shadow-indigo-600/25 flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-70 border border-indigo-400/20 shrink-0"
               disabled={isSubmitting}
             >
               {isSubmitting ? (
