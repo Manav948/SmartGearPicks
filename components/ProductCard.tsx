@@ -85,18 +85,15 @@ export default function ProductCard({
       }}
     >
       
-      <div className="relative overflow-hidden shrink-0" style={{ height: "260px", backgroundColor: "#f5f5fa" }}>
+      <div className="relative overflow-hidden shrink-0" style={{ height: "260px", backgroundColor: "#f0f0f5" }}>
         <Link href={`/product/${product.id}`} className="block w-full h-full relative" style={{ position: "relative" }}>
           <Image
             src={product.imageUrl}
             alt={product.name}
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            className="object-contain transition-transform duration-500"
-            style={{
-              transform: hovered ? "scale(1.04)" : "scale(1)",
-              padding: "12px",
-            }}
+            className="object-cover transition-transform duration-500"
+            style={{ transform: hovered ? "scale(1.06)" : "scale(1)" }}
             priority
             unoptimized
           />
