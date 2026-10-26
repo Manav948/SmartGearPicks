@@ -59,8 +59,8 @@ export default function ProductsTable({
                 >
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
-                      <div className="relative w-11 h-11 rounded-xl border overflow-hidden shrink-0 bg-[#eff4ff]" style={{ borderColor: "rgba(199,196,215,0.35)", position: "relative" }}>
-                        <Image src={product.imageUrl} alt={product.name} fill sizes="44px" className="object-cover" unoptimized />
+                      <div className="relative w-11 h-11 rounded-xl border overflow-hidden shrink-0 bg-[#f5f5fa]" style={{ borderColor: "rgba(199,196,215,0.35)", position: "relative" }}>
+                        <Image src={product.imageUrl} alt={product.name} fill sizes="44px" className="object-contain p-1" unoptimized />
                       </div>
                       <div>
                         <Link
