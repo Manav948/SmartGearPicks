@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Product } from "../ProductCard";
@@ -9,119 +11,288 @@ interface ProductsTableProps {
   categoryMap: Record<string, string>;
 }
 
-export default function ProductsTable({
-  products,
-  categoryMap,
-}: ProductsTableProps) {
+function useInView(threshold = 0.05) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setInView(true); obs.disconnect(); } },
+      { threshold }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [threshold]);
+  return { ref, inView };
+}
+
+const CAT_COLORS: Record<string, { bg: string; text: string }> = {
+  ELECTRONICS:        { bg: "rgba(70,72,212,0.08)",   text: "#4648d4" },
+  FASHION:            { bg: "rgba(190,24,93,0.08)",    text: "#be185d" },
+  BEAUTY_PERSONAL_CARE: { bg: "rgba(217,119,6,0.08)", text: "#d97706" },
+  HEALTH_FITNESS:     { bg: "rgba(5,150,105,0.08)",   text: "#059669" },
+  BOOKS_EDUCATION:    { bg: "rgba(124,58,237,0.08)",  text: "#7c3aed" },
+  HOME_KITCHEN:       { bg: "rgba(8,145,178,0.08)",   text: "#0891b2" },
+  GAMING:             { bg: "rgba(220,38,38,0.08)",   text: "#dc2626" },
+  SPORTS_OUTDOORS:    { bg: "rgba(5,150,105,0.08)",   text: "#059669" },
+  TOYS_KIDS:          { bg: "rgba(245,158,11,0.08)",  text: "#f59e0b" },
+  AUTOMOTIVE:         { bg: "rgba(100,116,139,0.08)", text: "#475569" },
+  OFFICE_PRODUCTIVITY:{ bg: "rgba(70,72,212,0.08)",   text: "#4648d4" },
+  PET_SUPPLIES:       { bg: "rgba(234,88,12,0.08)",   text: "#ea580c" },
+  FOOD_BEVERAGES:     { bg: "rgba(22,163,74,0.08)",   text: "#16a34a" },
+  GIFT_CATEGORIES:    { bg: "rgba(219,39,119,0.08)",  text: "#db2777" },
+  TRAVEL:             { bg: "rgba(8,145,178,0.08)",   text: "#0891b2" },
+  CREATOR_ESSENTIALS: { bg: "rgba(124,58,237,0.08)",  text: "#7c3aed" },
+};
+
+export default function ProductsTable({ products, categoryMap }: ProductsTableProps) {
+  const { ref, inView } = useInView();
+  const [search, setSearch] = useState("");
+
+  const sorted = [...products].sort((a, b) => (b.clicks ?? 0) - (a.clicks ?? 0));
+  const filtered = search.trim()
+    ? sorted.filter(
+        (p) =>
+          p.name.toLowerCase().includes(search.toLowerCase()) ||
+          (categoryMap[p.category] || p.category).toLowerCase().includes(search.toLowerCase())
+      )
+    : sorted;
+
   return (
-    <section className="rounded-2xl border overflow-hidden bg-white" style={{ borderColor: "rgba(199,196,215,0.3)" }}>
-      <div className="flex justify-between items-center p-6 border-b" style={{ borderColor: "rgba(199,196,215,0.3)" }}>
+    <div
+      ref={ref}
+      className="rounded-[20px] border overflow-hidden bg-white"
+      style={{
+        borderColor: "rgba(199,196,215,0.28)",
+        boxShadow: "0 1px 6px rgba(0,0,0,0.04)",
+        opacity: inView ? 1 : 0,
+        transform: inView ? "translateY(0)" : "translateY(24px)",
+        transition: "opacity 0.6s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1)",
+      }}
+    >
+      {/* Header */}
+      <div
+        className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-5 sm:p-6 border-b"
+        style={{ borderColor: "rgba(199,196,215,0.25)" }}
+      >
         <div>
-          <p className="text-xs font-bold uppercase tracking-widest mb-1 text-[#767586]" style={{ letterSpacing: "0.08em" }}>Catalog</p>
-          <h2 className="text-xl font-semibold tracking-tight text-[#0b1c30]" style={{ fontFamily: "Geist, sans-serif", letterSpacing: "-0.02em" }}>
+          <p
+            className="text-[10px] font-bold uppercase tracking-widest mb-0.5 text-[#767586]"
+            style={{ letterSpacing: "0.1em" }}
+          >
+            📦 Catalog
+          </p>
+          <h2
+            className="text-xl font-bold tracking-tight text-[#0b1c30]"
+            style={{ fontFamily: "Geist, sans-serif", letterSpacing: "-0.025em" }}
+          >
             Affiliate Items
+            <span className="ml-2 text-sm font-medium text-[#767586]">({products.length})</span>
           </h2>
         </div>
-        <Link
-          href="/dashboard/add-product"
-          className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium transition-all active:scale-95 bg-[#0b1c30] text-white"
-          style={{ fontFamily: "Geist, sans-serif", borderTop: "1px solid rgba(255,255,255,0.12)" }}
-        >
-          <span className="material-symbols-outlined text-[16px]" style={{ fontVariationSettings: "'FILL' 0" }}>add</span>
-          Add Item
-        </Link>
+
+        <div className="flex items-center gap-3">
+          {/* Search */}
+          <div className="relative">
+            <span
+              className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[16px] text-[#767586] pointer-events-none"
+              style={{ fontVariationSettings: "'FILL' 0" }}
+            >
+              search
+            </span>
+            <input
+              type="text"
+              placeholder="Search products…"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="pl-8 pr-3 py-2 text-xs rounded-xl border outline-none transition-all duration-200 bg-[#f8f9ff] text-[#0b1c30] w-40 sm:w-48"
+              style={{
+                borderColor: "rgba(199,196,215,0.4)",
+                fontFamily: "Geist, sans-serif",
+              }}
+              onFocus={(e) => { e.currentTarget.style.borderColor = "#4648d4"; e.currentTarget.style.boxShadow = "0 0 0 2px rgba(70,72,212,0.1)"; }}
+              onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(199,196,215,0.4)"; e.currentTarget.style.boxShadow = "none"; }}
+            />
+          </div>
+
+          <Link
+            href="/dashboard/add-product"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all active:scale-95 bg-[#0b1c30] text-white hover:bg-[#1a2e45]"
+            style={{ fontFamily: "Geist, sans-serif", letterSpacing: "0.02em" }}
+          >
+            <span className="material-symbols-outlined text-[15px]" style={{ fontVariationSettings: "'FILL' 0" }}>
+              add
+            </span>
+            Add Item
+          </Link>
+        </div>
       </div>
 
       {products.length === 0 ? (
-        <div className="text-center py-16">
-          <span className="material-symbols-outlined text-[56px] mb-4 block text-[#c7c4d7]" style={{ fontVariationSettings: "'FILL' 0" }}>inventory_2</span>
-          <p className="text-sm text-[#767586]">No products added yet. Click &quot;Add Item&quot; to get started.</p>
+        <div className="text-center py-20 flex flex-col items-center gap-3">
+          <div
+            className="w-16 h-16 rounded-2xl flex items-center justify-center"
+            style={{ backgroundColor: "rgba(70,72,212,0.06)" }}
+          >
+            <span className="material-symbols-outlined text-[32px] text-[#c7c4d7]" style={{ fontVariationSettings: "'FILL' 0" }}>
+              inventory_2
+            </span>
+          </div>
+          <p className="text-sm text-[#767586]">No products added yet.</p>
+          <Link
+            href="/dashboard/add-product"
+            className="text-xs font-semibold text-[#4648d4] hover:underline"
+          >
+            Add your first product →
+          </Link>
         </div>
       ) : (
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
-              <tr className="text-xs font-semibold uppercase tracking-wider border-b text-[#767586]" style={{ borderColor: "rgba(199,196,215,0.3)", letterSpacing: "0.05em" }}>
-                <th className="px-6 py-3">Product</th>
-                <th className="px-6 py-3">Category</th>
-                <th className="px-6 py-3">Price</th>
-                <th className="px-6 py-3">Clicks</th>
-                <th className="px-6 py-3">Added</th>
-                <th className="px-6 py-3 text-right">Actions</th>
+              <tr
+                className="text-[9px] font-bold uppercase tracking-widest border-b text-[#767586]"
+                style={{ borderColor: "rgba(199,196,215,0.25)", letterSpacing: "0.08em", backgroundColor: "#fafbff" }}
+              >
+                <th className="px-5 py-3.5">Product</th>
+                <th className="px-5 py-3.5">Category</th>
+                <th className="px-5 py-3.5">Price</th>
+                <th className="px-5 py-3.5">Clicks</th>
+                <th className="px-5 py-3.5">Added</th>
+                <th className="px-5 py-3.5 text-right">Actions</th>
               </tr>
             </thead>
             <tbody>
-              {[...products].sort((a, b) => (b.clicks ?? 0) - (a.clicks ?? 0)).map((product) => (
-                <tr
-                  key={product.id}
-                  className="border-b transition-colors hover:bg-[#f8f9ff]"
-                  style={{ borderColor: "rgba(199,196,215,0.2)" }}
-                >
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-3">
-                      <div className="relative w-11 h-11 rounded-xl border overflow-hidden shrink-0 bg-[#eff4ff]" style={{ borderColor: "rgba(199,196,215,0.35)", position: "relative" }}>
-                        <Image src={product.imageUrl} alt={product.name} fill sizes="44px" className="object-cover" unoptimized />
-                      </div>
-                      <div>
-                        <Link
-                          href={`/product/${product.id}`}
-                          className="font-medium text-sm hover:text-[#4648d4] transition-colors line-clamp-1 text-[#0b1c30]"
-                          style={{ fontFamily: "Geist, sans-serif" }}
-                        >
-                          {product.name}
-                        </Link>
-                        <p className="text-xs mt-0.5 line-clamp-1 max-w-45 text-[#767586]">
-                          {product.description.slice(0, 60)}…
-                        </p>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span
-                      className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-rgba(70,72,212,0.08) text-[#4648d4]"
-                      style={{ fontFamily: "Geist, sans-serif", backgroundColor: "rgba(70,72,212,0.08)", letterSpacing: "0.05em" }}
-                    >
-                      {categoryMap[product.category] || product.category}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className="text-sm font-semibold text-[#0b1c30]">
-                      {product.price ? `₹${product.price.toLocaleString("en-IN")}` : "—"}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-1.5">
-                      <span className="font-mono font-bold text-sm text-[#4648d4]">{product.clicks ?? 0}</span>
-                      {(product.clicks ?? 0) > 0 && (
-                        <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-rgba(70,72,212,0.08) text-[#4648d4]" style={{ backgroundColor: "rgba(70,72,212,0.08)" }}>
-                          ↑ active
-                        </span>
-                      )}
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 text-xs font-mono text-[#767586]">
-                    {new Date(product.createdAt as any).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" })}
-                  </td>
-                  <td className="px-6 py-4 text-right">
-                    <div className="flex justify-end items-center gap-2">
-                      <Link
-                        href={`/dashboard/edit-product/${product.id}`}
-                        className="flex items-center justify-center p-1.5 rounded-lg text-[#767586] bg-transparent border border-transparent hover:border-[#4648d4]/20 hover:bg-[#4648d4]/08 hover:text-[#4648d4] transition-all active:scale-[0.93]"
-                        title="Edit Product"
-                      >
-                        <span className="material-symbols-outlined text-[18px]">
-                          edit
-                        </span>
-                      </Link>
-                      <DeleteProductButton productId={product.id} productName={product.name} />
-                    </div>
+              {filtered.length === 0 ? (
+                <tr>
+                  <td colSpan={6} className="px-5 py-12 text-center text-sm text-[#767586]">
+                    No products match &quot;{search}&quot;
                   </td>
                 </tr>
-              ))}
+              ) : (
+                filtered.map((product, rowIdx) => {
+                  const catStyle = CAT_COLORS[product.category] || { bg: "rgba(70,72,212,0.08)", text: "#4648d4" };
+                  return (
+                    <tr
+                      key={product.id}
+                      className="border-b group/row transition-colors duration-150 hover:bg-[#f8f9ff]"
+                      style={{
+                        borderColor: "rgba(199,196,215,0.18)",
+                        opacity: inView ? 1 : 0,
+                        transform: inView ? "translateX(0)" : "translateX(-8px)",
+                        transition: `opacity 0.4s ease ${rowIdx * 0.03}s, transform 0.4s ease ${rowIdx * 0.03}s`,
+                      }}
+                    >
+                      {/* Product */}
+                      <td className="px-5 py-3.5">
+                        <div className="flex items-center gap-3">
+                          <div
+                            className="relative w-10 h-10 rounded-[10px] border overflow-hidden shrink-0 bg-[#eff4ff]"
+                            style={{ borderColor: "rgba(199,196,215,0.3)", position: "relative" }}
+                          >
+                            <Image
+                              src={product.imageUrl}
+                              alt={product.name}
+                              fill
+                              sizes="40px"
+                              className="object-cover transition-transform duration-500 group-hover/row:scale-110"
+                              unoptimized
+                            />
+                          </div>
+                          <div className="min-w-0">
+                            <Link
+                              href={`/product/${product.id}`}
+                              className="font-semibold text-sm hover:text-[#4648d4] transition-colors line-clamp-1 text-[#0b1c30]"
+                              style={{ fontFamily: "Geist, sans-serif", letterSpacing: "-0.01em" }}
+                            >
+                              {product.name}
+                            </Link>
+                            <p className="text-[10px] mt-0.5 line-clamp-1 max-w-[180px] text-[#767586]">
+                              {product.description.slice(0, 55)}…
+                            </p>
+                          </div>
+                        </div>
+                      </td>
+
+                      {/* Category */}
+                      <td className="px-5 py-3.5">
+                        <span
+                          className="text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full"
+                          style={{
+                            backgroundColor: catStyle.bg,
+                            color: catStyle.text,
+                            letterSpacing: "0.07em",
+                            border: `1px solid ${catStyle.text}20`,
+                          }}
+                        >
+                          {categoryMap[product.category] || product.category}
+                        </span>
+                      </td>
+
+                      {/* Price */}
+                      <td className="px-5 py-3.5">
+                        <span
+                          className="text-sm font-bold text-[#0b1c30]"
+                          style={{ fontFamily: "Geist, sans-serif", letterSpacing: "-0.01em" }}
+                        >
+                          {product.price ? `₹${product.price.toLocaleString("en-IN")}` : "—"}
+                        </span>
+                      </td>
+
+                      {/* Clicks */}
+                      <td className="px-5 py-3.5">
+                        <div className="flex items-center gap-1.5">
+                          <span
+                            className="font-bold text-sm"
+                            style={{ color: "#4648d4", fontFamily: "Geist Mono, monospace" }}
+                          >
+                            {product.clicks ?? 0}
+                          </span>
+                          {(product.clicks ?? 0) > 0 && (
+                            <span
+                              className="text-[8px] font-bold px-1.5 py-0.5 rounded-full"
+                              style={{ backgroundColor: "rgba(5,150,105,0.1)", color: "#059669" }}
+                            >
+                              ↑ active
+                            </span>
+                          )}
+                        </div>
+                      </td>
+
+                      {/* Added */}
+                      <td className="px-5 py-3.5">
+                        <span className="text-[10px] font-medium text-[#767586]" style={{ fontFamily: "Geist Mono, monospace" }}>
+                          {new Date(product.createdAt as any).toLocaleDateString("en-IN", {
+                            day: "2-digit",
+                            month: "short",
+                            year: "numeric",
+                          })}
+                        </span>
+                      </td>
+
+                      {/* Actions */}
+                      <td className="px-5 py-3.5 text-right">
+                        <div className="flex justify-end items-center gap-1.5">
+                          <Link
+                            href={`/dashboard/edit-product/${product.id}`}
+                            className="flex items-center justify-center w-8 h-8 rounded-[8px] text-[#767586] border transition-all duration-200 hover:border-[#4648d4] hover:text-[#4648d4] hover:bg-[rgba(70,72,212,0.06)] active:scale-90"
+                            style={{ borderColor: "rgba(199,196,215,0.35)" }}
+                            title="Edit Product"
+                          >
+                            <span className="material-symbols-outlined text-[15px]">edit</span>
+                          </Link>
+                          <DeleteProductButton productId={product.id} productName={product.name} />
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })
+              )}
             </tbody>
           </table>
         </div>
       )}
-    </section>
+    </div>
   );
 }

@@ -67,29 +67,57 @@ export default async function AdminDashboardPage() {
   });
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen w-full max-w-full overflow-x-hidden" style={{ backgroundColor: "#f4f5fb", color: "#0b1c30" }}>
+    <div className="flex flex-col md:flex-row min-h-screen w-full max-w-full overflow-x-hidden" style={{ backgroundColor: "#f0f2fb", color: "#0b1c30" }}>
       <Sidebar />
 
       <main className="flex-1 min-w-0 md:ml-64 p-4 sm:p-6 md:p-8 space-y-10">
       
-        <header className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4 pt-4">
-          <div>
+        <header className="relative flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4 pt-4">
+          {/* Decorative blob */}
+          <div
+            className="absolute -top-6 -left-4 w-64 h-64 rounded-full pointer-events-none"
+            style={{
+              background: "radial-gradient(circle, rgba(70,72,212,0.06) 0%, transparent 70%)",
+              zIndex: 0,
+            }}
+          />
+          <div className="relative z-10">
+            <div
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full mb-3 text-[10px] font-bold uppercase tracking-widest"
+              style={{
+                backgroundColor: "rgba(70,72,212,0.08)",
+                color: "#4648d4",
+                border: "1px solid rgba(70,72,212,0.15)",
+                letterSpacing: "0.1em",
+              }}
+            >
+              <span
+                className="w-1.5 h-1.5 rounded-full bg-[#4648d4] inline-block"
+                style={{ boxShadow: "0 0 5px #4648d4" }}
+              />
+              Admin Panel
+            </div>
             <h1
-              className="text-4xl md:text-5xl font-semibold tracking-tighter"
-              style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30", letterSpacing: "-0.04em" }}
+              className="text-4xl md:text-5xl font-bold tracking-tighter"
+              style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30", letterSpacing: "-0.045em" }}
             >
               Overview
             </h1>
-            <p className="mt-2 text-base text-[#767586]">
+            <p className="mt-2 text-sm text-[#767586]">
               Here&apos;s what&apos;s happening with your curations.
             </p>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="relative z-10 flex items-center gap-3">
             <span
-              className="text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-full border border-rgba(199,196,215,0.3) bg-[#dae2fd] text-[#0b1c30]"
-              style={{ fontFamily: "Geist, sans-serif", letterSpacing: "0.05em" }}
+              className="text-[10px] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full bg-white text-[#0b1c30]"
+              style={{
+                fontFamily: "Geist, sans-serif",
+                letterSpacing: "0.06em",
+                border: "1px solid rgba(199,196,215,0.35)",
+                boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
+              }}
             >
-              All Time
+              ◎ All Time
             </span>
             <LogoutButton />
           </div>
