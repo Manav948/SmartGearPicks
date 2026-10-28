@@ -31,6 +31,7 @@ export interface DriftWallProps {
   dim?: number;
   grayscale?: boolean;
   overlayColor?: string;
+  overlayOpacity?: number;
   className?: string;
   style?: CSSProperties;
 }
@@ -39,15 +40,6 @@ interface ColumnMeta {
   copyHeight: number;
   copies: number;
 }
-
-const DEFAULT_ITEMS: DriftWallItem[] = Array.from({ length: 15 }, (_, i) => {
-  const ids = [1015, 1025, 1039, 1043, 1044, 1050, 1062, 1069, 1074, 1080, 1084, 106, 110, 133, 164];
-  return {
-    image: `https://picsum.photos/id/${ids[i % ids.length]}/600/400`,
-    title: `Tile ${i + 1}`,
-    href: undefined
-  };
-});
 
 const cx = (...parts: (string | false | undefined)[]) => parts.filter(Boolean).join(' ');
 
@@ -68,7 +60,7 @@ const columnFactor = (index: number, variance: number): number => {
 };
 
 const DriftWall = ({
-  items = DEFAULT_ITEMS,
+  items = [],
   columns = 5,
   tileWidth = 200,
   tileHeight = 132,
@@ -89,6 +81,7 @@ const DriftWall = ({
   dim = 0.55,
   grayscale = false,
   overlayColor = '#060010',
+  overlayOpacity = 0.42,
   className = '',
   style
 }: DriftWallProps) => {
@@ -282,6 +275,7 @@ const DriftWall = ({
         '--dw-dim': dim,
         '--dw-gray': grayscale ? 1 : 0,
         '--dw-overlay': overlayColor,
+        '--dw-overlay-opacity': overlayOpacity,
         '--dw-edge': `${Math.max(0, (1 - fade) * 100)}%`,
         perspective: `${perspective}px`,
         perspectiveOrigin: '50% 50%',
@@ -291,7 +285,7 @@ const DriftWall = ({
         maskComposite: 'intersect',
         ...style
       }) as CSSProperties,
-    [tileWidth, tileHeight, gap, radius, lift, dim, grayscale, overlayColor, fade, perspective, maskStyle, style]
+    [tileWidth, tileHeight, gap, radius, lift, dim, grayscale, overlayColor, overlayOpacity, fade, perspective, maskStyle, style]
   );
 
   const tileClass = cx(
@@ -309,12 +303,12 @@ const DriftWall = ({
   );
   const imgClass = cx(
     'block h-full w-full select-none object-cover',
-    '[filter:grayscale(var(--dw-gray))_saturate(0.92)]',
+    '[filter:grayscale(var(--dw-gray))_saturate(1)]',
     'transition-[filter] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)]',
     'group-[.is-active]/tile:[filter:grayscale(0)_saturate(1.05)] group-focus-visible/tile:[filter:grayscale(0)_saturate(1.05)]'
   );
   const overlayClass = cx(
-    'pointer-events-none absolute inset-0 bg-[var(--dw-overlay)] opacity-[0.42]',
+    'pointer-events-none absolute inset-0 bg-[var(--dw-overlay)] opacity-[var(--dw-overlay-opacity)]',
     'transition-opacity duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)]',
     'group-[.is-active]/tile:opacity-0 group-focus-visible/tile:opacity-0'
   );
