@@ -15,7 +15,8 @@ export default function TopPicks({ products }: TopPicksProps) {
   if (products.length === 0) return null;
 
   return (
-    <section className="mx-auto max-w-7xl border-b border-[#dedbd2] px-4 py-14 sm:px-6 md:py-20 lg:px-8" id="trending">
+    <section className="border-b border-[#ded8cc] bg-[#f5f2eb]" id="trending">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 md:py-20 lg:px-8">
       <motion.div
         initial={reduceMotion ? false : { opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -24,7 +25,10 @@ export default function TopPicks({ products }: TopPicksProps) {
         className="mb-8 flex flex-col gap-5 sm:mb-10 sm:flex-row sm:items-end sm:justify-between"
       >
         <div>
-          <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#827f77]">The Edit</p>
+          <p className="mb-3 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#6b5845]">
+            <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[#7c6853]" />
+            The Edit
+          </p>
           <h2 className="font-display text-3xl font-medium tracking-[-0.04em] text-[#171714] sm:text-4xl">
             Top Recommendations
           </h2>
@@ -34,7 +38,7 @@ export default function TopPicks({ products }: TopPicksProps) {
         </div>
         <Link
           href="#products"
-          className="inline-flex min-h-10 w-fit items-center gap-2 border-b border-[#aaa69c] pb-1 text-sm font-medium text-[#25241f] transition-colors hover:border-[#171714] hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#625e54]"
+          className="inline-flex min-h-10 w-fit items-center gap-2 border-b border-[#a99a86] pb-1 text-sm font-medium text-[#332b23] transition-colors hover:border-[#171714] hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#625e54]"
         >
           View all <span aria-hidden="true">↗</span>
         </Link>
@@ -89,6 +93,7 @@ export default function TopPicks({ products }: TopPicksProps) {
             </motion.article>
           );
         })}
+      </div>
       </div>
     </section>
   );
