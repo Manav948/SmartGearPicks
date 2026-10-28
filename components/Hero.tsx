@@ -3,7 +3,9 @@
 import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import type { MotionValue } from "framer-motion";
 import { ArrowUpRight, Compass } from "lucide-react";
+import { CinematicText } from "@/components/ui/CinematicText";
 
 /**
  * Editorial Scene Configuration
@@ -203,9 +205,22 @@ export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
   const [mounted, setMounted] = useState(false);
+  const [compactViewport, setCompactViewport] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    const frame = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 767px)");
+    const updateViewport = () => setCompactViewport(media.matches);
+    const frame = requestAnimationFrame(updateViewport);
+    media.addEventListener("change", updateViewport);
+    return () => {
+      cancelAnimationFrame(frame);
+      media.removeEventListener("change", updateViewport);
+    };
   }, []);
 
   // Track scroll through the bounded sticky section
@@ -218,10 +233,8 @@ export default function Hero() {
     <section
       ref={containerRef}
       data-hero-section
-      className="relative w-full"
+      className={`relative w-full ${shouldReduceMotion ? "h-auto" : "h-[190vh] max-md:h-[145vh]"}`}
       style={{
-        // 200vh gives a luxurious, unhurried, comfortable scroll journey without trapping the user
-        height: shouldReduceMotion ? "auto" : "190vh",
         backgroundColor: "#f5f2eb",
       }}
     >
@@ -295,18 +308,18 @@ export default function Hero() {
                   letterSpacing: "-0.035em",
                 }}
               >
-                Better Finds.
-                <br />
-                <span
-                  style={{
-                    color: "#5b4c3b",
-                    fontWeight: 400,
-                    fontStyle: "italic",
-                    fontFamily: "serif",
-                  }}
+                <CinematicText as="span" className="block" delay={0.16} stagger={0.075} blur={18}>
+                  Better Finds.
+                </CinematicText>
+                <CinematicText
+                  as="span"
+                  className="block font-normal italic text-[#5b4c3b] [font-family:serif]"
+                  delay={0.34}
+                  stagger={0.075}
+                  blur={18}
                 >
                   Less Guesswork.
-                </span>
+                </CinematicText>
               </h1>
 
               {/* Supporting Editorial Deck */}
@@ -434,6 +447,7 @@ export default function Hero() {
                   scrollYProgress={scrollYProgress}
                   reducedMotion={shouldReduceMotion ?? false}
                   mounted={mounted}
+                  compactViewport={compactViewport}
                 />
               ))}
             </div>
@@ -463,14 +477,80 @@ export default function Hero() {
  * Animated Product Component
  * Combines smooth page-load entrance stagger with reactive scroll mapping
  */
-function AnimatedProductItem({
+interface AnimatedProductItemProps {
+  config: ProductConfig;
+  scrollYProgress: MotionValue<number>;
+  reducedMotion: boolean;
+  mounted: boolean;
+  compactViewport: boolean;
+}
+
+function AnimatedProductItem(props: AnimatedProductItemProps) {
+  if (props.compactViewport && !props.reducedMotion) {
+    return <CompactAnimatedProductItem config={props.config} scrollYProgress={props.scrollYProgress} mounted={props.mounted} />;
+  }
+  return <FullAnimatedProductItem config={props.config} scrollYProgress={props.scrollYProgress} reducedMotion={props.reducedMotion} mounted={props.mounted} />;
+}
+
+function CompactAnimatedProductItem({
+  config,
+  scrollYProgress,
+  mounted,
+}: {
+  config: ProductConfig;
+  scrollYProgress: MotionValue<number>;
+  mounted: boolean;
+}) {
+  const [start, end] = config.scrollRange;
+  const arrivalX = config.entrance.x * 0.34;
+  const arrivalY = config.entrance.y * 0.48;
+  const scrollX = useTransform(scrollYProgress, [start, end], [arrivalX, 0]);
+  const scrollY = useTransform(scrollYProgress, [start, end], [arrivalY, 0]);
+
+  return (
+    <motion.div
+      style={{
+        position: "absolute",
+        left: config.rest.left,
+        top: config.rest.top,
+        x: scrollX,
+        y: scrollY,
+        scale: config.rest.scale,
+        rotate: config.rest.rotate,
+        zIndex: config.zIndex,
+        translateX: "-50%",
+        translateY: "-50%",
+      }}
+      initial={{ opacity: 0 }}
+      animate={mounted ? { opacity: 1 } : {}}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
+      <div
+        style={{ filter: "drop-shadow(0 7px 7px rgba(40, 30, 20, 0.18))" }}
+        className="pointer-events-none select-none"
+        title={`${config.name} — ${config.category}`}
+      >
+        <Image
+          src={config.src}
+          alt={config.name}
+          width={config.width}
+          height={config.height}
+          priority={config.id === "handbag"}
+          className="h-auto w-auto max-w-[130px] select-none sm:max-w-[200px] pointer-events-none"
+        />
+      </div>
+    </motion.div>
+  );
+}
+
+function FullAnimatedProductItem({
   config,
   scrollYProgress,
   reducedMotion,
   mounted,
 }: {
   config: ProductConfig;
-  scrollYProgress: any;
+  scrollYProgress: MotionValue<number>;
   reducedMotion: boolean;
   mounted: boolean;
 }) {
@@ -517,7 +597,7 @@ function AnimatedProductItem({
             alt={config.name}
             width={config.width}
             height={config.height}
-            priority
+            priority={config.id === "handbag"}
             className="w-auto h-auto max-w-[180px] sm:max-w-[240px] md:max-w-[320px] select-none"
           />
         </div>
@@ -571,7 +651,7 @@ function AnimatedProductItem({
           alt={config.name}
           width={config.width}
           height={config.height}
-          priority
+          priority={config.id === "handbag"}
           className="w-auto h-auto max-w-[130px] sm:max-w-[200px] md:max-w-[280px] lg:max-w-[330px] select-none pointer-events-none"
         />
       </div>
