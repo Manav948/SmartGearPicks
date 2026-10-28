@@ -6,51 +6,57 @@ import Brands from "@/components/Brands";
 import CurationProcess from "@/components/CurationProcess";
 import NewArrivals from "@/components/NewArrivals";
 import TopPicks from "@/components/TopPicks";
-import ProductGrid from "@/components/ProductGrid";
+import CuratedProducts from "@/components/CuratedProducts";
+import type { CategoryPreview } from "@/components/CuratedProducts";
 import Footer from "@/components/Footer";
+import { CATEGORY_MAP, type Product } from "@/components/ProductCard";
 
 export const revalidate = 0;
 
 export default async function HomePage() {
-  let products: {
-    id: string;
-    name: string;
-    description: string;
-    imageUrl: string;
-    affiliateLink: string;
-    category: string;
-    price: number | null;
-    clicks: number;
-    createdAt: Date;
-    productTags: { tag: string }[];
-  }[] = [];
+  let newArrivals: Product[] = [];
+  let topPicks: Product[] = [];
+  let categoryPreviews: CategoryPreview[] = [];
 
   try {
-    products = await prisma.product.findMany({
-      orderBy: { createdAt: "desc" },
-      select: {
-        id: true,
-        name: true,
-        description: true,
-        imageUrl: true,
-        affiliateLink: true,
-        category: true,
-        price: true,
-        clicks: true,
-        createdAt: true,
-        productTags: {
-          select: {
-            tag: true,
-          },
-        },
-      },
-    });
-  } catch (err) {
-    console.error("[HomePage] Failed to fetch products:", err);
-  }
+    const [arrivals, picks, availableCategories] = await Promise.all([
+      prisma.product.findMany({
+        orderBy: { createdAt: "desc" },
+        take: 3,
+        include: { productTags: { select: { tag: true } } },
+      }),
+      prisma.product.findMany({
+        orderBy: [{ clicks: "desc" }, { createdAt: "desc" }],
+        take: 4,
+        include: { productTags: { select: { tag: true } } },
+      }),
+      prisma.product.findMany({ distinct: ["category"], select: { category: true } }),
+    ]);
 
-  const newArrivals = products.slice(0, 3);
-  const topPicks = [...products].sort((a, b) => b.clicks - a.clicks).slice(0, 4);
+    newArrivals = arrivals;
+    topPicks = picks;
+    const categoryOrder = Object.keys(CATEGORY_MAP);
+    availableCategories.sort((a, b) => {
+      const aIndex = categoryOrder.indexOf(a.category);
+      const bIndex = categoryOrder.indexOf(b.category);
+      if (aIndex === -1 && bIndex === -1) return a.category.localeCompare(b.category);
+      if (aIndex === -1) return 1;
+      if (bIndex === -1) return -1;
+      return aIndex - bIndex;
+    });
+
+    categoryPreviews = await Promise.all(availableCategories.map(async ({ category }) => ({
+      category,
+      products: await prisma.product.findMany({
+        where: { category },
+        orderBy: { createdAt: "desc" },
+        take: 4,
+        include: { productTags: { select: { tag: true } } },
+      }),
+    })));
+  } catch (err) {
+    console.error("[HomePage] Failed to fetch product previews:", err);
+  }
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#f8f9ff", color: "#0b1c30" }}>
@@ -62,22 +68,7 @@ export default async function HomePage() {
       {newArrivals.length > 0 && <NewArrivals products={newArrivals} />}
       {topPicks.length > 0 && <TopPicks products={topPicks} />}
 
-      <main className="py-10 md:py-16 max-w-7xl mx-auto px-4 md:px-8" id="products">
-        <div className="flex justify-between items-end mb-8">
-          <div>
-            <h2
-              className="text-2xl font-medium tracking-tight"
-              style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30", letterSpacing: "-0.02em" }}
-            >
-              Curated Products
-            </h2>
-            <p className="mt-1 text-sm" style={{ color: "#464554" }}>
-              Every pick is tested and verified by our editorial team.
-            </p>
-          </div>
-        </div>
-        <ProductGrid initialProducts={products} />
-      </main>
+      <CuratedProducts categories={categoryPreviews} />
 
       <Footer />
     </div>

@@ -1,21 +1,17 @@
 "use client";
 
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import ProductCard, { Product, CATEGORY_MAP } from "./ProductCard";
 
 interface ProductGridProps {
   initialProducts: Product[];
   isAdmin?: boolean;
+  initialCategory?: string | null;
 }
 
-export default function ProductGrid({ initialProducts, isAdmin = false }: ProductGridProps) {
+export default function ProductGrid({ initialProducts, isAdmin = false, initialCategory = null }: ProductGridProps) {
   const [products, setProducts] = useState<Product[]>(initialProducts);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-
-  useEffect(() => {
-    setProducts(initialProducts);
-  }, [initialProducts]);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(initialCategory);
 
   const activeCategories = useMemo(() => {
     const cats = new Set(products.map((p) => p.category));
@@ -24,13 +20,10 @@ export default function ProductGrid({ initialProducts, isAdmin = false }: Produc
 
   const filteredProducts = useMemo(() => {
     return products.filter((product) => {
-      const matchesSearch =
-        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        product.description.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesCategory = !selectedCategory || product.category === selectedCategory;
-      return matchesSearch && matchesCategory;
+      return matchesCategory;
     });
-  }, [products, searchTerm, selectedCategory]);
+  }, [products, selectedCategory]);
 
   const handleDeleteSuccess = (id: string) => {
     setProducts((prev) => prev.filter((p) => p.id !== id));
