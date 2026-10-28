@@ -10,10 +10,11 @@ export const revalidate = 0;
 export default async function CatalogPage({
   searchParams,
 }: {
-  searchParams: Promise<{ category?: string | string[] }>;
+  searchParams: Promise<{ category?: string | string[]; q?: string | string[] }>;
 }) {
   const query = await searchParams;
   const requestedCategory = Array.isArray(query.category) ? query.category[0] : query.category;
+  const requestedSearch = Array.isArray(query.q) ? query.q[0] : query.q;
   let products: Product[] = [];
 
   try {
@@ -43,7 +44,12 @@ export default async function CatalogPage({
             <p className="text-sm text-[#6B6B6B]">Showing {CATEGORY_MAP[initialCategory] || initialCategory}</p>
           )}
         </div>
-        <ProductGrid initialProducts={products} initialCategory={initialCategory} />
+        <ProductGrid
+          key={`${initialCategory || "all"}:${requestedSearch || ""}`}
+          initialProducts={products}
+          initialCategory={initialCategory}
+          initialSearch={requestedSearch || ""}
+        />
       </main>
       <Footer />
     </div>
