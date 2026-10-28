@@ -9,6 +9,7 @@ import ProductDetailsRight from "@/components/ProductDetailsRight";
 import SimilarProducts from "@/components/SimilarProducts";
 import Footer from "@/components/Footer";
 import { CATEGORY_MAP } from "@/components/ProductCard";
+import PublicMotionProvider from "@/components/PublicMotionProvider";
 
 export const revalidate = 0;
 
@@ -109,6 +110,7 @@ export default async function ProductDetailPage({
   const categoryLabel = CATEGORY_MAP[product.category] || product.category;
 
   return (
+    <PublicMotionProvider>
     <div className="min-h-screen" style={{ backgroundColor: "#f8f9ff", color: "#0b1c30" }}>
       <ProductNavbar />
       <ProductBreadcrumb categoryLabel={categoryLabel} productName={product.name} />
@@ -143,5 +145,6 @@ export default async function ProductDetailPage({
 
       <Footer />
     </div>
+    </PublicMotionProvider>
   );
 }

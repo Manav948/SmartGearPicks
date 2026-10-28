@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProductGrid from "@/components/ProductGrid";
 import { CATEGORY_MAP, Product } from "@/components/ProductCard";
+import PublicMotionProvider from "@/components/PublicMotionProvider";
 
 export const revalidate = 0;
 
@@ -28,6 +29,7 @@ export default async function CatalogPage({
   const initialCategory = requestedCategory && categories.has(requestedCategory) ? requestedCategory : null;
 
   return (
+    <PublicMotionProvider>
     <div className="min-h-screen bg-[#F7F6F2] text-[#151515]">
       <Navbar />
       <main id="products" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 md:py-16 lg:px-8">
@@ -45,5 +47,6 @@ export default async function CatalogPage({
       </main>
       <Footer />
     </div>
+    </PublicMotionProvider>
   );
 }

@@ -10,6 +10,7 @@ import CuratedProducts from "@/components/CuratedProducts";
 import type { CategoryPreview } from "@/components/CuratedProducts";
 import Footer from "@/components/Footer";
 import { CATEGORY_MAP, type Product } from "@/components/ProductCard";
+import PublicMotionProvider from "@/components/PublicMotionProvider";
 
 export const revalidate = 0;
 
@@ -59,6 +60,7 @@ export default async function HomePage() {
   }
 
   return (
+    <PublicMotionProvider>
     <div className="min-h-screen" style={{ backgroundColor: "#f8f9ff", color: "#0b1c30" }}>
       <Navbar />
       <Hero />
@@ -72,5 +74,6 @@ export default async function HomePage() {
 
       <Footer />
     </div>
+    </PublicMotionProvider>
   );
 }

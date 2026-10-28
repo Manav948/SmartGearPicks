@@ -217,6 +217,7 @@ export default function Hero() {
   return (
     <section
       ref={containerRef}
+      data-hero-section
       className="relative w-full"
       style={{
         // 200vh gives a luxurious, unhurried, comfortable scroll journey without trapping the user
@@ -231,7 +232,7 @@ export default function Hero() {
         } w-full overflow-hidden flex flex-col justify-between`}
       >
         {/* Layer 1: Architectural Backdrop with warm ivory sunlight */}
-        <div className="absolute inset-0 pointer-events-none z-0">
+        <div data-hero-parallax className="absolute inset-0 pointer-events-none z-0">
           <Image
             src="/hero-extracted/backdrop.png"
             alt="Warm sunlit architectural studio background"

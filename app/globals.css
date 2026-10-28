@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "lenis/dist/lenis.css";
 
 /* ───────────────────────────────────────────────────────────────
    Pickora Design System — Stitch: project/1847021904551923770
@@ -111,7 +112,8 @@
   html {
     font-family: 'Inter', system-ui, sans-serif;
     color-scheme: light;
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
+    scroll-padding-top: 5rem;
   }
 
   body {

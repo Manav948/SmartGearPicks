@@ -14,8 +14,8 @@ export default function NewArrivals({ products }: NewArrivalsProps) {
   const remainingArrivals = products.slice(1, 3);
 
   return (
-    <section className="py-12 md:py-20 max-w-[1280px] mx-auto px-4 md:px-8 border-b" id="new-arrivals" style={{ borderColor: "rgba(199,196,215,0.3)" }}>
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+    <section data-scroll-reveal className="py-12 md:py-20 max-w-[1280px] mx-auto px-4 md:px-8 border-b" id="new-arrivals" style={{ borderColor: "rgba(199,196,215,0.3)" }}>
+      <div data-scroll-reveal-item className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
         <div>
           <div
             className="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider mb-3"
@@ -39,7 +39,7 @@ export default function NewArrivals({ products }: NewArrivalsProps) {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-auto md:h-[440px]">
+      <div data-scroll-reveal-item className="grid grid-cols-1 md:grid-cols-2 gap-6 h-auto md:h-[440px]">
         {firstArrival && (
           <Link
             href={`/product/${firstArrival.id}`}

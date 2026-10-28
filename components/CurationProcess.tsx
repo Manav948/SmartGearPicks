@@ -27,6 +27,7 @@ export default function CurationProcess() {
 
   return (
     <section
+      data-scroll-reveal
       id="how-we-curate"
       className="py-16 md:py-24 border-y relative overflow-hidden"
       style={{
@@ -35,7 +36,7 @@ export default function CurationProcess() {
       }}
     >
       <div className="max-w-7xl mx-auto px-4 md:px-8">
-        <div className="max-w-2xl mb-12 md:mb-16">
+        <div data-scroll-reveal-item className="max-w-2xl mb-12 md:mb-16">
           <span
             className="text-xs font-semibold tracking-widest uppercase block mb-3"
             style={{
@@ -60,7 +61,7 @@ export default function CurationProcess() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+        <div data-scroll-reveal-item className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {pillars.map((item, idx) => {
             const Icon = item.icon;
             return (

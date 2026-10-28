@@ -7,6 +7,7 @@ import { LegalSidebar, LegalSectionItem } from "@/components/legal/LegalSidebar"
 import { LegalSection } from "@/components/legal/LegalSection";
 import { LegalHighlightBox } from "@/components/legal/LegalHighlightBox";
 import { LegalContactCard } from "@/components/legal/LegalContactCard";
+import PublicMotionProvider from "@/components/PublicMotionProvider";
 
 export const metadata: Metadata = {
   title: "Terms of Service – SmartGearPicks",
@@ -30,6 +31,7 @@ export default function TermsOfServicePage() {
   ];
 
   return (
+    <PublicMotionProvider>
     <div className="min-h-screen flex flex-col font-sans" style={{ backgroundColor: "#f8f9ff", color: "#0b1c30" }}>
       <Navbar />
 
@@ -134,5 +136,6 @@ export default function TermsOfServicePage() {
 
       <Footer />
     </div>
+    </PublicMotionProvider>
   );
 }
