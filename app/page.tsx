@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Brands from "@/components/Brands";
+import CurationProcess from "@/components/CurationProcess";
 import NewArrivals from "@/components/NewArrivals";
 import TopPicks from "@/components/TopPicks";
 import ProductGrid from "@/components/ProductGrid";
@@ -56,6 +57,7 @@ export default async function HomePage() {
       <Navbar />
       <Hero />
       <Brands />
+      <CurationProcess />
 
       {newArrivals.length > 0 && <NewArrivals products={newArrivals} />}
       {topPicks.length > 0 && <TopPicks products={topPicks} />}
