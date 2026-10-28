@@ -1,6 +1,9 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { motion, useReducedMotion } from "framer-motion";
 import { Product, CATEGORY_MAP } from "@/components/ProductCard";
 
 interface TopPicksProps {
@@ -8,125 +11,82 @@ interface TopPicksProps {
 }
 
 export default function TopPicks({ products }: TopPicksProps) {
+  const reduceMotion = useReducedMotion();
   if (products.length === 0) return null;
 
   return (
-    <section className="py-12 md:py-20 max-w-[1280px] mx-auto px-4 md:px-8 border-b" id="trending" style={{ borderColor: "rgba(199,196,215,0.3)" }}>
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+    <section className="mx-auto max-w-7xl border-b border-[#dedbd2] px-4 py-14 sm:px-6 md:py-20 lg:px-8" id="trending">
+      <motion.div
+        initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.45, ease: "easeOut" }}
+        className="mb-8 flex flex-col gap-5 sm:mb-10 sm:flex-row sm:items-end sm:justify-between"
+      >
         <div>
-          <div
-            className="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider mb-3"
-            style={{
-              backgroundColor: "rgba(11,122,94,0.08)",
-              color: "#0b7a5e",
-              border: "1px solid rgba(11,122,94,0.15)",
-            }}
-          >
-            Popular Choice
-          </div>
-          <h2
-            className="text-3xl font-semibold tracking-tight"
-            style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30", letterSpacing: "-0.03em" }}
-          >
-            Top Picks
+          <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#827f77]">The Edit</p>
+          <h2 className="font-display text-3xl font-medium tracking-[-0.04em] text-[#171714] sm:text-4xl">
+            Top Recommendations
           </h2>
-          <p className="text-sm mt-1.5" style={{ color: "#464554" }}>
-            Our community&apos;s most viewed and requested curations.
+          <p className="mt-2 max-w-xl text-sm leading-6 text-[#6c6a64]">
+            Standout finds selected for quality, usefulness, and everyday appeal.
           </p>
         </div>
-      </div>
+        <Link
+          href="#products"
+          className="inline-flex min-h-10 w-fit items-center gap-2 border-b border-[#aaa69c] pb-1 text-sm font-medium text-[#25241f] transition-colors hover:border-[#171714] hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#625e54]"
+        >
+          View all <span aria-hidden="true">↗</span>
+        </Link>
+      </motion.div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {products.map((product) => {
+      <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-5 md:grid-cols-3 md:gap-y-10 lg:grid-cols-4 lg:gap-x-6">
+        {products.map((product, index) => {
           const categoryLabel = CATEGORY_MAP[product.category] || product.category;
-          const clicksCount = product.clicks ?? 0;
           return (
-            <div
+            <motion.article
               key={product.id}
-              className="group relative flex flex-col bg-white rounded-xl overflow-hidden border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-[#4648d4]/30"
-              style={{
-                borderColor: "rgba(199,196,215,0.35)",
-                boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
-              }}
+              initial={reduceMotion ? false : { opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.4, delay: reduceMotion ? 0 : index * 0.07, ease: "easeOut" }}
+              className="group flex min-w-0 flex-col"
             >
               <Link
                 href={`/product/${product.id}`}
-                className="relative block overflow-hidden shrink-0"
-                style={{ height: "240px", backgroundColor: "#f0f0f5", position: "relative" }}
+                aria-label={`View ${product.name}`}
+                className="relative mb-4 block aspect-[4/5] overflow-hidden border border-[#e8e5de] bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#625e54]"
               >
                 <Image
                   src={product.imageUrl}
                   alt={product.name}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-[1.05]"
+                  sizes="(max-width: 639px) 45vw, (max-width: 1023px) 30vw, 23vw"
+                  className="object-contain p-3 transition-transform duration-500 ease-out group-hover:scale-[1.025] motion-reduce:transition-none"
                   unoptimized
                 />
-
-                {clicksCount > 0 && (
-                  <div
-                    className="absolute top-2.5 right-2.5 flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold shadow-sm"
-                    style={{
-                      backgroundColor: "rgba(255, 255, 255, 0.94)",
-                      backdropFilter: "blur(6px)",
-                      color: "#4648d4",
-                      border: "1px solid rgba(70,72,212,0.15)",
-                    }}
-                  >
-                    <span className="material-symbols-outlined text-[12px] font-bold" style={{ fontVariationSettings: "'FILL' 1" }}>
-                      trending_up
-                    </span>
-                    <span>{clicksCount} views</span>
-                  </div>
-                )}
               </Link>
 
-              <div className="flex flex-col flex-1 p-4 gap-2">
-                <div>
-                  <span
-                    className="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full"
-                    style={{
-                      backgroundColor: "rgba(70,72,212,0.07)",
-                      color: "#4648d4",
-                      letterSpacing: "0.05em",
-                      border: "1px solid rgba(70,72,212,0.14)",
-                    }}
-                  >
-                    {categoryLabel}
-                  </span>
-                </div>
-
-                <Link href={`/product/${product.id}`}>
-                  <h3
-                    className="font-semibold leading-snug line-clamp-1 group-hover:text-[#4648d4] transition-colors"
-                    style={{
-                      fontFamily: "Geist, system-ui, sans-serif",
-                      fontSize: "14px",
-                      color: "#0d0d14",
-                      letterSpacing: "-0.015em",
-                    }}
-                  >
+              <div className="flex flex-1 flex-col">
+                <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.14em] text-[#817e75]">{categoryLabel}</p>
+                <Link href={`/product/${product.id}`} className="focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#625e54]">
+                  <h3 className="line-clamp-2 min-h-[2.75rem] text-sm font-medium leading-[1.4] tracking-[-0.015em] text-[#22211d] transition-colors group-hover:text-[#625e54] sm:text-[15px]">
                     {product.name}
                   </h3>
                 </Link>
-
-                <p className="text-xs leading-relaxed line-clamp-2 flex-1" style={{ color: "#767586" }}>
-                  {product.description}
-                </p>
-
-                {product.price != null && (
-                  <p
-                    className="font-bold text-[15px]"
-                    style={{
-                      fontFamily: "Geist, sans-serif",
-                      color: "#0d0d14",
-                      letterSpacing: "-0.02em",
-                    }}
-                  >
-                    ₹{product.price.toLocaleString("en-IN")}
+                <div className="mt-3 flex flex-1 flex-col justify-end gap-4 border-t border-[#eeece7] pt-3">
+                  <p className="text-sm font-semibold text-[#25241f]">
+                    {product.price != null ? `₹${product.price.toLocaleString("en-IN")}` : <span className="font-normal text-[#77746d]">Price unavailable</span>}
                   </p>
-                )}
+                  <Link
+                    href={`/api/redirect/${product.id}`}
+                    className="inline-flex min-h-10 items-center justify-between border border-[#d9d6ce] px-3 text-xs font-medium text-[#282721] transition-colors hover:border-[#25241f] hover:bg-[#25241f] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#625e54]"
+                  >
+                    View deal <span aria-hidden="true">↗</span>
+                  </Link>
+                </div>
               </div>
-            </div>
+            </motion.article>
           );
         })}
       </div>
