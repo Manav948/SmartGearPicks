@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import ProductCard, { Product, CATEGORY_MAP } from "./ProductCard";
+import RecommendationProductCard from "@/components/RecommendationProductCard";
 import { Search } from "lucide-react";
 
 interface ProductGridProps {
@@ -11,20 +12,26 @@ interface ProductGridProps {
   initialSearch?: string;
 }
 
-export default function ProductGrid({ initialProducts, isAdmin = false, initialCategory = null, initialSearch = "" }: ProductGridProps) {
+export default function ProductGrid({
+  initialProducts,
+  isAdmin = false,
+  initialCategory = null,
+  initialSearch = "",
+}: ProductGridProps) {
   const [products, setProducts] = useState<Product[]>(initialProducts);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(initialCategory);
   const [searchTerm, setSearchTerm] = useState(initialSearch);
 
-  const activeCategories = useMemo(() => {
-    const cats = new Set(products.map((p) => p.category));
-    return Array.from(cats);
-  }, [products]);
+  const activeCategories = useMemo(
+    () => Array.from(new Set(products.map((product) => product.category))),
+    [products]
+  );
 
   const filteredProducts = useMemo(() => {
     return products.filter((product) => {
       const query = searchTerm.trim().toLowerCase();
-      const matchesSearch = !query ||
+      const matchesSearch =
+        !query ||
         product.name.toLowerCase().includes(query) ||
         product.description.toLowerCase().includes(query) ||
         (CATEGORY_MAP[product.category] || product.category).toLowerCase().includes(query);
@@ -34,8 +41,11 @@ export default function ProductGrid({ initialProducts, isAdmin = false, initialC
   }, [products, selectedCategory, searchTerm]);
 
   const handleDeleteSuccess = (id: string) => {
-    setProducts((prev) => prev.filter((p) => p.id !== id));
+    setProducts((previous) => previous.filter((product) => product.id !== id));
   };
+
+  const categoryButtonClass =
+    "shrink-0 whitespace-nowrap rounded-full border px-4 py-2 text-xs font-semibold transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4648d4]";
 
   return (
     <div className="space-y-6">
@@ -44,79 +54,82 @@ export default function ProductGrid({ initialProducts, isAdmin = false, initialC
           type="button"
           aria-pressed={!selectedCategory}
           onClick={() => setSelectedCategory(null)}
-          className="px-4 py-1.5 rounded-full text-xs font-semibold border transition-all duration-200 whitespace-nowrap shrink-0"
+          className={categoryButtonClass}
           style={{
             fontFamily: "Geist, sans-serif",
-            backgroundColor: !selectedCategory ? "#0f172a" : "#ffffff",
+            backgroundColor: !selectedCategory ? "#4648d4" : "#ffffff",
             color: !selectedCategory ? "#ffffff" : "#464554",
-            borderColor: !selectedCategory ? "#0f172a" : "#c7c4d7",
+            borderColor: !selectedCategory ? "#4648d4" : "#c7c4d7",
           }}
         >
           All Curations
         </button>
-        {activeCategories.map((cat) => (
-          <button
-            key={cat}
-            type="button"
-            aria-pressed={selectedCategory === cat}
-            onClick={() => setSelectedCategory(cat)}
-            className="px-4 py-1.5 rounded-full text-xs font-semibold border transition-all duration-200 whitespace-nowrap shrink-0"
-            style={{
-              fontFamily: "Geist, sans-serif",
-              backgroundColor: selectedCategory === cat ? "#0f172a" : "#ffffff",
-              color: selectedCategory === cat ? "#ffffff" : "#464554",
-              borderColor: selectedCategory === cat ? "#0f172a" : "#c7c4d7",
-            }}
-          >
-            {CATEGORY_MAP[cat] || cat}
-          </button>
-        ))}
+        {activeCategories.map((category) => {
+          const selected = selectedCategory === category;
+          return (
+            <button
+              key={category}
+              type="button"
+              aria-pressed={selected}
+              onClick={() => setSelectedCategory(category)}
+              className={categoryButtonClass}
+              style={{
+                fontFamily: "Geist, sans-serif",
+                backgroundColor: selected ? "#4648d4" : "#ffffff",
+                color: selected ? "#ffffff" : "#464554",
+                borderColor: selected ? "#4648d4" : "#c7c4d7",
+              }}
+            >
+              {CATEGORY_MAP[category] || category}
+            </button>
+          );
+        })}
 
-       
-        <label className="ml-auto flex min-h-10 min-w-[220px] flex-1 items-center gap-2 border border-[#E5E1DA] bg-white px-3 text-[#6B6B6B] focus-within:border-[#a99a86] sm:max-w-xs">
-          <Search size={16} aria-hidden="true" />
+        <label className="ml-auto flex min-h-11 min-w-[220px] flex-1 items-center gap-2 rounded-xl border border-[#c7c4d7] bg-white px-3 text-[#686879] transition-colors focus-within:border-[#4648d4] focus-within:ring-2 focus-within:ring-[#4648d4]/10 sm:max-w-xs">
+          <Search size={16} aria-hidden="true" className="text-[#4648d4]" />
           <span className="sr-only">Search products</span>
           <input
             type="search"
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
             placeholder="Search products"
-            className="min-w-0 flex-1 bg-transparent text-sm text-[#151515] outline-none placeholder:text-[#88847d]"
+            className="min-w-0 flex-1 bg-transparent text-sm text-[#0b1c30] outline-none placeholder:text-[#8a8999]"
           />
         </label>
       </div>
 
-   
       {filteredProducts.length === 0 ? (
-        <div
-          className="text-center py-20 rounded-2xl border"
-          style={{ backgroundColor: "#ffffff", borderColor: "#e2e2e8" }}
-        >
+        <div className="rounded-2xl border border-[#c7c4d7]/60 bg-white py-20 text-center shadow-sm">
           <span
-            className="material-symbols-outlined text-[56px] mb-4 block"
-            style={{ color: "#c7c4d7", fontVariationSettings: "'FILL' 0" }}
+            className="material-symbols-outlined mb-4 block text-[56px] text-[#c7c4d7]"
+            style={{ fontVariationSettings: "'FILL' 0" }}
           >
             inventory_2
           </span>
           <h3 className="font-semibold text-lg" style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30" }}>
             No products found
           </h3>
-          <p className="text-sm mt-2" style={{ color: "#767586" }}>
+          <p className="mt-2 text-sm text-[#767586]">
             Try resetting your filters or search criteria.
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
-          {filteredProducts.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              isAdmin={isAdmin}
-              onDeleteSuccess={handleDeleteSuccess}
-            />
-          ))}
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-5 lg:grid-cols-4 lg:gap-6">
+          {filteredProducts.map((product, index) =>
+            isAdmin ? (
+              <ProductCard
+                key={product.id}
+                product={product}
+                isAdmin
+                onDeleteSuccess={handleDeleteSuccess}
+              />
+            ) : (
+              <RecommendationProductCard key={product.id} product={product} index={index} />
+            )
+          )}
         </div>
       )}
     </div>
   );
 }
+

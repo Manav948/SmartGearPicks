@@ -261,8 +261,7 @@ const DriftWall = ({
   }, [release]);
 
   const maskStyle =
-    'radial-gradient(ellipse 78% 82% at 50% 46%, #000 var(--dw-edge), transparent 100%), ' +
-    'linear-gradient(to top, #000 var(--dw-edge), transparent 100%)';
+    'linear-gradient(to bottom, transparent 0%, #000 var(--dw-edge), #000 calc(100% - var(--dw-edge)), transparent 100%)';
 
   const cssVars = useMemo<CSSProperties>(
     () =>
@@ -393,4 +392,6 @@ const DriftWall = ({
 };
 
 export default DriftWall;
+
+
 
