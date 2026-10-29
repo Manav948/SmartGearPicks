@@ -89,9 +89,9 @@ export default async function HomePage() {
         {items.length > 0 && (
           <section
             aria-label="Moving wall of products from the collection"
-            className="h-[100svh] min-h-[520px] w-full overflow-hidden bg-[#171512]"
+            data-scroll-reveal className="h-[100svh] min-h-[520px] w-full overflow-hidden bg-[#f8f9ff]"
           >
-            <div className="h-full w-full md:hidden">
+            <div data-scroll-reveal-item className="h-full w-full md:hidden">
               <DriftWall
                 items={items}
                 columns={Math.min(4, items.length)}
@@ -111,11 +111,11 @@ export default async function HomePage() {
                 fade={0.92}
                 dim={0.96}
                 overlayOpacity={0.12}
-                overlayColor="#211d18"
+                overlayColor="#4648d4"
                 className="h-full w-full"
               />
             </div>
-            <div className="hidden h-full w-full md:block">
+            <div data-scroll-reveal-item className="hidden h-full w-full md:block">
               <DriftWall
                 items={items}
                 columns={Math.min(6, items.length)}
@@ -135,7 +135,7 @@ export default async function HomePage() {
                 fade={0.92}
                 dim={0.96}
                 overlayOpacity={0.12}
-                overlayColor="#211d18"
+                overlayColor="#4648d4"
                 className="h-full w-full"
               />
             </div>
@@ -146,4 +146,6 @@ export default async function HomePage() {
     </PublicMotionProvider>
   );
 }
+
+
 

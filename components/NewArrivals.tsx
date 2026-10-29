@@ -8,13 +8,19 @@ interface NewArrivalsProps {
 export default function NewArrivals({ products }: NewArrivalsProps) {
   if (products.length === 0) return null;
 
+  const formatCategory = (category: string) =>
+    category
+      .replace(/_/g, " ")
+      .toLowerCase()
+      .replace(/\b\w/g, (letter) => letter.toUpperCase());
+
   const galleryItems = products
     .filter((product) => Boolean(product.imageUrl))
     .map((product) => ({
       image: product.imageUrl,
-      text: product.name,
-      description: product.description,
-      alt: product.name,
+      text: formatCategory(product.category),
+      description: [product.name, product.description].filter(Boolean).join(" — "),
+      alt: `${formatCategory(product.category)}: ${product.name}`,
     }));
 
   if (galleryItems.length === 0) return null;
@@ -23,11 +29,12 @@ export default function NewArrivals({ products }: NewArrivalsProps) {
     <section
       id="new-arrivals"
       aria-labelledby="new-arrivals-heading"
+      data-scroll-reveal
       className="overflow-hidden py-12 md:py-16"
       style={{ backgroundColor: "#f8f9ff", color: "#0b1c30" }}
     >
       <div className="mx-auto max-w-[1280px] px-4 md:px-8">
-        <div className="mb-2 text-center">
+        <div data-scroll-reveal-item className="mb-2 text-center">
           <span className="inline-flex items-center rounded-full border border-indigo-200/70 bg-indigo-50 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-[#4648d4]">
             Fresh Finds
           </span>
@@ -44,7 +51,7 @@ export default function NewArrivals({ products }: NewArrivalsProps) {
         </div>
       </div>
 
-      <div className="relative mx-auto mt-4 h-[420px] w-full md:mt-6 md:h-[560px]">
+      <div data-scroll-reveal-item className="relative mx-auto mt-4 h-[420px] w-full md:mt-6 md:h-[560px]">
         <CircularGallery
           items={galleryItems}
           bend={2.5}
@@ -70,3 +77,6 @@ export default function NewArrivals({ products }: NewArrivalsProps) {
     </section>
   );
 }
+
+
+
