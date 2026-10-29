@@ -69,12 +69,11 @@ export default function StatCards({
       displayValue: totalProducts > 1000 ? `${(totalProducts / 1000).toFixed(1)}k` : totalProducts,
       isNumber: true,
       icon: "inventory_2",
-      sub: "live listings",
+      sub: "in your collection",
       accent: "#4648d4",
       bg: "linear-gradient(135deg, rgba(70,72,212,0.1) 0%, rgba(70,72,212,0.04) 100%)",
       iconBg: "rgba(70,72,212,0.12)",
-      trend: "+2 this week",
-      trendUp: true,
+      trend: "catalog total",
     },
     {
       label: "Total Clicks",
@@ -82,12 +81,11 @@ export default function StatCards({
       displayValue: totalClicks > 1000 ? `${(totalClicks / 1000).toFixed(1)}k` : totalClicks,
       isNumber: true,
       icon: "touch_app",
-      sub: "affiliate traffic",
-      accent: "#059669",
-      bg: "linear-gradient(135deg, rgba(5,150,105,0.1) 0%, rgba(5,150,105,0.04) 100%)",
-      iconBg: "rgba(5,150,105,0.12)",
+      sub: "tracked visits",
+      accent: "#3f55bd",
+      bg: "linear-gradient(135deg, rgba(63,85,189,0.1) 0%, rgba(63,85,189,0.04) 100%)",
+      iconBg: "rgba(63,85,189,0.12)",
       trend: "all time",
-      trendUp: true,
     },
     {
       label: "Avg Clicks / Product",
@@ -95,12 +93,11 @@ export default function StatCards({
       displayValue: avgClicksPerProduct,
       isNumber: true,
       icon: "analytics",
-      sub: "per listing",
-      accent: "#d97706",
-      bg: "linear-gradient(135deg, rgba(217,119,6,0.1) 0%, rgba(217,119,6,0.04) 100%)",
-      iconBg: "rgba(217,119,6,0.12)",
-      trend: "engagement rate",
-      trendUp: avgClicksPerProduct > 5,
+      sub: "per product",
+      accent: "#6366f1",
+      bg: "linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(99,102,241,0.04) 100%)",
+      iconBg: "rgba(99,102,241,0.12)",
+      trend: "per product",
     },
     {
       label: "Categories",
@@ -108,12 +105,11 @@ export default function StatCards({
       displayValue: categoriesCount,
       isNumber: true,
       icon: "category",
-      sub: "active categories",
-      accent: "#7c3aed",
-      bg: "linear-gradient(135deg, rgba(124,58,237,0.1) 0%, rgba(124,58,237,0.04) 100%)",
-      iconBg: "rgba(124,58,237,0.12)",
-      trend: "product types",
-      trendUp: true,
+      sub: "currently represented",
+      accent: "#818cf8",
+      bg: "linear-gradient(135deg, rgba(129,140,248,0.1) 0%, rgba(129,140,248,0.04) 100%)",
+      iconBg: "rgba(129,140,248,0.12)",
+      trend: "represented categories",
     },
   ];
 
@@ -122,7 +118,7 @@ export default function StatCards({
       ref={ref}
       className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
     >
-      {stats.map(({ label, rawValue, displayValue, isNumber, icon, sub, accent, bg, iconBg, trend, trendUp }, i) => (
+      {stats.map(({ label, rawValue, displayValue, isNumber, icon, sub, accent, bg, iconBg, trend }, i) => (
         <div
           key={label}
           className="relative rounded-[18px] p-5 border flex flex-col gap-4 group overflow-hidden cursor-default"
@@ -170,7 +166,7 @@ export default function StatCards({
                 letterSpacing: "0.04em",
               }}
             >
-              {trendUp ? "↑" : "↓"} {trend}
+              {trend}
             </span>
           </div>
 
@@ -208,3 +204,6 @@ export default function StatCards({
     </section>
   );
 }
+
+
+

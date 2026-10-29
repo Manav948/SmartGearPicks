@@ -75,24 +75,22 @@ export default function ProductCard({
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="flex flex-col bg-white rounded-xl overflow-hidden transition-all duration-300 relative"
+      className="group flex min-w-0 flex-col overflow-hidden transition-all duration-300 relative"
       style={{
-        border: "1px solid #e8e8f0",
-        boxShadow: hovered
-          ? "0 8px 24px -4px rgba(0,0,0,0.10), 0 2px 8px -2px rgba(0,0,0,0.04)"
-          : "0 1px 3px rgba(0,0,0,0.04)",
-        transform: hovered ? "translateY(-3px)" : "translateY(0)",
+        border: "none",
+        boxShadow: "none",
+        transform: "none",
       }}
     >
       
-      <div className="relative overflow-hidden shrink-0" style={{ height: "260px", backgroundColor: "#f0f0f5" }}>
+      <div className="relative aspect-[4/5] overflow-hidden shrink-0 border border-[#e8e5de] bg-white" style={{ position: "relative" }}>
         <Link href={`/product/${product.id}`} className="block w-full h-full relative" style={{ position: "relative" }}>
           <Image
             src={product.imageUrl}
             alt={product.name}
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            className="object-cover transition-transform duration-500"
+            className="object-contain p-3 transition-transform duration-500"
             style={{ transform: hovered ? "scale(1.06)" : "scale(1)" }}
             priority
             unoptimized
@@ -227,7 +225,7 @@ export default function ProductCard({
             style={{
               fontFamily: "Geist, system-ui, sans-serif",
               fontSize: "15px",
-              color: hovered ? "#4648d4" : "#0d0d14",
+              color: hovered ? "#625e54" : "#22211d",
               letterSpacing: "-0.015em",
               lineHeight: "1.35",
             }}
@@ -251,7 +249,7 @@ export default function ProductCard({
             style={{
               fontFamily: "Geist, sans-serif",
               fontSize: "16px",
-              color: "#0d0d14",
+              color: "#25241f",
               letterSpacing: "-0.02em",
               marginTop: "2px",
             }}
@@ -265,10 +263,10 @@ export default function ProductCard({
           href={`/api/redirect/${product.id}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-1 w-full flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-xs font-semibold transition-all active:scale-[0.98]"
+          className="mt-1 inline-flex min-h-10 w-full items-center justify-center gap-1.5 border border-[#d9d6ce] px-3 text-xs font-medium transition-colors hover:border-[#25241f] hover:bg-[#25241f] hover:text-white"
           style={{
-            backgroundColor: "#0f172a",
-            color: "#ffffff",
+            backgroundColor: "transparent",
+            color: "#282721",
             fontFamily: "Geist, sans-serif",
             letterSpacing: "0.01em",
           }}
@@ -280,3 +278,6 @@ export default function ProductCard({
     </div>
   );
 }
+
+
+

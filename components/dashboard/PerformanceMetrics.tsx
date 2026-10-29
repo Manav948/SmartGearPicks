@@ -53,7 +53,7 @@ export default function PerformanceMetrics({
       ref={ref}
       className="grid grid-cols-1 lg:grid-cols-3 gap-5"
     >
-      {/* Click Performance Chart */}
+      {/* Product engagement Chart */}
       <div
         className="lg:col-span-2 rounded-[20px] p-6 border flex flex-col bg-white overflow-hidden relative"
         style={{
@@ -85,7 +85,7 @@ export default function PerformanceMetrics({
               className="text-xl font-bold tracking-tight text-[#0b1c30]"
               style={{ fontFamily: "Geist, sans-serif", letterSpacing: "-0.025em" }}
             >
-              Click Performance
+              Product engagement
             </h2>
           </div>
           {chartProducts.length > 0 && (
@@ -94,7 +94,7 @@ export default function PerformanceMetrics({
                 className="w-2 h-2 rounded-full"
                 style={{ background: "linear-gradient(135deg, #4648d4, #818cf8)", boxShadow: "0 0 6px rgba(70,72,212,0.5)" }}
               />
-              <span className="text-[10px] text-[#767586] font-medium">Affiliate clicks</span>
+              <span className="text-[10px] text-[#767586] font-medium">Tracked product clicks</span>
             </div>
           )}
         </div>
@@ -204,7 +204,7 @@ export default function PerformanceMetrics({
             className="text-xl font-bold tracking-tight text-[#0b1c30]"
             style={{ fontFamily: "Geist, sans-serif", letterSpacing: "-0.025em" }}
           >
-            By Category
+            Catalog mix
           </h2>
         </div>
 
@@ -221,7 +221,7 @@ export default function PerformanceMetrics({
               .sort((a, b) => b[1] - a[1])
               .map(([cat, count], idx) => {
                 const pct = Math.round((count / totalProducts) * 100);
-                const catColors = ["#4648d4", "#7c3aed", "#059669", "#d97706", "#dc2626", "#0891b2", "#be185d"];
+                const catColors = ["#4648d4", "#5b63df", "#7179e9", "#818cf8"];
                 const color = catColors[idx % catColors.length];
                 return (
                   <div key={cat} className="group/cat">
@@ -265,3 +265,4 @@ export default function PerformanceMetrics({
     </section>
   );
 }
+

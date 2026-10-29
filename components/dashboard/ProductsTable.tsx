@@ -27,25 +27,6 @@ function useInView(threshold = 0.05) {
   return { ref, inView };
 }
 
-const CAT_COLORS: Record<string, { bg: string; text: string }> = {
-  ELECTRONICS:        { bg: "rgba(70,72,212,0.08)",   text: "#4648d4" },
-  FASHION:            { bg: "rgba(190,24,93,0.08)",    text: "#be185d" },
-  BEAUTY_PERSONAL_CARE: { bg: "rgba(217,119,6,0.08)", text: "#d97706" },
-  HEALTH_FITNESS:     { bg: "rgba(5,150,105,0.08)",   text: "#059669" },
-  BOOKS_EDUCATION:    { bg: "rgba(124,58,237,0.08)",  text: "#7c3aed" },
-  HOME_KITCHEN:       { bg: "rgba(8,145,178,0.08)",   text: "#0891b2" },
-  GAMING:             { bg: "rgba(220,38,38,0.08)",   text: "#dc2626" },
-  SPORTS_OUTDOORS:    { bg: "rgba(5,150,105,0.08)",   text: "#059669" },
-  TOYS_KIDS:          { bg: "rgba(245,158,11,0.08)",  text: "#f59e0b" },
-  AUTOMOTIVE:         { bg: "rgba(100,116,139,0.08)", text: "#475569" },
-  OFFICE_PRODUCTIVITY:{ bg: "rgba(70,72,212,0.08)",   text: "#4648d4" },
-  PET_SUPPLIES:       { bg: "rgba(234,88,12,0.08)",   text: "#ea580c" },
-  FOOD_BEVERAGES:     { bg: "rgba(22,163,74,0.08)",   text: "#16a34a" },
-  GIFT_CATEGORIES:    { bg: "rgba(219,39,119,0.08)",  text: "#db2777" },
-  TRAVEL:             { bg: "rgba(8,145,178,0.08)",   text: "#0891b2" },
-  CREATOR_ESSENTIALS: { bg: "rgba(124,58,237,0.08)",  text: "#7c3aed" },
-};
-
 export default function ProductsTable({ products, categoryMap }: ProductsTableProps) {
   const { ref, inView } = useInView();
   const [search, setSearch] = useState("");
@@ -81,13 +62,13 @@ export default function ProductsTable({ products, categoryMap }: ProductsTablePr
             className="text-[10px] font-bold uppercase tracking-widest mb-0.5 text-[#767586]"
             style={{ letterSpacing: "0.1em" }}
           >
-            📦 Catalog
+            📦 Product library
           </p>
           <h2
             className="text-xl font-bold tracking-tight text-[#0b1c30]"
             style={{ fontFamily: "Geist, sans-serif", letterSpacing: "-0.025em" }}
           >
-            Affiliate Items
+            Curated products
             <span className="ml-2 text-sm font-medium text-[#767586]">({products.length})</span>
           </h2>
         </div>
@@ -124,7 +105,7 @@ export default function ProductsTable({ products, categoryMap }: ProductsTablePr
             <span className="material-symbols-outlined text-[15px]" style={{ fontVariationSettings: "'FILL' 0" }}>
               add
             </span>
-            Add Item
+            Add product
           </Link>
         </div>
       </div>
@@ -172,7 +153,7 @@ export default function ProductsTable({ products, categoryMap }: ProductsTablePr
                 </tr>
               ) : (
                 filtered.map((product, rowIdx) => {
-                  const catStyle = CAT_COLORS[product.category] || { bg: "rgba(70,72,212,0.08)", text: "#4648d4" };
+                  const catStyle = { bg: "rgba(70,72,212,0.08)", text: "#4648d4" };
                   return (
                     <tr
                       key={product.id}
@@ -252,9 +233,9 @@ export default function ProductsTable({ products, categoryMap }: ProductsTablePr
                           {(product.clicks ?? 0) > 0 && (
                             <span
                               className="text-[8px] font-bold px-1.5 py-0.5 rounded-full"
-                              style={{ backgroundColor: "rgba(5,150,105,0.1)", color: "#059669" }}
+                              style={{ backgroundColor: "rgba(70,72,212,0.08)", color: "#4648d4" }}
                             >
-                              ↑ active
+                              active
                             </span>
                           )}
                         </div>
@@ -296,3 +277,6 @@ export default function ProductsTable({ products, categoryMap }: ProductsTablePr
     </div>
   );
 }
+
+
+

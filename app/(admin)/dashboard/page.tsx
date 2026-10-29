@@ -67,7 +67,7 @@ export default async function AdminDashboardPage() {
   });
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen w-full max-w-full overflow-x-hidden" style={{ backgroundColor: "#f0f2fb", color: "#0b1c30" }}>
+    <div className="flex flex-col md:flex-row min-h-screen w-full max-w-full overflow-x-hidden" style={{ backgroundColor: "#f8f9ff", color: "#0b1c30" }}>
       <Sidebar />
 
       <main className="flex-1 min-w-0 md:ml-64 p-4 sm:p-6 md:p-8 space-y-10">
@@ -95,16 +95,16 @@ export default async function AdminDashboardPage() {
                 className="w-1.5 h-1.5 rounded-full bg-[#4648d4] inline-block"
                 style={{ boxShadow: "0 0 5px #4648d4" }}
               />
-              Admin Panel
+              CURATION WORKSPACE
             </div>
             <h1
               className="text-4xl md:text-5xl font-bold tracking-tighter"
               style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30", letterSpacing: "-0.045em" }}
             >
-              Overview
+              Curation Studio
             </h1>
             <p className="mt-2 text-sm text-[#767586]">
-              Here&apos;s what&apos;s happening with your curations.
+              A clear view of your catalog, clicks, and latest additions.
             </p>
           </div>
           <div className="relative z-10 flex items-center gap-3">
@@ -132,10 +132,10 @@ export default async function AdminDashboardPage() {
         />
 
       
-        <NewArrivals newArrivals={newArrivals} categoryMap={CATEGORY_MAP} />
+        <NewArrivals newArrivals={newArrivals} />
 
      
-        <TopPicks topPicks={topPicks} categoryMap={CATEGORY_MAP} />
+        <TopPicks topPicks={topPicks} />
 
      
         <PerformanceMetrics
@@ -153,3 +153,5 @@ export default async function AdminDashboardPage() {
     </div>
   );
 }
+
+

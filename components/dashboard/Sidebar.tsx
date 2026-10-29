@@ -12,7 +12,7 @@ export default function Sidebar() {
   const navLinks = [
     { icon: "dashboard", label: "Dashboard", href: "/dashboard" },
     { icon: "add_box", label: "Add Product", href: "/dashboard/add-product" },
-    { icon: "storefront", label: "View Store", href: "/dashboard/store" },
+    { icon: "storefront", label: "Storefront", href: "/dashboard/store" },
   ];
 
   const toggleSidebar = () => setIsOpen(!isOpen);
@@ -34,7 +34,7 @@ export default function Sidebar() {
           className="text-lg font-bold tracking-tighter"
           style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30" }}
         >
-          SmartGearPicks Admin
+          SmartGearPicks
         </Link>
         <button
           onClick={toggleSidebar}
@@ -78,10 +78,10 @@ export default function Sidebar() {
           </div>
           <div className="flex flex-col overflow-hidden">
             <span className="text-base font-medium truncate" style={{ fontFamily: "Geist, sans-serif", color: "#4648d4", letterSpacing: "-0.02em" }}>
-              Admin Panel
+              Curation Studio
             </span>
             <span className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: "#767586", letterSpacing: "0.05em", fontFamily: "Geist, sans-serif" }}>
-              Manage your curation
+              Your product workspace
             </span>
           </div>
         </div>
@@ -131,7 +131,7 @@ export default function Sidebar() {
           })}
         </div>
 
-        {/* New Recommendation CTA (only visible if not already on add product page) */}
+        {/* Add a product CTA (only visible if not already on add product page) */}
         {pathname !== "/dashboard/add-product" && (
           <Link
             href="/dashboard/add-product"
@@ -147,7 +147,7 @@ export default function Sidebar() {
             <span className="material-symbols-outlined text-[18px]" style={{ fontVariationSettings: "'FILL' 0" }}>
               add
             </span>
-            New Recommendation
+            Add a product
           </Link>
         )}
 
@@ -177,3 +177,4 @@ export default function Sidebar() {
     </>
   );
 }
+

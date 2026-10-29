@@ -42,10 +42,10 @@ export default async function AdminStorePage() {
         <header className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4 mb-8 md:mb-12 pt-4">
           <div>
             <h1 className="text-4xl md:text-5xl font-semibold tracking-tighter" style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30", letterSpacing: "-0.04em" }}>
-              Storefront Preview
+              Product Library
             </h1>
             <p className="mt-2 text-base md:text-lg" style={{ color: "#464554" }}>
-              Visual rendering of all published curations.
+              Manage every product in your curated collection.
             </p>
           </div>
         </header>
@@ -60,3 +60,4 @@ export default async function AdminStorePage() {
     </div>
   );
 }
+
