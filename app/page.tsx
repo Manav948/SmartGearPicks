@@ -2,6 +2,7 @@ import React from "react";
 import { prisma } from "@/lib/prisma";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import ParticleText from "@/components/ParticleText";
 import Brands from "@/components/Brands";
 import CurationProcess from "@/components/CurationProcess";
 import NewArrivals from "@/components/NewArrivals";
@@ -79,6 +80,42 @@ export default async function HomePage() {
       <div className="min-h-screen" style={{ backgroundColor: "#F7F6F2", color: "#151515" }}>
         <Navbar />
         <Hero />
+        <section
+          aria-label="A more thoughtful way to discover products"
+          data-scroll-reveal
+          className="overflow-hidden border-y border-[#ded8cc] bg-[#f5f2eb] px-4 py-10 sm:px-6 sm:py-14"
+        >
+          <div data-scroll-reveal-item className="mx-auto max-w-6xl text-center">
+            <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-[#7c6853] sm:text-xs">
+              The SmartGearPicks edit
+            </p>
+            <div className="mx-auto h-[240px] max-w-5xl sm:h-[260px]">
+              <ParticleText
+                text="Find your next favorite."
+                particleSize={2.4}
+                density={5}
+                color="#40372e"
+                highlightColor="#a78968"
+                highlightMode="gradient"
+                intro="gather"
+                scatter={110}
+                gatherDuration={1500}
+                stagger={100}
+                clickBurst={false}
+                pointerRepel={20}
+                repelRadius={90}
+                idleDrift={0.25}
+                fontSize="clamp(2rem, 7vw, 5.4rem)"
+                fontWeight={600}
+                fontFamily="Geist, system-ui, sans-serif"
+                glow={false}
+              />
+            </div>
+            <p className="mx-auto mt-1 max-w-xl text-sm leading-7 text-[#6b6258] sm:text-base">
+              Thoughtful picks for work, home, and everything in between—without the endless scrolling.
+            </p>
+          </div>
+        </section>
         <Brands />
         <CurationProcess />
 
