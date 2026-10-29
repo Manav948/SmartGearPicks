@@ -82,7 +82,7 @@ export default async function HomePage() {
         <section
           aria-label="A more thoughtful way to discover products"
           data-scroll-reveal
-          className="overflow-hidden border-y border-[#ded8cc] bg-[#f5f2eb] px-4 py-14 sm:px-6 sm:py-20"
+          className="overflow-hidden border-y border-[#d6d5c9] bg-[#e7e7dd] px-4 py-14 sm:px-6 sm:py-20"
         >
           <div data-scroll-reveal-item className="mx-auto max-w-6xl text-center">
             <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-[#7c6853] sm:text-xs">
