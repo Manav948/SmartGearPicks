@@ -19,7 +19,7 @@ export interface ParticleTextProps {
   pointerRepel?: number;
   repelRadius?: number;
   idleDrift?: number;
-  trigger?: 'mount' | 'hover' | 'click';
+  trigger?: 'mount' | 'hover' | 'click' | 'view';
   fontSize?: number | string;
   fontWeight?: number | string;
   fontFamily?: string;
@@ -183,7 +183,7 @@ const ParticleText = ({
     let raf = 0;
     let sampleFrame = 0;
     let buildId = 0;
-    let introPending = true;
+    let introPending = trigger === 'mount';
     let sampledKey = '';
     let sampledText = '';
     let requestedSize = '';
@@ -813,8 +813,14 @@ const ParticleText = ({
     });
     resizeObserver.observe(container);
 
+    let viewTriggered = false;
     const intersectionObserver = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
+      if (entry.isIntersecting && settingsRef.current?.trigger === 'view' && !viewTriggered) {
+        viewTriggered = true;
+        if (particles.length) startIntro(true);
+        else introPending = true;
+      }
       wake();
     });
     intersectionObserver.observe(container);

@@ -3,7 +3,6 @@ import { prisma } from "@/lib/prisma";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import ParticleText from "@/components/ParticleText";
-import Brands from "@/components/Brands";
 import CurationProcess from "@/components/CurationProcess";
 import NewArrivals from "@/components/NewArrivals";
 import TopPicks from "@/components/TopPicks";
@@ -83,19 +82,19 @@ export default async function HomePage() {
         <section
           aria-label="A more thoughtful way to discover products"
           data-scroll-reveal
-          className="overflow-hidden border-y border-[#ded8cc] bg-[#f5f2eb] px-4 py-10 sm:px-6 sm:py-14"
+          className="overflow-hidden border-y border-[#ded8cc] bg-[#f5f2eb] px-4 py-14 sm:px-6 sm:py-20"
         >
           <div data-scroll-reveal-item className="mx-auto max-w-6xl text-center">
             <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-[#7c6853] sm:text-xs">
               The SmartGearPicks edit
             </p>
-            <div className="mx-auto h-[240px] max-w-5xl sm:h-[260px]">
+            <div className="mx-auto h-[280px] max-w-5xl sm:h-[320px]">
               <ParticleText
-                text="Find your next favorite."
+                text="Find what fits."
                 particleSize={2.4}
                 density={5}
-                color="#40372e"
-                highlightColor="#a78968"
+                color="#963d32"
+                highlightColor="#c45b4a"
                 highlightMode="gradient"
                 intro="gather"
                 scatter={110}
@@ -105,8 +104,9 @@ export default async function HomePage() {
                 pointerRepel={20}
                 repelRadius={90}
                 idleDrift={0.25}
-                fontSize="clamp(2rem, 7vw, 5.4rem)"
-                fontWeight={600}
+                trigger="view"
+                fontSize="clamp(2.5rem, 8vw, 6.2rem)"
+                fontWeight={650}
                 fontFamily="Geist, system-ui, sans-serif"
                 glow={false}
               />
@@ -116,7 +116,6 @@ export default async function HomePage() {
             </p>
           </div>
         </section>
-        <Brands />
         <CurationProcess />
 
         {newArrivals.length > 0 && <NewArrivals products={newArrivals} />}
