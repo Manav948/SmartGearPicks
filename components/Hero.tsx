@@ -240,9 +240,8 @@ export default function Hero() {
     >
       {/* Sticky Hero Viewport Container */}
       <div
-        className={`${
-          shouldReduceMotion ? "relative min-h-[750px]" : "sticky top-0 h-screen"
-        } w-full overflow-hidden flex flex-col justify-between`}
+        className={`${shouldReduceMotion ? "relative min-h-[750px]" : "sticky top-0 h-screen"
+          } w-full overflow-hidden flex flex-col justify-between`}
       >
         {/* Layer 1: Architectural Backdrop with warm ivory sunlight */}
         <div data-hero-parallax className="absolute inset-0 pointer-events-none z-0">
@@ -283,21 +282,6 @@ export default function Hero() {
                   className="w-1.5 h-1.5 rounded-full"
                   style={{ backgroundColor: "#7c6853" }}
                 />
-                <span
-                  className="text-[11px] font-mono tracking-[0.2em] uppercase"
-                  style={{
-                    color: "#6b5845",
-                    fontWeight: 600,
-                  }}
-                >
-                  THE CURATED EDIT
-                </span>
-                <span
-                  className="text-[11px] font-mono tracking-wider opacity-60"
-                  style={{ color: "#8a7b6c" }}
-                >
-                  / ISSUE NO. 04
-                </span>
               </div>
 
               {/* Headline */}
@@ -330,8 +314,16 @@ export default function Hero() {
                   letterSpacing: "-0.01em",
                 }}
               >
-                Thoughtfully curated products for the way you live, work, and
-                create. Discover standout finds without the endless scrolling.
+                <CinematicText
+                  as="span"
+                  className="block font-normal italic text-[#5b4c3b] [font-family:serif]"
+                  delay={0.34}
+                  stagger={0.075}
+                  blur={18}
+                >
+                  Thoughtfully curated products for the way you live, work, and
+                  create. Discover standout finds without the endless scrolling.
+                </CinematicText>
               </p>
 
               {/* CTAs */}
@@ -382,32 +374,6 @@ export default function Hero() {
                   <span>How We Curate</span>
                 </a>
               </div>
-            </motion.div>
-
-            {/* Right Column: Subtle Editorial Stats or Badge */}
-            <motion.div
-              initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
-              animate={mounted ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-              className="hidden lg:flex flex-col items-end col-span-5 text-right space-y-3 pt-2"
-            >
-              <div
-                className="px-4 py-2 rounded-full border text-xs font-medium"
-                style={{
-                  backgroundColor: "rgba(255, 255, 255, 0.5)",
-                  borderColor: "rgba(175, 160, 140, 0.35)",
-                  color: "#463d33",
-                  fontFamily: "Geist, sans-serif",
-                  backdropFilter: "blur(6px)",
-                }}
-              >
-                Zero Sponsored Placements · Tested In-Studio
-              </div>
-              <p
-                className="text-xs text-[#73685c] max-w-[260px] leading-relaxed font-mono"
-              >
-                Every product verified for material authenticity, ergonomic precision, and longevity.
-              </p>
             </motion.div>
           </div>
         </div>
@@ -628,10 +594,10 @@ function FullAnimatedProductItem({
       animate={
         mounted
           ? {
-              opacity: 1,
-              x: config.entrance.x,
-              y: config.entrance.y,
-            }
+            opacity: 1,
+            x: config.entrance.x,
+            y: config.entrance.y,
+          }
           : {}
       }
       transition={{

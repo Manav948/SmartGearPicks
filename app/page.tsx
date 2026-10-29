@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Brands from "@/components/Brands";
 import CurationProcess from "@/components/CurationProcess";
-import NewArrivals from "@/components/NewArrivals";
+import CircularGallery from "@/components/CircularGallery";
 import TopPicks from "@/components/TopPicks";
 import CuratedProducts from "@/components/CuratedProducts";
 import type { CategoryPreview } from "@/components/CuratedProducts";
@@ -82,7 +82,32 @@ export default async function HomePage() {
         <Brands />
         <CurationProcess />
 
-        {newArrivals.length > 0 && <NewArrivals products={newArrivals} />}
+        {newArrivals.length > 0 &&
+
+          <div style={{ height: '600px', position: 'relative' }}>
+            <CircularGallery
+              items={newArrivals.map((product) => ({ image: product.imageUrl, text: product.name, description: product.description }))}
+              bend={3}
+              textColor="#ffffff"
+              borderRadius={0.05}
+              scrollEase={0.05}
+              onItemClick={(item, index) => console.log(item.text, index)}
+              itemSize={1}
+              itemAspect={0.78}
+              gap={0.26}
+              wave={1}
+              fadeEdges={0.12}
+              shadow={0.25}
+              scrollSpeed={2}
+              autoScroll={0}
+              snap
+              grayscale={false}
+              showTitles
+              openOnClick
+              intro
+            />
+          </div>
+        }
         {topPicks.length > 0 && <TopPicks products={topPicks} />}
 
         <CuratedProducts categories={categoryPreviews} />
