@@ -15,38 +15,38 @@ export default function RecommendationProductCard({ product, index = 0 }: { prod
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.15 }}
       transition={{ duration: 0.4, delay: reduceMotion ? 0 : index * 0.05, ease: "easeOut" }}
-      className="group flex h-full min-w-0 flex-col rounded-2xl border border-[#c7c4d7]/50 bg-white p-2.5 shadow-sm transition-shadow duration-300 hover:shadow-xl sm:p-3"
+      className="group flex min-w-0 flex-col"
     >
       <Link
         href={`/product/${product.id}`}
         aria-label={`View ${product.name}`}
-        className="relative mb-3 block aspect-[4/5] overflow-hidden rounded-xl border border-indigo-100/70 bg-[#eef0ff] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4648d4]"
+        className="relative mb-4 block aspect-[4/5] overflow-hidden border border-[#e8e5de] bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#625e54]"
       >
         <Image
           src={product.imageUrl}
           alt={product.name}
           fill
           sizes="(max-width: 639px) 45vw, (max-width: 1023px) 30vw, 23vw"
-          className="object-contain p-3 transition-transform duration-500 ease-out group-hover:scale-[1.04] motion-reduce:transition-none sm:p-4"
+          className="object-contain p-3 transition-transform duration-500 ease-out group-hover:scale-[1.025] motion-reduce:transition-none"
           unoptimized
         />
       </Link>
-      <div className="flex flex-1 flex-col px-1 pb-1">
-        <p className="mb-2 w-fit rounded-full border border-indigo-100 bg-indigo-50 px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#4648d4] sm:text-[10px]">
+      <div className="flex flex-1 flex-col">
+        <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.14em] text-[#817e75]">
           {categoryLabel}
         </p>
-        <Link href={`/product/${product.id}`} className="focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4648d4]">
-          <h3 className="line-clamp-2 min-h-[2.75rem] text-sm font-semibold leading-[1.4] tracking-[-0.015em] text-[#0b1c30] transition-colors group-hover:text-[#4648d4] sm:text-[15px]">
+        <Link href={`/product/${product.id}`} className="focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#625e54]">
+          <h3 className="line-clamp-2 min-h-[2.75rem] text-sm font-medium leading-[1.4] tracking-[-0.015em] text-[#22211d] transition-colors group-hover:text-[#625e54] sm:text-[15px]">
             {product.name}
           </h3>
         </Link>
-        <div className="mt-3 flex flex-1 flex-col justify-end gap-3 border-t border-[#e8e8f0] pt-3">
-          <p className="text-sm font-bold text-[#0b1c30]">
+        <div className="mt-3 flex flex-1 flex-col justify-end gap-4 border-t border-[#eeece7] pt-3">
+          <p className="text-sm font-semibold text-[#25241f]">
             {product.price != null ? `₹${product.price.toLocaleString("en-IN")}` : <span className="font-normal text-[#767586]">Price unavailable</span>}
           </p>
           <Link
             href={`/api/redirect/${product.id}`}
-            className="inline-flex min-h-10 items-center justify-between rounded-lg bg-[#4648d4] px-3 text-xs font-semibold text-white transition-colors hover:bg-[#3638bd] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4648d4]"
+            className="inline-flex min-h-10 items-center justify-between border border-[#d9d6ce] px-3 text-xs font-medium text-[#282721] transition-colors hover:border-[#25241f] hover:bg-[#25241f] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#625e54]"
           >
             View deal <span aria-hidden="true">↗</span>
           </Link>
@@ -55,3 +55,4 @@ export default function RecommendationProductCard({ product, index = 0 }: { prod
     </motion.article>
   );
 }
+
