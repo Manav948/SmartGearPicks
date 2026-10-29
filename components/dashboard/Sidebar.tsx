@@ -23,16 +23,16 @@ export default function Sidebar() {
       <header
         className="md:hidden sticky top-0 z-40 flex items-center justify-between px-4 py-3 border-b w-full"
         style={{
-          backgroundColor: "rgba(248,249,255,0.9)",
+          backgroundColor: "rgba(247,246,242,0.9)",
           backdropFilter: "blur(12px)",
           WebkitBackdropFilter: "blur(12px)",
-          borderColor: "rgba(199,196,215,0.35)",
+          borderColor: "rgba(229,225,218,0.35)",
         }}
       >
         <Link
           href="/dashboard"
           className="text-lg font-bold tracking-tighter"
-          style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30" }}
+          style={{ fontFamily: "Geist, sans-serif", color: "#151515" }}
         >
           SmartGearPicks
         </Link>
@@ -40,8 +40,8 @@ export default function Sidebar() {
           onClick={toggleSidebar}
           className="p-1 rounded-lg border flex items-center justify-center transition-colors active:scale-95 cursor-pointer"
           style={{
-            borderColor: "rgba(199,196,215,0.5)",
-            backgroundColor: "#ffffff",
+            borderColor: "rgba(229,225,218,0.5)",
+            backgroundColor: "#FAF8F4",
           }}
           aria-label="Toggle Menu"
         >
@@ -64,23 +64,23 @@ export default function Sidebar() {
         className={`fixed top-0 left-0 h-screen w-64 flex flex-col gap-4 p-4 border-r z-50 transition-transform duration-300 md:translate-x-0 ${
           isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
         }`}
-        style={{ backgroundColor: "#eff4ff", borderColor: "rgba(199,196,215,0.25)" }}
+        style={{ backgroundColor: "#F0EDE7", borderColor: "rgba(229,225,218,0.25)" }}
       >
         {/* Brand/Header */}
         <div className="flex items-center gap-3 mb-4 pt-2">
           <div
             className="h-10 w-10 rounded-full flex items-center justify-center border shrink-0"
-            style={{ backgroundColor: "#d3e4fe", borderColor: "rgba(199,196,215,0.4)", color: "#4648d4" }}
+            style={{ backgroundColor: "#E5E1DA", borderColor: "rgba(229,225,218,0.4)", color: "#7c6853" }}
           >
             <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>
               person
             </span>
           </div>
           <div className="flex flex-col overflow-hidden">
-            <span className="text-base font-medium truncate" style={{ fontFamily: "Geist, sans-serif", color: "#4648d4", letterSpacing: "-0.02em" }}>
+            <span className="text-base font-medium truncate" style={{ fontFamily: "Geist, sans-serif", color: "#7c6853", letterSpacing: "-0.02em" }}>
               Curation Studio
             </span>
-            <span className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: "#767586", letterSpacing: "0.05em", fontFamily: "Geist, sans-serif" }}>
+            <span className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: "#6B6B6B", letterSpacing: "0.05em", fontFamily: "Geist, sans-serif" }}>
               Your product workspace
             </span>
           </div>
@@ -95,8 +95,8 @@ export default function Sidebar() {
                 key={label}
                 className="flex items-center gap-3 px-3 py-2.5 rounded-xl font-semibold"
                 style={{
-                  backgroundColor: "#dae2fd",
-                  color: "#0b1c30",
+                  backgroundColor: "#F0EDE7",
+                  color: "#151515",
                   fontFamily: "Geist, sans-serif",
                   fontSize: "12px",
                   letterSpacing: "0.05em",
@@ -115,7 +115,7 @@ export default function Sidebar() {
                 onClick={() => setIsOpen(false)}
                 className="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 hover:translate-x-1"
                 style={{
-                  color: "#767586",
+                  color: "#6B6B6B",
                   fontFamily: "Geist, sans-serif",
                   fontSize: "12px",
                   letterSpacing: "0.05em",
@@ -138,8 +138,8 @@ export default function Sidebar() {
             onClick={() => setIsOpen(false)}
             className="w-full py-3 px-4 rounded-lg flex items-center justify-center gap-2 text-sm font-medium transition-all active:scale-95"
             style={{
-              backgroundColor: "#0b1c30",
-              color: "#ffffff",
+              backgroundColor: "#151515",
+              color: "#FAF8F4",
               fontFamily: "Geist, sans-serif",
               borderTop: "1px solid rgba(255,255,255,0.12)",
             }}
@@ -157,17 +157,17 @@ export default function Sidebar() {
           className="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all active:scale-[0.97] mt-auto cursor-pointer"
           style={{
             fontFamily: "Geist, sans-serif",
-            color: "#767586",
+            color: "#6B6B6B",
             backgroundColor: "transparent",
-            border: "1px solid rgba(199,196,215,0.5)",
+            border: "1px solid rgba(229,225,218,0.5)",
           }}
           onMouseEnter={(e) => {
-            (e.currentTarget as HTMLElement).style.backgroundColor = "#ffffff";
-            (e.currentTarget as HTMLElement).style.color = "#0b1c30";
+            (e.currentTarget as HTMLElement).style.backgroundColor = "#F0EDE7";
+            (e.currentTarget as HTMLElement).style.color = "#151515";
           }}
           onMouseLeave={(e) => {
             (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
-            (e.currentTarget as HTMLElement).style.color = "#767586";
+            (e.currentTarget as HTMLElement).style.color = "#6B6B6B";
           }}
         >
           <span className="material-symbols-outlined text-[18px]">logout</span>

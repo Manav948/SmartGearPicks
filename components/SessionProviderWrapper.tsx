@@ -15,19 +15,19 @@ export default function SessionProviderWrapper({
         position="top-right"
         toastOptions={{
           style: {
-            background: "#ffffff",
-            color: "#0b1c30",
-            border: "1px solid rgba(199, 196, 215, 0.5)",
+            background: "#FAF8F4",
+            color: "#151515",
+            border: "1px solid rgba(229, 225, 218, 0.5)",
             borderRadius: "12px",
             fontSize: "14px",
             fontFamily: "Geist, system-ui, sans-serif",
             boxShadow: "0 10px 15px -3px rgba(0,0,0,0.06)",
           },
           success: {
-            iconTheme: { primary: "#4648d4", secondary: "#ffffff" },
+            iconTheme: { primary: "#7c6853", secondary: "#FAF8F4" },
           },
           error: {
-            iconTheme: { primary: "#ba1a1a", secondary: "#ffffff" },
+            iconTheme: { primary: "#ba1a1a", secondary: "#FAF8F4" },
           },
         }}
       />

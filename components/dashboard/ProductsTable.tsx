@@ -43,9 +43,9 @@ export default function ProductsTable({ products, categoryMap }: ProductsTablePr
   return (
     <div
       ref={ref}
-      className="rounded-[20px] border overflow-hidden bg-white"
+      className="rounded-[20px] border overflow-hidden bg-[#FAF8F4]"
       style={{
-        borderColor: "rgba(199,196,215,0.28)",
+        borderColor: "rgba(229,225,218,0.28)",
         boxShadow: "0 1px 6px rgba(0,0,0,0.04)",
         opacity: inView ? 1 : 0,
         transform: inView ? "translateY(0)" : "translateY(24px)",
@@ -55,21 +55,21 @@ export default function ProductsTable({ products, categoryMap }: ProductsTablePr
       {/* Header */}
       <div
         className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-5 sm:p-6 border-b"
-        style={{ borderColor: "rgba(199,196,215,0.25)" }}
+        style={{ borderColor: "rgba(229,225,218,0.25)" }}
       >
         <div>
           <p
-            className="text-[10px] font-bold uppercase tracking-widest mb-0.5 text-[#767586]"
+            className="text-[10px] font-bold uppercase tracking-widest mb-0.5 text-[#6B6B6B]"
             style={{ letterSpacing: "0.1em" }}
           >
             📦 Product library
           </p>
           <h2
-            className="text-xl font-bold tracking-tight text-[#0b1c30]"
+            className="text-xl font-bold tracking-tight text-[#151515]"
             style={{ fontFamily: "Geist, sans-serif", letterSpacing: "-0.025em" }}
           >
             Curated products
-            <span className="ml-2 text-sm font-medium text-[#767586]">({products.length})</span>
+            <span className="ml-2 text-sm font-medium text-[#6B6B6B]">({products.length})</span>
           </h2>
         </div>
 
@@ -77,7 +77,7 @@ export default function ProductsTable({ products, categoryMap }: ProductsTablePr
           {/* Search */}
           <div className="relative">
             <span
-              className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[16px] text-[#767586] pointer-events-none"
+              className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[16px] text-[#6B6B6B] pointer-events-none"
               style={{ fontVariationSettings: "'FILL' 0" }}
             >
               search
@@ -87,19 +87,19 @@ export default function ProductsTable({ products, categoryMap }: ProductsTablePr
               placeholder="Search products…"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="pl-8 pr-3 py-2 text-xs rounded-xl border outline-none transition-all duration-200 bg-[#f8f9ff] text-[#0b1c30] w-40 sm:w-48"
+              className="pl-8 pr-3 py-2 text-xs rounded-xl border outline-none transition-all duration-200 bg-[#F7F6F2] text-[#151515] w-40 sm:w-48"
               style={{
-                borderColor: "rgba(199,196,215,0.4)",
+                borderColor: "rgba(229,225,218,0.4)",
                 fontFamily: "Geist, sans-serif",
               }}
-              onFocus={(e) => { e.currentTarget.style.borderColor = "#4648d4"; e.currentTarget.style.boxShadow = "0 0 0 2px rgba(70,72,212,0.1)"; }}
-              onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(199,196,215,0.4)"; e.currentTarget.style.boxShadow = "none"; }}
+              onFocus={(e) => { e.currentTarget.style.borderColor = "#7c6853"; e.currentTarget.style.boxShadow = "0 0 0 2px rgba(124,104,83,0.1)"; }}
+              onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(229,225,218,0.4)"; e.currentTarget.style.boxShadow = "none"; }}
             />
           </div>
 
           <Link
             href="/dashboard/add-product"
-            className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all active:scale-95 bg-[#0b1c30] text-white hover:bg-[#1a2e45]"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all active:scale-95 bg-[#151515] text-[#F7F6F2] hover:bg-[#34312c]"
             style={{ fontFamily: "Geist, sans-serif", letterSpacing: "0.02em" }}
           >
             <span className="material-symbols-outlined text-[15px]" style={{ fontVariationSettings: "'FILL' 0" }}>
@@ -114,16 +114,16 @@ export default function ProductsTable({ products, categoryMap }: ProductsTablePr
         <div className="text-center py-20 flex flex-col items-center gap-3">
           <div
             className="w-16 h-16 rounded-2xl flex items-center justify-center"
-            style={{ backgroundColor: "rgba(70,72,212,0.06)" }}
+            style={{ backgroundColor: "rgba(124,104,83,0.06)" }}
           >
-            <span className="material-symbols-outlined text-[32px] text-[#c7c4d7]" style={{ fontVariationSettings: "'FILL' 0" }}>
+            <span className="material-symbols-outlined text-[32px] text-[#E5E1DA]" style={{ fontVariationSettings: "'FILL' 0" }}>
               inventory_2
             </span>
           </div>
-          <p className="text-sm text-[#767586]">No products added yet.</p>
+          <p className="text-sm text-[#6B6B6B]">No products added yet.</p>
           <Link
             href="/dashboard/add-product"
-            className="text-xs font-semibold text-[#4648d4] hover:underline"
+            className="text-xs font-semibold text-[#7c6853] hover:underline"
           >
             Add your first product →
           </Link>
@@ -133,8 +133,8 @@ export default function ProductsTable({ products, categoryMap }: ProductsTablePr
           <table className="w-full text-left">
             <thead>
               <tr
-                className="text-[9px] font-bold uppercase tracking-widest border-b text-[#767586]"
-                style={{ borderColor: "rgba(199,196,215,0.25)", letterSpacing: "0.08em", backgroundColor: "#fafbff" }}
+                className="text-[9px] font-bold uppercase tracking-widest border-b text-[#6B6B6B]"
+                style={{ borderColor: "rgba(229,225,218,0.25)", letterSpacing: "0.08em", backgroundColor: "#fafbff" }}
               >
                 <th className="px-5 py-3.5">Product</th>
                 <th className="px-5 py-3.5">Category</th>
@@ -147,19 +147,19 @@ export default function ProductsTable({ products, categoryMap }: ProductsTablePr
             <tbody>
               {filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="px-5 py-12 text-center text-sm text-[#767586]">
+                  <td colSpan={6} className="px-5 py-12 text-center text-sm text-[#6B6B6B]">
                     No products match &quot;{search}&quot;
                   </td>
                 </tr>
               ) : (
                 filtered.map((product, rowIdx) => {
-                  const catStyle = { bg: "rgba(70,72,212,0.08)", text: "#4648d4" };
+                  const catStyle = { bg: "rgba(124,104,83,0.08)", text: "#7c6853" };
                   return (
                     <tr
                       key={product.id}
-                      className="border-b group/row transition-colors duration-150 hover:bg-[#f8f9ff]"
+                      className="border-b group/row transition-colors duration-150 hover:bg-[#F7F6F2]"
                       style={{
-                        borderColor: "rgba(199,196,215,0.18)",
+                        borderColor: "rgba(229,225,218,0.18)",
                         opacity: inView ? 1 : 0,
                         transform: inView ? "translateX(0)" : "translateX(-8px)",
                         transition: `opacity 0.4s ease ${rowIdx * 0.03}s, transform 0.4s ease ${rowIdx * 0.03}s`,
@@ -169,8 +169,8 @@ export default function ProductsTable({ products, categoryMap }: ProductsTablePr
                       <td className="px-5 py-3.5">
                         <div className="flex items-center gap-3">
                           <div
-                            className="relative w-10 h-10 rounded-[10px] border overflow-hidden shrink-0 bg-[#eff4ff]"
-                            style={{ borderColor: "rgba(199,196,215,0.3)", position: "relative" }}
+                            className="relative w-10 h-10 rounded-[10px] border overflow-hidden shrink-0 bg-[#F0EDE7]"
+                            style={{ borderColor: "rgba(229,225,218,0.3)", position: "relative" }}
                           >
                             <Image
                               src={product.imageUrl}
@@ -184,12 +184,12 @@ export default function ProductsTable({ products, categoryMap }: ProductsTablePr
                           <div className="min-w-0">
                             <Link
                               href={`/product/${product.id}`}
-                              className="font-semibold text-sm hover:text-[#4648d4] transition-colors line-clamp-1 text-[#0b1c30]"
+                              className="font-semibold text-sm hover:text-[#7c6853] transition-colors line-clamp-1 text-[#151515]"
                               style={{ fontFamily: "Geist, sans-serif", letterSpacing: "-0.01em" }}
                             >
                               {product.name}
                             </Link>
-                            <p className="text-[10px] mt-0.5 line-clamp-1 max-w-[180px] text-[#767586]">
+                            <p className="text-[10px] mt-0.5 line-clamp-1 max-w-[180px] text-[#6B6B6B]">
                               {product.description.slice(0, 55)}…
                             </p>
                           </div>
@@ -214,7 +214,7 @@ export default function ProductsTable({ products, categoryMap }: ProductsTablePr
                       {/* Price */}
                       <td className="px-5 py-3.5">
                         <span
-                          className="text-sm font-bold text-[#0b1c30]"
+                          className="text-sm font-bold text-[#151515]"
                           style={{ fontFamily: "Geist, sans-serif", letterSpacing: "-0.01em" }}
                         >
                           {product.price ? `₹${product.price.toLocaleString("en-IN")}` : "—"}
@@ -226,14 +226,14 @@ export default function ProductsTable({ products, categoryMap }: ProductsTablePr
                         <div className="flex items-center gap-1.5">
                           <span
                             className="font-bold text-sm"
-                            style={{ color: "#4648d4", fontFamily: "Geist Mono, monospace" }}
+                            style={{ color: "#7c6853", fontFamily: "Geist Mono, monospace" }}
                           >
                             {product.clicks ?? 0}
                           </span>
                           {(product.clicks ?? 0) > 0 && (
                             <span
                               className="text-[8px] font-bold px-1.5 py-0.5 rounded-full"
-                              style={{ backgroundColor: "rgba(70,72,212,0.08)", color: "#4648d4" }}
+                              style={{ backgroundColor: "rgba(124,104,83,0.08)", color: "#7c6853" }}
                             >
                               active
                             </span>
@@ -243,7 +243,7 @@ export default function ProductsTable({ products, categoryMap }: ProductsTablePr
 
                       {/* Added */}
                       <td className="px-5 py-3.5">
-                        <span className="text-[10px] font-medium text-[#767586]" style={{ fontFamily: "Geist Mono, monospace" }}>
+                        <span className="text-[10px] font-medium text-[#6B6B6B]" style={{ fontFamily: "Geist Mono, monospace" }}>
                           {new Date(product.createdAt as any).toLocaleDateString("en-IN", {
                             day: "2-digit",
                             month: "short",
@@ -257,8 +257,8 @@ export default function ProductsTable({ products, categoryMap }: ProductsTablePr
                         <div className="flex justify-end items-center gap-1.5">
                           <Link
                             href={`/dashboard/edit-product/${product.id}`}
-                            className="flex items-center justify-center w-8 h-8 rounded-[8px] text-[#767586] border transition-all duration-200 hover:border-[#4648d4] hover:text-[#4648d4] hover:bg-[rgba(70,72,212,0.06)] active:scale-90"
-                            style={{ borderColor: "rgba(199,196,215,0.35)" }}
+                            className="flex items-center justify-center w-8 h-8 rounded-[8px] text-[#6B6B6B] border transition-all duration-200 hover:border-[#7c6853] hover:text-[#7c6853] hover:bg-[rgba(124,104,83,0.06)] active:scale-90"
+                            style={{ borderColor: "rgba(229,225,218,0.35)" }}
                             title="Edit Product"
                           >
                             <span className="material-symbols-outlined text-[15px]">edit</span>

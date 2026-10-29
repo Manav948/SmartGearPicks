@@ -14,12 +14,12 @@ export function FooterBottomBar() {
   return (
     <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-2">
      
-      <div className="text-xs text-center md:text-left order-3 md:order-1 font-medium flex flex-wrap items-center justify-center md:justify-start gap-x-3 gap-y-1" style={{ color: "#464554" }}>
+      <div className="text-xs text-center md:text-left order-3 md:order-1 font-medium flex flex-wrap items-center justify-center md:justify-start gap-x-3 gap-y-1" style={{ color: "#6B6B6B" }}>
         <span>© {new Date().getFullYear()} SmartGearPicks. All rights reserved.</span>
-        <span className="hidden sm:inline text-slate-300">•</span>
-        <a href="/privacy" className="hover:text-[#4648d4] transition-colors">Privacy Policy</a>
-        <span className="text-slate-300">•</span>
-        <a href="/terms" className="hover:text-[#4648d4] transition-colors">Terms of Service</a>
+        <span className="hidden sm:inline text-[#a99a86]">•</span>
+        <a href="/privacy" className="hover:text-[#7c6853] transition-colors">Privacy Policy</a>
+        <span className="text-[#a99a86]">•</span>
+        <a href="/terms" className="hover:text-[#7c6853] transition-colors">Terms of Service</a>
       </div>
 
     
@@ -28,7 +28,7 @@ export function FooterBottomBar() {
           href="https://twitter.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="w-9 h-9 rounded-xl flex items-center justify-center bg-white border border-[#c7c4d7]/40 text-on-surface-variant hover:text-[#4648d4] hover:border-[#4648d4] transition-all duration-200 hover:-translate-y-0.5 shadow-xs"
+          className="w-9 h-9 rounded-xl flex items-center justify-center bg-[#FAF8F4] border border-[#E5E1DA]/40 text-on-surface-variant hover:text-[#7c6853] hover:border-[#7c6853] transition-all duration-200 hover:-translate-y-0.5 shadow-xs"
           title="Follow us on X (Twitter)"
         >
           <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
@@ -39,7 +39,7 @@ export function FooterBottomBar() {
           href="https://github.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="w-9 h-9 rounded-xl flex items-center justify-center bg-white border border-[#c7c4d7]/40 text-on-surface-variant hover:text-[#4648d4] hover:border-[#4648d4] transition-all duration-200 hover:-translate-y-0.5 shadow-xs"
+          className="w-9 h-9 rounded-xl flex items-center justify-center bg-[#FAF8F4] border border-[#E5E1DA]/40 text-on-surface-variant hover:text-[#7c6853] hover:border-[#7c6853] transition-all duration-200 hover:-translate-y-0.5 shadow-xs"
           title="Follow us on GitHub"
         >
           <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
@@ -52,8 +52,8 @@ export function FooterBottomBar() {
       <div className="order-2 md:order-3">
         <button
           onClick={scrollToTop}
-          className="group flex items-center gap-2 px-4 py-2 rounded-xl text-white transition-all active:scale-95 cursor-pointer text-xs font-semibold shadow-xs"
-          style={{ backgroundColor: "#0f172a", fontFamily: "Geist, sans-serif" }}
+          className="group flex items-center gap-2 px-4 py-2 rounded-xl text-[#F7F6F2] transition-all active:scale-95 cursor-pointer text-xs font-semibold shadow-xs"
+          style={{ backgroundColor: "#191816", fontFamily: "Geist, sans-serif" }}
         >
           <span>Back to Top</span>
           <ArrowUp className="w-3.5 h-3.5 group-hover:-translate-y-0.5 transition-transform duration-200" />

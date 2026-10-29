@@ -354,7 +354,7 @@ const link = (gl: WebGL2RenderingContext): Program | null => {
 const CircularGallery = ({
   items,
   bend = 3,
-  textColor = '#ffffff',
+  textColor = '#FAF8F4',
   borderRadius = 0.05,
   font = DEFAULT_FONT,
   fontUrl,
@@ -485,7 +485,7 @@ const CircularGallery = ({
       let rgb = [1, 1, 1];
       if (probe) {
         probe.clearRect(0, 0, 1, 1);
-        probe.fillStyle = '#ffffff';
+        probe.fillStyle = '#FAF8F4';
         probe.fillStyle = key;
         probe.fillRect(0, 0, 1, 1);
         const [r, g, b] = probe.getImageData(0, 0, 1, 1).data;

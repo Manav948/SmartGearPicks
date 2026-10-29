@@ -4,7 +4,7 @@
 
 /* ───────────────────────────────────────────────────────────────
    Pickora Design System — Stitch: project/1847021904551923770
-   Light mode, editorial-minimalist, Indigo primary
+   Light mode, warm editorial, muted brown primary
 ─────────────────────────────────────────────────────────────── */
 
 @custom-variant dark (&:is(.dark *));
@@ -12,82 +12,82 @@
 /* Tailwind v4 theme inline overrides */
 @theme inline {
   /* Brand colours */
-  --color-primary:                  #4648d4;
-  --color-primary-container:        #6063ee;
-  --color-on-primary:               #ffffff;
-  --color-on-primary-container:     #fffbff;
-  --color-primary-fixed:            #e1e0ff;
-  --color-primary-fixed-dim:        #c0c1ff;
-  --color-on-primary-fixed:         #07006c;
-  --color-on-primary-fixed-variant: #2f2ebe;
-  --color-inverse-primary:          #c0c1ff;
-  --color-surface-tint:             #494bd6;
+  --color-primary:                  #7c6853;
+  --color-primary-container:        #8a7b6c;
+  --color-on-primary:               #FAF8F4;
+  --color-on-primary-container:     #FAF8F4;
+  --color-primary-fixed:            #F0EDE7;
+  --color-primary-fixed-dim:        #E5E1DA;
+  --color-on-primary-fixed:         #3b2e23;
+  --color-on-primary-fixed-variant: #6b5845;
+  --color-inverse-primary:          #E5E1DA;
+  --color-surface-tint:             #7c6853;
 
   /* Secondary */
-  --color-secondary:                #565e74;
-  --color-secondary-container:      #dae2fd;
-  --color-on-secondary:             #ffffff;
-  --color-on-secondary-container:   #5c647a;
-  --color-secondary-fixed:          #dae2fd;
-  --color-secondary-fixed-dim:      #bec6e0;
-  --color-on-secondary-fixed:       #131b2e;
-  --color-on-secondary-fixed-variant: #3f465c;
+  --color-secondary:                #6b5845;
+  --color-secondary-container:      #F0EDE7;
+  --color-on-secondary:             #FAF8F4;
+  --color-on-secondary-container:   #6b5845;
+  --color-secondary-fixed:          #F0EDE7;
+  --color-secondary-fixed-dim:      #E5E1DA;
+  --color-on-secondary-fixed:       #151515;
+  --color-on-secondary-fixed-variant: #6B6B6B;
 
   /* Tertiary */
-  --color-tertiary:                 #595c5e;
-  --color-tertiary-container:       #727577;
-  --color-on-tertiary:              #ffffff;
-  --color-on-tertiary-container:    #fbfdff;
-  --color-tertiary-fixed:           #e0e3e5;
-  --color-tertiary-fixed-dim:       #c4c7c9;
-  --color-on-tertiary-fixed:        #191c1e;
-  --color-on-tertiary-fixed-variant: #444749;
+  --color-tertiary:                 #6B6B6B;
+  --color-tertiary-container:       #817e75;
+  --color-on-tertiary:              #FAF8F4;
+  --color-on-tertiary-container:    #F7F6F2;
+  --color-tertiary-fixed:           #F0EDE7;
+  --color-tertiary-fixed-dim:       #E5E1DA;
+  --color-on-tertiary-fixed:        #151515;
+  --color-on-tertiary-fixed-variant: #6B6B6B;
 
   /* Error */
   --color-error:                    #ba1a1a;
   --color-error-container:          #ffdad6;
-  --color-on-error:                 #ffffff;
+  --color-on-error:                 #FAF8F4;
   --color-on-error-container:       #93000a;
 
   /* Surface scale */
-  --color-surface:                  #f8f9ff;
-  --color-surface-dim:              #cbdbf5;
-  --color-surface-bright:           #f8f9ff;
-  --color-surface-container-lowest: #ffffff;
-  --color-surface-container-low:    #eff4ff;
-  --color-surface-container:        #e5eeff;
-  --color-surface-container-high:   #dce9ff;
-  --color-surface-container-highest:#d3e4fe;
-  --color-surface-variant:          #d3e4fe;
+  --color-surface:                  #F7F6F2;
+  --color-surface-dim:              #E5E1DA;
+  --color-surface-bright:           #F7F6F2;
+  --color-surface-container-lowest: #FAF8F4;
+  --color-surface-container-low:    #F0EDE7;
+  --color-surface-container:        #F0EDE7;
+  --color-surface-container-high:   #F0EDE7;
+  --color-surface-container-highest:#E5E1DA;
+  --color-surface-variant:          #E5E1DA;
 
   /* On-surface */
-  --color-on-surface:               #0b1c30;
-  --color-on-surface-variant:       #464554;
-  --color-inverse-surface:          #213145;
-  --color-inverse-on-surface:       #eaf1ff;
+  --color-on-surface:               #151515;
+  --color-on-surface-variant:       #6B6B6B;
+  --color-inverse-surface:          #34312c;
+  --color-inverse-on-surface:       #F7F6F2;
 
   /* Outline */
-  --color-outline:                  #767586;
-  --color-outline-variant:          #c7c4d7;
+  --color-outline:                  #6B6B6B;
+  --color-outline-variant:          #E5E1DA;
 
   /* Background */
-  --color-background:               #f8f9ff;
-  --color-on-background:            #0b1c30;
+  --color-background:               #F7F6F2;
+  --color-on-background:            #151515;
 
   /* Shadcn compat aliases */
-  --color-foreground:               #0b1c30;
-  --color-card:                     #ffffff;
-  --color-card-foreground:          #0b1c30;
-  --color-popover:                  #ffffff;
-  --color-popover-foreground:       #0b1c30;
-  --color-muted:                    #eff4ff;
-  --color-muted-foreground:         #767586;
-  --color-accent:                   #e5eeff;
-  --color-accent-foreground:        #0b1c30;
+  --color-foreground:               #151515;
+  --color-card:                     #FAF8F4;
+  --color-card-foreground:          #151515;
+  --color-popover:                  #FAF8F4;
+  --color-popover-foreground:       #151515;
+  --color-muted:                    #F0EDE7;
+  --color-muted-foreground:         #6B6B6B;
+  --color-accent:                   #F0EDE7;
+  --color-accent-foreground:        #151515;
   --color-destructive:              #ba1a1a;
-  --color-border:                   #c7c4d7;
-  --color-input:                    #c7c4d7;
-  --color-ring:                     #4648d4;
+  --color-border:                   #E5E1DA;
+  --color-input:                    #E5E1DA;
+  --color-ring:                     #7c6853;
 
   /* Radius scale */
   --radius-sm: 0.25rem;
@@ -117,8 +117,8 @@
   }
 
   body {
-    background-color: #f8f9ff;
-    color: #0b1c30;
+    background-color: #F7F6F2;
+    color: #151515;
     font-family: 'Inter', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -130,8 +130,8 @@
   }
 
   ::selection {
-    background-color: #dae2fd;
-    color: #0b1c30;
+    background-color: #F0EDE7;
+    color: #151515;
   }
 }
 
@@ -139,10 +139,10 @@
 @layer utilities {
   /* Glassmorphism panel */
   .glass-panel {
-    background: rgba(248, 249, 255, 0.72);
+    background: rgba(247, 246, 242, 0.72);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(199, 196, 215, 0.4);
+    border: 1px solid rgba(229, 225, 218, 0.4);
   }
 
   /* Hide scrollbar */
@@ -153,23 +153,23 @@
   .thin-scrollbar::-webkit-scrollbar { width: 4px; }
   .thin-scrollbar::-webkit-scrollbar-track { background: transparent; }
   .thin-scrollbar::-webkit-scrollbar-thumb {
-    background: #c7c4d7;
+    background: #E5E1DA;
     border-radius: 9999px;
   }
 
   /* Admin bottom-border style input */
   .admin-input {
     border: none;
-    border-bottom: 1px solid #c7c4d7;
+    border-bottom: 1px solid #E5E1DA;
     border-radius: 0;
     background-color: transparent;
     transition: all 0.2s ease-in-out;
     outline: none;
   }
   .admin-input:focus {
-    border: 1px solid #4648d4;
+    border: 1px solid #7c6853;
     border-radius: 0.25rem;
-    box-shadow: 0 0 0 1px #4648d4;
+    box-shadow: 0 0 0 1px #7c6853;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
   }
@@ -179,19 +179,19 @@
 
   /* Premium button press */
   .btn-primary {
-    background: #0f172a;
-    color: #ffffff;
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    background: #191816;
+    color: #FAF8F4;
+    border-top: 1px solid rgba(250, 248, 244, 0.5);
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     transition: background 0.15s, transform 0.1s;
   }
-  .btn-primary:hover { background: #1e293b; transform: translateY(-1px); }
+  .btn-primary:hover { background: #34312c; transform: translateY(-1px); }
   .btn-primary:active { transform: scale(0.97); }
 
   /* Surface elevation card */
   .card-elevated {
-    background: #ffffff;
-    border: 1px solid rgba(199, 196, 215, 0.4);
+    background: #FAF8F4;
+    border: 1px solid rgba(229, 225, 218, 0.4);
     border-radius: 0.75rem;
     transition: box-shadow 0.3s, transform 0.3s;
   }
@@ -200,11 +200,11 @@
     transform: translateY(-2px);
   }
 
-  /* Indigo chip / badge */
+  /* Warm chip / badge */
   .chip-primary {
-    background: rgba(70, 72, 212, 0.1);
-    color: #4648d4;
-    border: 1px solid rgba(70, 72, 212, 0.2);
+    background: rgba(124, 104, 83, 0.1);
+    color: #7c6853;
+    border: 1px solid rgba(124, 104, 83, 0.2);
   }
 }
 

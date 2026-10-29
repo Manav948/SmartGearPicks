@@ -32,7 +32,7 @@ export default function CurationProcess() {
       className="py-16 md:py-24 border-y relative overflow-hidden"
       style={{
         backgroundColor: "#f5f3ec",
-        borderColor: "rgba(199, 196, 215, 0.4)",
+        borderColor: "rgba(229, 225, 218, 0.4)",
       }}
     >
       <div className="max-w-7xl mx-auto px-4 md:px-8">

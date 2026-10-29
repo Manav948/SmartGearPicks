@@ -32,7 +32,7 @@ export default function TermsOfServicePage() {
 
   return (
     <PublicMotionProvider>
-    <div className="min-h-screen flex flex-col font-sans" style={{ backgroundColor: "#f8f9ff", color: "#0b1c30" }}>
+    <div className="min-h-screen flex flex-col font-sans" style={{ backgroundColor: "#F7F6F2", color: "#151515" }}>
       <Navbar />
 
       {/* Clean Modular Hero Banner */}
@@ -55,7 +55,7 @@ export default function TermsOfServicePage() {
           />
 
           {/* Policy Detail Sections */}
-          <div className="lg:col-span-8 space-y-8 leading-relaxed" style={{ color: "#464554" }}>
+          <div className="lg:col-span-8 space-y-8 leading-relaxed" style={{ color: "#6B6B6B" }}>
             {/* Section 1 */}
             <LegalSection id="acceptance" title="1. Acceptance of Terms" iconName="filecheck">
               <p>
@@ -75,7 +75,7 @@ export default function TermsOfServicePage() {
               <p>
                 Unless otherwise indicated, the Site source code, database architecture, functionality, software, website designs, text, photographs, and graphics on the Site (collectively, the &quot;Content&quot;) are owned or controlled by SmartGearPicks or licensed to us.
               </p>
-              <p className="text-xs" style={{ color: "#767586" }}>
+              <p className="text-xs" style={{ color: "#6B6B6B" }}>
                 Product images and brand names referenced on the Site belong to their respective copyright and trademark owners and are displayed for identification and recommendation purposes.
               </p>
             </LegalSection>
@@ -93,7 +93,7 @@ export default function TermsOfServicePage() {
             {/* Section 5 */}
             <LegalSection id="acceptable-use" title="5. User Conduct & Acceptable Use" iconName="check">
               <p>You agree not to access or use the Site for any purpose other than that for which we make the Site available. Prohibited activities include:</p>
-              <ul className="list-disc pl-5 space-y-2" style={{ color: "#464554" }}>
+              <ul className="list-disc pl-5 space-y-2" style={{ color: "#6B6B6B" }}>
                 <li>Systematically retrieving data or catalog content without written permission.</li>
                 <li>Attempting to bypass rate limits, server security, or administrative access controls.</li>
                 <li>Engaging in unauthorized framing of or linking to the Site.</li>

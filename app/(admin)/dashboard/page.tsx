@@ -67,7 +67,7 @@ export default async function AdminDashboardPage() {
   });
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen w-full max-w-full overflow-x-hidden" style={{ backgroundColor: "#f8f9ff", color: "#0b1c30" }}>
+    <div className="flex flex-col md:flex-row min-h-screen w-full max-w-full overflow-x-hidden" style={{ backgroundColor: "#F7F6F2", color: "#151515" }}>
       <Sidebar />
 
       <main className="flex-1 min-w-0 md:ml-64 p-4 sm:p-6 md:p-8 space-y-10">
@@ -77,7 +77,7 @@ export default async function AdminDashboardPage() {
           <div
             className="absolute -top-6 -left-4 w-64 h-64 rounded-full pointer-events-none"
             style={{
-              background: "radial-gradient(circle, rgba(70,72,212,0.06) 0%, transparent 70%)",
+              background: "radial-gradient(circle, rgba(124,104,83,0.06) 0%, transparent 70%)",
               zIndex: 0,
             }}
           />
@@ -85,35 +85,35 @@ export default async function AdminDashboardPage() {
             <div
               className="inline-flex items-center gap-2 px-3 py-1 rounded-full mb-3 text-[10px] font-bold uppercase tracking-widest"
               style={{
-                backgroundColor: "rgba(70,72,212,0.08)",
-                color: "#4648d4",
-                border: "1px solid rgba(70,72,212,0.15)",
+                backgroundColor: "rgba(124,104,83,0.08)",
+                color: "#7c6853",
+                border: "1px solid rgba(124,104,83,0.15)",
                 letterSpacing: "0.1em",
               }}
             >
               <span
-                className="w-1.5 h-1.5 rounded-full bg-[#4648d4] inline-block"
-                style={{ boxShadow: "0 0 5px #4648d4" }}
+                className="w-1.5 h-1.5 rounded-full bg-[#7c6853] inline-block"
+                style={{ boxShadow: "0 0 5px #7c6853" }}
               />
               CURATION WORKSPACE
             </div>
             <h1
               className="text-4xl md:text-5xl font-bold tracking-tighter"
-              style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30", letterSpacing: "-0.045em" }}
+              style={{ fontFamily: "Geist, sans-serif", color: "#151515", letterSpacing: "-0.045em" }}
             >
               Curation Studio
             </h1>
-            <p className="mt-2 text-sm text-[#767586]">
+            <p className="mt-2 text-sm text-[#6B6B6B]">
               A clear view of your catalog, clicks, and latest additions.
             </p>
           </div>
           <div className="relative z-10 flex items-center gap-3">
             <span
-              className="text-[10px] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full bg-white text-[#0b1c30]"
+              className="text-[10px] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full bg-[#FAF8F4] text-[#151515]"
               style={{
                 fontFamily: "Geist, sans-serif",
                 letterSpacing: "0.06em",
-                border: "1px solid rgba(199,196,215,0.35)",
+                border: "1px solid rgba(229,225,218,0.35)",
                 boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
               }}
             >

@@ -83,7 +83,7 @@ export default function ProductCard({
       }}
     >
       
-      <div className="relative aspect-[4/5] overflow-hidden shrink-0 border border-[#e8e5de] bg-white" style={{ position: "relative" }}>
+      <div className="relative aspect-[4/5] overflow-hidden shrink-0 border border-[#e8e5de] bg-[#FAF8F4]" style={{ position: "relative" }}>
         <Link href={`/product/${product.id}`} className="block w-full h-full relative" style={{ position: "relative" }}>
           <Image
             src={product.imageUrl}
@@ -103,7 +103,7 @@ export default function ProductCard({
           >
             <span
               className="px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg"
-              style={{ backgroundColor: "rgba(255,255,255,0.95)", color: "#0b1c30", fontFamily: "Geist, sans-serif" }}
+              style={{ backgroundColor: "rgba(255,255,255,0.95)", color: "#151515", fontFamily: "Geist, sans-serif" }}
             >
               View Details →
             </span>
@@ -119,7 +119,7 @@ export default function ProductCard({
                 e.stopPropagation();
                 setShowDropdown((prev) => !prev);
               }}
-              className="w-8 h-8 rounded-full flex items-center justify-center bg-white/90 hover:bg-white ext-on-surface-variant hover:text-[#ba1a1a] shadow-md border border-gray-100 transition-all active:scale-[0.93]"
+              className="w-8 h-8 rounded-full flex items-center justify-center bg-[#FAF8F4]/90 hover:bg-[#FAF8F4] ext-on-surface-variant hover:text-[#ba1a1a] shadow-md border border-gray-100 transition-all active:scale-[0.93]"
               title="Actions"
             >
               <span className="material-symbols-outlined text-[18px] select-none">
@@ -129,7 +129,7 @@ export default function ProductCard({
 
             {showDropdown && (
               <div
-                className="absolute right-0 mt-1.5 w-36 bg-white rounded-xl shadow-lg border border-[#e8e8f0] py-1 z-30"
+                className="absolute right-0 mt-1.5 w-36 bg-[#FAF8F4] rounded-xl shadow-lg border border-[#E5E1DA] py-1 z-30"
                 style={{
                   transformOrigin: "top right"
                 }}
@@ -140,7 +140,7 @@ export default function ProductCard({
                     e.stopPropagation();
                     setShowDropdown(false);
                   }}
-                  className="w-full px-3 py-2 text-left text-xs font-semibold text-[#0b1c30] hover:bg-gray-50 transition-colors flex items-center gap-1.5 border-b border-[#e8e8f0]"
+                  className="w-full px-3 py-2 text-left text-xs font-semibold text-[#151515] hover:bg-[#F0EDE7] transition-colors flex items-center gap-1.5 border-b border-[#E5E1DA]"
                 >
                   <span className="material-symbols-outlined text-[16px]">
                     edit
@@ -208,9 +208,9 @@ export default function ProductCard({
               style={{
                 fontFamily: "Geist, sans-serif",
                 letterSpacing: "0.02em",
-                backgroundColor: i === 0 ? "rgba(70,72,212,0.07)" : "#f4f4f8",
-                color: i === 0 ? "#4648d4" : "#5c5c72",
-                border: i === 0 ? "1px solid rgba(70,72,212,0.14)" : "1px solid #e2e2ec",
+                backgroundColor: i === 0 ? "rgba(124,104,83,0.07)" : "#F0EDE7",
+                color: i === 0 ? "#7c6853" : "#6B6B6B",
+                border: i === 0 ? "1px solid rgba(124,104,83,0.14)" : "1px solid #E5E1DA",
               }}
             >
               {chip}
@@ -237,7 +237,7 @@ export default function ProductCard({
        
         <p
           className="text-xs leading-relaxed line-clamp-2 flex-1"
-          style={{ color: "#767586", lineHeight: "1.55" }}
+          style={{ color: "#6B6B6B", lineHeight: "1.55" }}
         >
           {product.description}
         </p>
@@ -263,7 +263,7 @@ export default function ProductCard({
           href={`/api/redirect/${product.id}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-1 inline-flex min-h-10 w-full items-center justify-center gap-1.5 border border-[#d9d6ce] px-3 text-xs font-medium transition-colors hover:border-[#25241f] hover:bg-[#25241f] hover:text-white"
+          className="mt-1 inline-flex min-h-10 w-full items-center justify-center gap-1.5 border border-[#d9d6ce] px-3 text-xs font-medium transition-colors hover:border-[#25241f] hover:bg-[#25241f] hover:text-[#F7F6F2]"
           style={{
             backgroundColor: "transparent",
             color: "#282721",

@@ -34,17 +34,17 @@ export default async function AdminStorePage() {
   }
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen w-full max-w-full overflow-x-hidden" style={{ backgroundColor: "#f8f9ff", color: "#0b1c30" }}>
+    <div className="flex flex-col md:flex-row min-h-screen w-full max-w-full overflow-x-hidden" style={{ backgroundColor: "#F7F6F2", color: "#151515" }}>
       <Sidebar />
     
       <main className="flex-1 min-w-0 md:ml-64 p-4 sm:p-6 md:p-8">
        
         <header className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4 mb-8 md:mb-12 pt-4">
           <div>
-            <h1 className="text-4xl md:text-5xl font-semibold tracking-tighter" style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30", letterSpacing: "-0.04em" }}>
+            <h1 className="text-4xl md:text-5xl font-semibold tracking-tighter" style={{ fontFamily: "Geist, sans-serif", color: "#151515", letterSpacing: "-0.04em" }}>
               Product Library
             </h1>
-            <p className="mt-2 text-base md:text-lg" style={{ color: "#464554" }}>
+            <p className="mt-2 text-base md:text-lg" style={{ color: "#6B6B6B" }}>
               Manage every product in your curated collection.
             </p>
           </div>

@@ -87,7 +87,7 @@ export default function Navbar() {
       <header
         ref={headerRef}
         className={"sticky top-0 z-50 border-b transition-colors duration-200 motion-reduce:transition-none " +
-          (scrolled ? "border-[#E5E1DA] bg-white" : "border-transparent bg-[#F7F6F2]")}
+          (scrolled ? "border-[#E5E1DA] bg-[#FAF8F4]" : "border-transparent bg-[#F7F6F2]")}
       >
         <nav aria-label="Main navigation" className="mx-auto flex h-[68px] max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
           <Link href="/" onClick={closeAll} aria-label="SmartGearPicks home" className={"shrink-0 font-display text-[19px] font-semibold tracking-[-0.055em] text-[#151515] sm:text-[21px] " + FOCUS}>
@@ -134,7 +134,7 @@ export default function Navbar() {
               {searchOpen ? <X size={18} aria-hidden="true" /> : <Search size={18} aria-hidden="true" />}
             </button>
             <Link href="/catalog" onClick={closeAll}
-              className={"inline-flex h-10 items-center gap-2 bg-[#191816] px-4 text-[13px] font-medium text-white transition-colors hover:bg-[#34312c] " + FOCUS}>
+              className={"inline-flex h-10 items-center gap-2 bg-[#191816] px-4 text-[13px] font-medium text-[#F7F6F2] transition-colors hover:bg-[#34312c] " + FOCUS}>
               Explore Products <ArrowUpRight size={14} aria-hidden="true" />
             </Link>
           </div>
@@ -194,7 +194,7 @@ export default function Navbar() {
                   )}
                 </AnimatePresence>
                 <Link href="/catalog" onClick={closeAll}
-                  className={"mt-5 inline-flex h-11 w-full items-center justify-center gap-2 bg-[#191816] text-sm font-medium text-white hover:bg-[#34312c] " + FOCUS}>
+                  className={"mt-5 inline-flex h-11 w-full items-center justify-center gap-2 bg-[#191816] text-sm font-medium text-[#F7F6F2] hover:bg-[#34312c] " + FOCUS}>
                   Explore Products <ArrowUpRight size={15} aria-hidden="true" />
                 </Link>
               </nav>

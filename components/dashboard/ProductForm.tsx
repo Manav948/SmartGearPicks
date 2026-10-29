@@ -158,14 +158,14 @@ export default function ProductForm({
       <div
         className="sticky bottom-0 z-30 border-t py-4 px-4 sm:px-8 flex flex-col sm:flex-row gap-3 sm:gap-0 items-center justify-between"
         style={{
-          backgroundColor: "rgba(248,249,255,0.9)",
+          backgroundColor: "rgba(247,246,242,0.9)",
           backdropFilter: "blur(12px)",
           WebkitBackdropFilter: "blur(12px)",
-          borderColor: "rgba(199,196,215,0.4)",
+          borderColor: "rgba(229,225,218,0.4)",
         }}
       >
-        <p className="text-sm text-center sm:text-left" style={{ color: "#767586" }}>
-          Ready to save: <strong style={{ color: "#0b1c30" }}>{name || "Untitled Product"}</strong>
+        <p className="text-sm text-center sm:text-left" style={{ color: "#6B6B6B" }}>
+          Ready to save: <strong style={{ color: "#151515" }}>{name || "Untitled Product"}</strong>
         </p>
         <div className="flex items-center gap-3 w-full sm:w-auto justify-center">
           <button
@@ -173,7 +173,7 @@ export default function ProductForm({
             onClick={() => router.push("/dashboard")}
             disabled={loading}
             className="px-4 py-2.5 text-sm font-medium transition-colors disabled:opacity-60 cursor-pointer"
-            style={{ fontFamily: "Geist, sans-serif", color: "#767586" }}
+            style={{ fontFamily: "Geist, sans-serif", color: "#6B6B6B" }}
           >
             Cancel
           </button>
@@ -182,8 +182,8 @@ export default function ProductForm({
             disabled={loading}
             className="px-5 py-2.5 rounded-lg text-sm font-medium transition-all active:scale-95 disabled:opacity-60 cursor-pointer"
             style={{
-              backgroundColor: "#0b1c30",
-              color: "#ffffff",
+              backgroundColor: "#151515",
+              color: "#FAF8F4",
               fontFamily: "Geist, sans-serif",
               borderTop: "1px solid rgba(255,255,255,0.12)",
               boxShadow: "0 1px 2px rgba(0,0,0,0.05)",

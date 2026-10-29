@@ -21,8 +21,8 @@ export default function ProductDetailsLeft({
         className="relative rounded-2xl overflow-hidden border"
         style={{
           aspectRatio: "4/5",
-          borderColor: "rgba(199,196,215,0.4)",
-          backgroundColor: "#e5eeff",
+          borderColor: "rgba(229,225,218,0.4)",
+          backgroundColor: "#F0EDE7",
         }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -39,11 +39,11 @@ export default function ProductDetailsLeft({
           style={{
             fontFamily: "Geist, sans-serif",
             letterSpacing: "0.05em",
-            backgroundColor: "rgba(248,249,255,0.92)",
+            backgroundColor: "rgba(247,246,242,0.92)",
             backdropFilter: "blur(8px)",
             WebkitBackdropFilter: "blur(8px)",
-            color: "#4648d4",
-            border: "1px solid rgba(199,196,215,0.4)",
+            color: "#7c6853",
+            border: "1px solid rgba(229,225,218,0.4)",
           }}
         >
           {categoryLabel}
@@ -54,14 +54,14 @@ export default function ProductDetailsLeft({
           className="absolute top-4 right-4 flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full"
           style={{
             fontFamily: "Geist, sans-serif",
-            backgroundColor: "rgba(248,249,255,0.92)",
+            backgroundColor: "rgba(247,246,242,0.92)",
             backdropFilter: "blur(8px)",
             WebkitBackdropFilter: "blur(8px)",
-            color: "#0b1c30",
-            border: "1px solid rgba(199,196,215,0.4)",
+            color: "#151515",
+            border: "1px solid rgba(229,225,218,0.4)",
           }}
         >
-          <span className="material-symbols-outlined text-[14px]" style={{ fontVariationSettings: "'FILL' 1", color: "#4648d4" }}>
+          <span className="material-symbols-outlined text-[14px]" style={{ fontVariationSettings: "'FILL' 1", color: "#7c6853" }}>
             touch_app
           </span>
           {clicks} views
@@ -78,9 +78,9 @@ export default function ProductDetailsLeft({
               style={{
                 fontFamily: "Geist, sans-serif",
                 letterSpacing: "0.05em",
-                backgroundColor: "rgba(70,72,212,0.08)",
-                color: "#4648d4",
-                border: "1px solid rgba(70,72,212,0.15)",
+                backgroundColor: "rgba(124,104,83,0.08)",
+                color: "#7c6853",
+                border: "1px solid rgba(124,104,83,0.15)",
               }}
             >
               {t.tag.replace(/_/g, " ")}

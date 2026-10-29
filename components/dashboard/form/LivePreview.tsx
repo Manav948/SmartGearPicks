@@ -33,12 +33,12 @@ export default function LivePreview({
       </h2>
 
       <div
-        className="rounded-xl overflow-hidden border group shadow-sm bg-white"
-        style={{ borderColor: "rgba(199,196,215,0.4)" }}
+        className="rounded-xl overflow-hidden border group shadow-sm bg-[#FAF8F4]"
+        style={{ borderColor: "rgba(229,225,218,0.4)" }}
       >
         <div
           className="relative aspect-4/5 overflow-hidden"
-          style={{ backgroundColor: "#e5eeff" }}
+          style={{ backgroundColor: "#F0EDE7" }}
         >
           {imagePreview ? (
             <img
@@ -50,7 +50,7 @@ export default function LivePreview({
             <div className="w-full h-full flex items-center justify-center">
               <span
                 className="material-symbols-outlined text-[64px]"
-                style={{ color: "#c7c4d7", fontVariationSettings: "'FILL' 0" }}
+                style={{ color: "#E5E1DA", fontVariationSettings: "'FILL' 0" }}
               >
                 imagesmode
               </span>
@@ -61,11 +61,11 @@ export default function LivePreview({
             <div
               className="absolute top-3 left-3 flex items-center gap-1 px-2.5 py-1 rounded-full shadow-sm border text-[10px] font-semibold uppercase z-10"
               style={{
-                backgroundColor: "rgba(248,249,255,0.9)",
+                backgroundColor: "rgba(247,246,242,0.9)",
                 backdropFilter: "blur(8px)",
                 WebkitBackdropFilter: "blur(8px)",
                 borderColor: "rgba(255,255,255,0.5)",
-                color: "#4648d4",
+                color: "#7c6853",
                 fontFamily: "Geist, sans-serif",
                 letterSpacing: "0.05em",
               }}
@@ -83,7 +83,7 @@ export default function LivePreview({
           >
             <div
               className="w-10 h-10 rounded-full flex items-center justify-center shadow-lg"
-              style={{ backgroundColor: "#ffffff", color: "#0b1c30" }}
+              style={{ backgroundColor: "#FAF8F4", color: "#151515" }}
             >
               <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 0" }}>
                 shopping_bag
@@ -96,7 +96,7 @@ export default function LivePreview({
           <div className="flex justify-between items-start gap-2 mb-1">
             <h3
               className="text-base font-medium leading-snug line-clamp-1"
-              style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30", letterSpacing: "-0.01em" }}
+              style={{ fontFamily: "Geist, sans-serif", color: "#151515", letterSpacing: "-0.01em" }}
             >
               {name || "Product Name"}
             </h3>
@@ -114,9 +114,9 @@ export default function LivePreview({
               style={{
                 fontFamily: "Geist, sans-serif",
                 letterSpacing: "0.02em",
-                backgroundColor: "rgba(70,72,212,0.07)",
-                color: "#4648d4",
-                border: "1px solid rgba(70,72,212,0.14)",
+                backgroundColor: "rgba(124,104,83,0.07)",
+                color: "#7c6853",
+                border: "1px solid rgba(124,104,83,0.14)",
               }}
             >
               {selectedCategoryLabel}
@@ -130,9 +130,9 @@ export default function LivePreview({
                   style={{
                     fontFamily: "Geist, sans-serif",
                     letterSpacing: "0.02em",
-                    backgroundColor: "#f4f4f8",
-                    color: "#5c5c72",
-                    border: "1px solid #e2e2ec",
+                    backgroundColor: "#F0EDE7",
+                    color: "#6B6B6B",
+                    border: "1px solid #E5E1DA",
                   }}
                 >
                   {tagLabel}
@@ -140,14 +140,14 @@ export default function LivePreview({
               );
             })}
           </div>
-          <p className="text-xs leading-relaxed line-clamp-2" style={{ color: "#767586" }}>
+          <p className="text-xs leading-relaxed line-clamp-2" style={{ color: "#6B6B6B" }}>
             {description || "Your editorial description will appear here, giving context to why you picked this item."}
           </p>
           {price && (
             <div className="mt-3 flex items-baseline gap-1.5">
               <span
                 className="text-xl font-bold tracking-tight"
-                style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30" }}
+                style={{ fontFamily: "Geist, sans-serif", color: "#151515" }}
               >
                 ₹{parseFloat(price).toLocaleString("en-IN")}
               </span>

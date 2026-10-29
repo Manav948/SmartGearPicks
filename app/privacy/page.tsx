@@ -33,7 +33,7 @@ export default function PrivacyPolicyPage() {
 
   return (
     <PublicMotionProvider>
-    <div className="min-h-screen flex flex-col font-sans" style={{ backgroundColor: "#f8f9ff", color: "#0b1c30" }}>
+    <div className="min-h-screen flex flex-col font-sans" style={{ backgroundColor: "#F7F6F2", color: "#151515" }}>
       <Navbar />
 
    
@@ -52,7 +52,7 @@ export default function PrivacyPolicyPage() {
           <LegalSidebar sections={sections} />
 
         
-          <div className="lg:col-span-8 space-y-8 leading-relaxed" style={{ color: "#464554" }}>
+          <div className="lg:col-span-8 space-y-8 leading-relaxed" style={{ color: "#6B6B6B" }}>
             
             <LegalSection id="overview" title="1. Overview & Scope" iconName="shield">
               <p>
@@ -68,15 +68,15 @@ export default function PrivacyPolicyPage() {
               <p>
                 We collect information to deliver a smooth browsing experience, verify traffic authenticity, and track aggregate product interactions:
               </p>
-              <ul className="list-disc pl-5 space-y-2" style={{ color: "#464554" }}>
+              <ul className="list-disc pl-5 space-y-2" style={{ color: "#6B6B6B" }}>
                 <li>
-                  <strong style={{ color: "#0b1c30" }}>Automatically Collected Log Data:</strong> IP address, browser type, operating system, device details, referring URLs, pages viewed, timestamp, and exit links.
+                  <strong style={{ color: "#151515" }}>Automatically Collected Log Data:</strong> IP address, browser type, operating system, device details, referring URLs, pages viewed, timestamp, and exit links.
                 </li>
                 <li>
-                  <strong style={{ color: "#0b1c30" }}>Interaction & Click Analytics:</strong> Click counts on product listings, search queries, and referral link redirects.
+                  <strong style={{ color: "#151515" }}>Interaction & Click Analytics:</strong> Click counts on product listings, search queries, and referral link redirects.
                 </li>
                 <li>
-                  <strong style={{ color: "#0b1c30" }}>Voluntarily Provided Information:</strong> Email address provided during newsletter subscription or support inquiries.
+                  <strong style={{ color: "#151515" }}>Voluntarily Provided Information:</strong> Email address provided during newsletter subscription or support inquiries.
                 </li>
               </ul>
             </LegalSection>
@@ -97,8 +97,8 @@ export default function PrivacyPolicyPage() {
                   href="https://policy.pinterest.com/en/privacy-policy"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-semibold underline hover:text-[#4648d4] inline-flex items-center gap-1"
-                  style={{ color: "#4648d4" }}
+                  className="font-semibold underline hover:text-[#7c6853] inline-flex items-center gap-1"
+                  style={{ color: "#7c6853" }}
                 >
                   Pinterest Privacy Policy <ArrowUpRight className="w-3 h-3" />
                 </a>.
@@ -111,13 +111,13 @@ export default function PrivacyPolicyPage() {
                 Cookies are small text files stored on your browser. We use first-party and third-party cookies for essential functionality, performance measurement, and affiliate link attribution.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-3">
-                <div className="bg-white border rounded-xl p-4 shadow-xs" style={{ borderColor: "rgba(199, 196, 215, 0.4)" }}>
-                  <h4 className="font-semibold text-xs mb-1" style={{ color: "#0b1c30" }}>Essential Cookies</h4>
-                  <p className="text-xs" style={{ color: "#767586" }}>Necessary for website operation, session state, and security routing.</p>
+                <div className="bg-[#FAF8F4] border rounded-xl p-4 shadow-xs" style={{ borderColor: "rgba(229, 225, 218, 0.4)" }}>
+                  <h4 className="font-semibold text-xs mb-1" style={{ color: "#151515" }}>Essential Cookies</h4>
+                  <p className="text-xs" style={{ color: "#6B6B6B" }}>Necessary for website operation, session state, and security routing.</p>
                 </div>
-                <div className="bg-white border rounded-xl p-4 shadow-xs" style={{ borderColor: "rgba(199, 196, 215, 0.4)" }}>
-                  <h4 className="font-semibold text-xs mb-1" style={{ color: "#0b1c30" }}>Affiliate Attribution Cookies</h4>
-                  <p className="text-xs" style={{ color: "#767586" }}>Placed by partner networks (such as Amazon Associates) to attribute successful merchant referrals.</p>
+                <div className="bg-[#FAF8F4] border rounded-xl p-4 shadow-xs" style={{ borderColor: "rgba(229, 225, 218, 0.4)" }}>
+                  <h4 className="font-semibold text-xs mb-1" style={{ color: "#151515" }}>Affiliate Attribution Cookies</h4>
+                  <p className="text-xs" style={{ color: "#6B6B6B" }}>Placed by partner networks (such as Amazon Associates) to attribute successful merchant referrals.</p>
                 </div>
               </div>
             </LegalSection>
@@ -125,7 +125,7 @@ export default function PrivacyPolicyPage() {
             
             <LegalSection id="how-we-use-data" title="5. How We Use Information" iconName="file">
               <p>We use collected information for the following business purposes:</p>
-              <ul className="list-disc pl-5 space-y-2" style={{ color: "#464554" }}>
+              <ul className="list-disc pl-5 space-y-2" style={{ color: "#6B6B6B" }}>
                 <li>To operate, maintain, and optimize our curated product platform.</li>
                 <li>To measure click-through rates and optimize curated recommendations based on audience engagement.</li>
                 <li>To maintain platform security, detect fraudulent clicks, and protect against cyber threats.</li>

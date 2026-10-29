@@ -50,7 +50,7 @@ export default function DeleteProductButton({
         <button
           onClick={handleDelete}
           disabled={isDeleting}
-          className="flex items-center justify-center p-1.5 rounded-lg text-white bg-[#ba1a1a] hover:bg-[#961212] transition-all active:scale-[0.93] disabled:opacity-50"
+          className="flex items-center justify-center p-1.5 rounded-lg text-[#F7F6F2] bg-[#ba1a1a] hover:bg-[#961212] transition-all active:scale-[0.93] disabled:opacity-50"
           title="Confirm Delete"
         >
           <span className="material-symbols-outlined text-[16px] font-bold">
@@ -60,7 +60,7 @@ export default function DeleteProductButton({
         <button
           onClick={() => setShowConfirm(false)}
           disabled={isDeleting}
-          className="flex items-center justify-center p-1.5 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 transition-all active:scale-[0.93]"
+          className="flex items-center justify-center p-1.5 rounded-lg bg-[#F0EDE7] hover:bg-[#E5E1DA] text-[#151515] transition-all active:scale-[0.93]"
           title="Cancel"
         >
           <span className="material-symbols-outlined text-[16px]">
@@ -75,7 +75,7 @@ export default function DeleteProductButton({
     <button
       onClick={() => setShowConfirm(true)}
       disabled={isDeleting}
-      className="flex items-center justify-center p-1.5 rounded-lg text-[#767586] bg-transparent border border-transparent hover:border-[#ba1a1a]/20 hover:bg-[#ba1a1a]/08 hover:text-[#ba1a1a] transition-all active:scale-[0.93] disabled:opacity-50"
+      className="flex items-center justify-center p-1.5 rounded-lg text-[#6B6B6B] bg-transparent border border-transparent hover:border-[#ba1a1a]/20 hover:bg-[#ba1a1a]/08 hover:text-[#ba1a1a] transition-all active:scale-[0.93] disabled:opacity-50"
       title="Delete Product"
     >
       <span className="material-symbols-outlined text-[18px]">

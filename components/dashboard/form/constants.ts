@@ -48,7 +48,7 @@ export const LABEL_STYLE: React.CSSProperties = {
   fontWeight: 600,
   letterSpacing: "0.05em",
   textTransform: "uppercase",
-  color: "#767586",
+  color: "#6B6B6B",
 };
 
 export const SECTION_TITLE_STYLE: React.CSSProperties = {
@@ -57,8 +57,8 @@ export const SECTION_TITLE_STYLE: React.CSSProperties = {
   fontWeight: 600,
   letterSpacing: "0.08em",
   textTransform: "uppercase",
-  color: "#767586",
+  color: "#6B6B6B",
 };
 
 export const INPUT_BASE =
-  "w-full bg-transparent border-0 border-b py-3 text-sm outline-none transition-colors placeholder:text-[#767586]/60 focus:border-[#4648d4]";
+  "w-full bg-transparent border-0 border-b py-3 text-sm outline-none transition-colors placeholder:text-[#6B6B6B]/60 focus:border-[#7c6853]";

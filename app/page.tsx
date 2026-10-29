@@ -76,7 +76,7 @@ export default async function HomePage() {
 
   return (
     <PublicMotionProvider>
-      <div className="min-h-screen" style={{ backgroundColor: "#f8f9ff", color: "#0b1c30" }}>
+      <div className="min-h-screen" style={{ backgroundColor: "#F7F6F2", color: "#151515" }}>
         <Navbar />
         <Hero />
         <Brands />
@@ -89,7 +89,7 @@ export default async function HomePage() {
         {items.length > 0 && (
           <section
             aria-label="Moving wall of products from the collection"
-            data-scroll-reveal className="h-[100svh] min-h-[520px] w-full overflow-hidden bg-[#eef0ff]"
+            data-scroll-reveal className="h-[100svh] min-h-[520px] w-full overflow-hidden bg-[#F5F2EB]"
           >
             <div data-scroll-reveal-item className="h-full w-full md:hidden">
               <DriftWall
@@ -111,7 +111,7 @@ export default async function HomePage() {
                 fade={0.96}
                 dim={0.96}
                 overlayOpacity={0.12}
-                overlayColor="#4648d4"
+                overlayColor="#7c6853"
                 className="h-full w-full"
               />
             </div>
@@ -135,7 +135,7 @@ export default async function HomePage() {
                 fade={0.96}
                 dim={0.96}
                 overlayOpacity={0.12}
-                overlayColor="#4648d4"
+                overlayColor="#7c6853"
                 className="h-full w-full"
               />
             </div>

@@ -70,9 +70,9 @@ export default function StatCards({
       isNumber: true,
       icon: "inventory_2",
       sub: "in your collection",
-      accent: "#4648d4",
-      bg: "linear-gradient(135deg, rgba(70,72,212,0.1) 0%, rgba(70,72,212,0.04) 100%)",
-      iconBg: "rgba(70,72,212,0.12)",
+      accent: "#7c6853",
+      bg: "linear-gradient(135deg, rgba(124,104,83,0.1) 0%, rgba(124,104,83,0.04) 100%)",
+      iconBg: "rgba(124,104,83,0.12)",
       trend: "catalog total",
     },
     {
@@ -82,9 +82,9 @@ export default function StatCards({
       isNumber: true,
       icon: "touch_app",
       sub: "tracked visits",
-      accent: "#3f55bd",
-      bg: "linear-gradient(135deg, rgba(63,85,189,0.1) 0%, rgba(63,85,189,0.04) 100%)",
-      iconBg: "rgba(63,85,189,0.12)",
+      accent: "#7c6853",
+      bg: "linear-gradient(135deg, rgba(124,104,83,0.1) 0%, rgba(124,104,83,0.04) 100%)",
+      iconBg: "rgba(124,104,83,0.12)",
       trend: "all time",
     },
     {
@@ -94,9 +94,9 @@ export default function StatCards({
       isNumber: true,
       icon: "analytics",
       sub: "per product",
-      accent: "#6366f1",
-      bg: "linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(99,102,241,0.04) 100%)",
-      iconBg: "rgba(99,102,241,0.12)",
+      accent: "#8a7b6c",
+      bg: "linear-gradient(135deg, rgba(138,123,108,0.1) 0%, rgba(138,123,108,0.04) 100%)",
+      iconBg: "rgba(138,123,108,0.12)",
       trend: "per product",
     },
     {
@@ -106,9 +106,9 @@ export default function StatCards({
       isNumber: true,
       icon: "category",
       sub: "currently represented",
-      accent: "#818cf8",
-      bg: "linear-gradient(135deg, rgba(129,140,248,0.1) 0%, rgba(129,140,248,0.04) 100%)",
-      iconBg: "rgba(129,140,248,0.12)",
+      accent: "#a99a86",
+      bg: "linear-gradient(135deg, rgba(169,154,134,0.1) 0%, rgba(169,154,134,0.04) 100%)",
+      iconBg: "rgba(169,154,134,0.12)",
       trend: "represented categories",
     },
   ];
@@ -123,8 +123,8 @@ export default function StatCards({
           key={label}
           className="relative rounded-[18px] p-5 border flex flex-col gap-4 group overflow-hidden cursor-default"
           style={{
-            background: "#ffffff",
-            borderColor: "rgba(199,196,215,0.28)",
+            background: "#FAF8F4",
+            borderColor: "rgba(229,225,218,0.28)",
             boxShadow: "0 1px 6px rgba(0,0,0,0.04)",
             opacity: inView ? 1 : 0,
             transform: inView ? "translateY(0) scale(1)" : "translateY(22px) scale(0.96)",
@@ -172,13 +172,13 @@ export default function StatCards({
 
           <div className="relative">
             <p
-              className="text-[10px] font-semibold uppercase tracking-wider mb-1 text-[#767586]"
+              className="text-[10px] font-semibold uppercase tracking-wider mb-1 text-[#6B6B6B]"
               style={{ letterSpacing: "0.07em" }}
             >
               {label}
             </p>
             <p
-              className="text-3xl font-bold tracking-tight text-[#0b1c30] leading-none"
+              className="text-3xl font-bold tracking-tight text-[#151515] leading-none"
               style={{ fontFamily: "Geist, sans-serif", letterSpacing: "-0.04em" }}
             >
               {triggered && isNumber && typeof rawValue === "number" ? (
@@ -191,7 +191,7 @@ export default function StatCards({
                 displayValue
               )}
             </p>
-            <p className="text-[11px] mt-1.5 text-[#767586]">{sub}</p>
+            <p className="text-[11px] mt-1.5 text-[#6B6B6B]">{sub}</p>
           </div>
 
           {/* Bottom accent line */}

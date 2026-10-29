@@ -9,17 +9,17 @@ export default function LogoutButton() {
       className="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all active:scale-[0.97]"
       style={{
         fontFamily: "Geist, sans-serif",
-        color: "#767586",
+        color: "#6B6B6B",
         backgroundColor: "transparent",
-        border: "1px solid rgba(199,196,215,0.5)",
+        border: "1px solid rgba(229,225,218,0.5)",
       }}
       onMouseEnter={(e) => {
-        (e.currentTarget as HTMLElement).style.backgroundColor = "#ffffff";
-        (e.currentTarget as HTMLElement).style.color = "#0b1c30";
+        (e.currentTarget as HTMLElement).style.backgroundColor = "#F0EDE7";
+        (e.currentTarget as HTMLElement).style.color = "#151515";
       }}
       onMouseLeave={(e) => {
         (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
-        (e.currentTarget as HTMLElement).style.color = "#767586";
+        (e.currentTarget as HTMLElement).style.color = "#6B6B6B";
       }}
     >
       <span

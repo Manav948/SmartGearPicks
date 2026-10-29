@@ -29,13 +29,13 @@ function useInView(threshold = 0.1) {
 }
 
 const BAR_COLORS = [
-  "linear-gradient(to top, #4648d4, #818cf8)",
-  "linear-gradient(to top, #4648d4cc, #818cf8aa)",
-  "linear-gradient(to top, #4648d4aa, #818cf888)",
-  "linear-gradient(to top, #4648d488, #818cf866)",
-  "linear-gradient(to top, #4648d466, #818cf855)",
-  "linear-gradient(to top, #4648d444, #818cf844)",
-  "linear-gradient(to top, #4648d433, #818cf833)",
+  "linear-gradient(to top, #7c6853, #a99a86)",
+  "linear-gradient(to top, #7c6853cc, #a99a86aa)",
+  "linear-gradient(to top, #7c6853aa, #a99a8688)",
+  "linear-gradient(to top, #7c685388, #a99a8666)",
+  "linear-gradient(to top, #7c685366, #a99a8655)",
+  "linear-gradient(to top, #7c685344, #a99a8644)",
+  "linear-gradient(to top, #7c685333, #a99a8633)",
 ];
 
 export default function PerformanceMetrics({
@@ -55,9 +55,9 @@ export default function PerformanceMetrics({
     >
       {/* Product engagement Chart */}
       <div
-        className="lg:col-span-2 rounded-[20px] p-6 border flex flex-col bg-white overflow-hidden relative"
+        className="lg:col-span-2 rounded-[20px] p-6 border flex flex-col bg-[#FAF8F4] overflow-hidden relative"
         style={{
-          borderColor: "rgba(199,196,215,0.28)",
+          borderColor: "rgba(229,225,218,0.28)",
           boxShadow: "0 1px 6px rgba(0,0,0,0.04)",
           opacity: inView ? 1 : 0,
           transform: inView ? "translateY(0)" : "translateY(24px)",
@@ -68,7 +68,7 @@ export default function PerformanceMetrics({
         <div
           className="absolute top-0 right-0 w-48 h-48 rounded-full pointer-events-none"
           style={{
-            background: "radial-gradient(circle, rgba(70,72,212,0.05) 0%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(124,104,83,0.05) 0%, transparent 70%)",
             transform: "translate(30%, -30%)",
           }}
         />
@@ -76,13 +76,13 @@ export default function PerformanceMetrics({
         <div className="flex justify-between items-start mb-8 relative">
           <div>
             <p
-              className="text-[10px] font-bold uppercase tracking-widest mb-1 text-[#767586]"
+              className="text-[10px] font-bold uppercase tracking-widest mb-1 text-[#6B6B6B]"
               style={{ letterSpacing: "0.1em" }}
             >
               📊 Performance
             </p>
             <h2
-              className="text-xl font-bold tracking-tight text-[#0b1c30]"
+              className="text-xl font-bold tracking-tight text-[#151515]"
               style={{ fontFamily: "Geist, sans-serif", letterSpacing: "-0.025em" }}
             >
               Product engagement
@@ -92,19 +92,19 @@ export default function PerformanceMetrics({
             <div className="flex items-center gap-2">
               <span
                 className="w-2 h-2 rounded-full"
-                style={{ background: "linear-gradient(135deg, #4648d4, #818cf8)", boxShadow: "0 0 6px rgba(70,72,212,0.5)" }}
+                style={{ background: "linear-gradient(135deg, #7c6853, #a99a86)", boxShadow: "0 0 6px rgba(124,104,83,0.5)" }}
               />
-              <span className="text-[10px] text-[#767586] font-medium">Tracked product clicks</span>
+              <span className="text-[10px] text-[#6B6B6B] font-medium">Tracked product clicks</span>
             </div>
           )}
         </div>
 
         {chartProducts.length === 0 ? (
           <div className="flex-1 flex flex-col items-center justify-center min-h-[160px] gap-3">
-            <span className="material-symbols-outlined text-[48px] text-[#c7c4d7]" style={{ fontVariationSettings: "'FILL' 0" }}>
+            <span className="material-symbols-outlined text-[48px] text-[#E5E1DA]" style={{ fontVariationSettings: "'FILL' 0" }}>
               bar_chart
             </span>
-            <p className="text-sm text-[#c7c4d7] text-center">No data yet — add products to see clicks here.</p>
+            <p className="text-sm text-[#6B6B6B] text-center">No data yet — add products to see clicks here.</p>
           </div>
         ) : (
           <div className="flex-1">
@@ -125,7 +125,7 @@ export default function PerformanceMetrics({
                     <div
                       className="text-[9px] font-bold px-1.5 py-0.5 rounded-md transition-all duration-200 whitespace-nowrap"
                       style={{
-                        backgroundColor: isHovered ? "#0b1c30" : "transparent",
+                        backgroundColor: isHovered ? "#151515" : "transparent",
                         color: isHovered ? "#fff" : "transparent",
                         transform: isHovered ? "translateY(-2px)" : "translateY(0)",
                       }}
@@ -139,11 +139,11 @@ export default function PerformanceMetrics({
                           height: inView ? `${(pct / 100) * 150}px` : "4px",
                           minHeight: "4px",
                           background: isHovered
-                            ? "linear-gradient(to top, #0b1c30, #4648d4)"
+                            ? "linear-gradient(to top, #151515, #7c6853)"
                             : BAR_COLORS[i] || BAR_COLORS[BAR_COLORS.length - 1],
                           transitionDelay: inView ? `${i * 0.07}s` : "0s",
                           transform: isHovered ? "scaleX(1.05)" : "scaleX(1)",
-                          boxShadow: isHovered ? "0 -4px 12px rgba(70,72,212,0.35)" : "none",
+                          boxShadow: isHovered ? "0 -4px 12px rgba(124,104,83,0.35)" : "none",
                         }}
                       />
                     </Link>
@@ -155,13 +155,13 @@ export default function PerformanceMetrics({
             {/* Labels */}
             <div
               className="flex gap-2 mt-3 border-t pt-3"
-              style={{ borderColor: "rgba(199,196,215,0.25)" }}
+              style={{ borderColor: "rgba(229,225,218,0.25)" }}
             >
               {chartProducts.map((p, i) => (
                 <div key={p.id} className="flex-1 text-center">
                   <span
                     className="text-[9px] leading-tight block truncate font-medium"
-                    style={{ color: hoveredBar === i ? "#4648d4" : "#767586" }}
+                    style={{ color: hoveredBar === i ? "#7c6853" : "#6B6B6B" }}
                     title={p.name}
                   >
                     {p.name.split(" ").slice(0, 2).join(" ")}
@@ -175,9 +175,9 @@ export default function PerformanceMetrics({
 
       {/* Category Breakdown */}
       <div
-        className="rounded-[20px] p-6 border flex flex-col bg-white overflow-hidden relative"
+        className="rounded-[20px] p-6 border flex flex-col bg-[#FAF8F4] overflow-hidden relative"
         style={{
-          borderColor: "rgba(199,196,215,0.28)",
+          borderColor: "rgba(229,225,218,0.28)",
           boxShadow: "0 1px 6px rgba(0,0,0,0.04)",
           opacity: inView ? 1 : 0,
           transform: inView ? "translateY(0)" : "translateY(24px)",
@@ -188,20 +188,20 @@ export default function PerformanceMetrics({
         <div
           className="absolute bottom-0 left-0 w-40 h-40 rounded-full pointer-events-none"
           style={{
-            background: "radial-gradient(circle, rgba(124,58,237,0.05) 0%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(124,104,83,0.05) 0%, transparent 70%)",
             transform: "translate(-30%, 30%)",
           }}
         />
 
         <div className="mb-6 relative">
           <p
-            className="text-[10px] font-bold uppercase tracking-widest mb-1 text-[#767586]"
+            className="text-[10px] font-bold uppercase tracking-widest mb-1 text-[#6B6B6B]"
             style={{ letterSpacing: "0.1em" }}
           >
             🗂 Breakdown
           </p>
           <h2
-            className="text-xl font-bold tracking-tight text-[#0b1c30]"
+            className="text-xl font-bold tracking-tight text-[#151515]"
             style={{ fontFamily: "Geist, sans-serif", letterSpacing: "-0.025em" }}
           >
             Catalog mix
@@ -211,29 +211,29 @@ export default function PerformanceMetrics({
         <div className="flex flex-col gap-3.5 flex-1 relative">
           {Object.entries(catBreakdown).length === 0 ? (
             <div className="flex flex-col items-center justify-center flex-1 gap-2">
-              <span className="material-symbols-outlined text-[40px] text-[#c7c4d7]" style={{ fontVariationSettings: "'FILL' 0" }}>
+              <span className="material-symbols-outlined text-[40px] text-[#E5E1DA]" style={{ fontVariationSettings: "'FILL' 0" }}>
                 category
               </span>
-              <p className="text-sm text-[#c7c4d7] text-center">No categories yet</p>
+              <p className="text-sm text-[#6B6B6B] text-center">No categories yet</p>
             </div>
           ) : (
             Object.entries(catBreakdown)
               .sort((a, b) => b[1] - a[1])
               .map(([cat, count], idx) => {
                 const pct = Math.round((count / totalProducts) * 100);
-                const catColors = ["#4648d4", "#5b63df", "#7179e9", "#818cf8"];
+                const catColors = ["#7c6853", "#8a7b6c", "#a99a86", "#a99a86"];
                 const color = catColors[idx % catColors.length];
                 return (
                   <div key={cat} className="group/cat">
                     <div className="flex justify-between items-center text-xs mb-1.5">
                       <span
                         className="font-semibold"
-                        style={{ fontFamily: "Geist, sans-serif", color: "#464554" }}
+                        style={{ fontFamily: "Geist, sans-serif", color: "#6B6B6B" }}
                       >
                         {categoryMap[cat] || cat}
                       </span>
                       <div className="flex items-center gap-1.5">
-                        <span className="text-[#767586]">{count} item{count !== 1 ? "s" : ""}</span>
+                        <span className="text-[#6B6B6B]">{count} item{count !== 1 ? "s" : ""}</span>
                         <span
                           className="text-[9px] font-bold px-1.5 py-0.5 rounded-full"
                           style={{ backgroundColor: `${color}15`, color }}
@@ -244,7 +244,7 @@ export default function PerformanceMetrics({
                     </div>
                     <div
                       className="h-1.5 rounded-full overflow-hidden"
-                      style={{ backgroundColor: "rgba(199,196,215,0.2)" }}
+                      style={{ backgroundColor: "rgba(229,225,218,0.2)" }}
                     >
                       <div
                         className="h-full rounded-full transition-all duration-1000"

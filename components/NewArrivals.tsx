@@ -31,11 +31,11 @@ export default function NewArrivals({ products }: NewArrivalsProps) {
       aria-labelledby="new-arrivals-heading"
       data-scroll-reveal
       className="overflow-hidden py-12 md:py-16"
-      style={{ backgroundColor: "#f8f9ff", color: "#0b1c30" }}
+      style={{ backgroundColor: "#F7F6F2", color: "#151515" }}
     >
       <div className="mx-auto max-w-[1280px] px-4 md:px-8">
         <div data-scroll-reveal-item className="mb-2 text-center">
-          <span className="inline-flex items-center rounded-full border border-indigo-200/70 bg-indigo-50 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-[#4648d4]">
+          <span className="inline-flex items-center rounded-full border border-[#E5E1DA] bg-[#F0EDE7] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-[#7c6853]">
             Fresh Finds
           </span>
           <h2
@@ -45,7 +45,7 @@ export default function NewArrivals({ products }: NewArrivalsProps) {
           >
             New Arrivals
           </h2>
-          <p className="mx-auto mt-2 max-w-xl text-sm text-[#464554] md:text-base">
+          <p className="mx-auto mt-2 max-w-xl text-sm text-[#6B6B6B] md:text-base">
             Take a look at the latest products added to our collection.
           </p>
         </div>
@@ -55,7 +55,7 @@ export default function NewArrivals({ products }: NewArrivalsProps) {
         <CircularGallery
           items={galleryItems}
           bend={2.5}
-          textColor="#0b1c30"
+          textColor="#151515"
           borderRadius={0.06}
           scrollEase={0.075}
           itemSize={0.9}

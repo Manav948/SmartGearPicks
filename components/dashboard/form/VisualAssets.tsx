@@ -15,11 +15,11 @@ export default function VisualAssets({
   return (
     <section
       className="rounded-xl p-6 border transition-shadow hover:shadow-sm"
-      style={{ backgroundColor: "#ffffff", borderColor: "rgba(199,196,215,0.4)" }}
+      style={{ backgroundColor: "#FAF8F4", borderColor: "rgba(229,225,218,0.4)" }}
     >
       <h2
         className="pb-2 mb-5 border-b"
-        style={{ ...SECTION_TITLE_STYLE, borderColor: "rgba(199,196,215,0.3)" }}
+        style={{ ...SECTION_TITLE_STYLE, borderColor: "rgba(229,225,218,0.3)" }}
       >
         Visual Assets
       </h2>
@@ -27,12 +27,12 @@ export default function VisualAssets({
       <label
         htmlFor="image-upload"
         className="flex flex-col items-center justify-center border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all"
-        style={{ borderColor: imagePreview ? "#4648d4" : "rgba(199,196,215,0.6)" }}
+        style={{ borderColor: imagePreview ? "#7c6853" : "rgba(229,225,218,0.6)" }}
         onMouseEnter={(e) => {
-          if (!imagePreview) (e.currentTarget as HTMLElement).style.borderColor = "rgba(70,72,212,0.5)";
+          if (!imagePreview) (e.currentTarget as HTMLElement).style.borderColor = "rgba(124,104,83,0.5)";
         }}
         onMouseLeave={(e) => {
-          if (!imagePreview) (e.currentTarget as HTMLElement).style.borderColor = "rgba(199,196,215,0.6)";
+          if (!imagePreview) (e.currentTarget as HTMLElement).style.borderColor = "rgba(229,225,218,0.6)";
         }}
       >
         {imagePreview ? (
@@ -41,7 +41,7 @@ export default function VisualAssets({
               src={imagePreview}
               alt="Preview"
               className="max-h-50 object-contain rounded-xl border"
-              style={{ borderColor: "rgba(199,196,215,0.4)" }}
+              style={{ borderColor: "rgba(229,225,218,0.4)" }}
             />
             <button
               type="button"
@@ -63,26 +63,26 @@ export default function VisualAssets({
           <>
             <div
               className="w-16 h-16 rounded-full flex items-center justify-center mb-4"
-              style={{ backgroundColor: "#e5eeff" }}
+              style={{ backgroundColor: "#F0EDE7" }}
             >
               <span
                 className="material-symbols-outlined text-[32px]"
-                style={{ color: "#4648d4", fontVariationSettings: "'FILL' 0" }}
+                style={{ color: "#7c6853", fontVariationSettings: "'FILL' 0" }}
               >
                 cloud_upload
               </span>
             </div>
-            <p className="text-sm font-medium" style={{ color: "#0b1c30", fontFamily: "Geist, sans-serif" }}>
+            <p className="text-sm font-medium" style={{ color: "#151515", fontFamily: "Geist, sans-serif" }}>
               Drag & drop high-res image
             </p>
-            <p className="text-xs mt-1" style={{ color: "#767586" }}>
+            <p className="text-xs mt-1" style={{ color: "#6B6B6B" }}>
               PNG, JPG or WEBP (Max 5MB)
             </p>
             <div
               className="mt-4 px-4 py-2 rounded-lg text-sm font-medium"
               style={{
-                backgroundColor: "#dae2fd",
-                color: "#0b1c30",
+                backgroundColor: "#F0EDE7",
+                color: "#151515",
                 fontFamily: "Geist, sans-serif",
               }}
             >

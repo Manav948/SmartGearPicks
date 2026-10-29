@@ -111,7 +111,7 @@ export default async function ProductDetailPage({
 
   return (
     <PublicMotionProvider>
-    <div className="min-h-screen" style={{ backgroundColor: "#f8f9ff", color: "#0b1c30" }}>
+    <div className="min-h-screen" style={{ backgroundColor: "#F7F6F2", color: "#151515" }}>
       <ProductNavbar />
       <ProductBreadcrumb categoryLabel={categoryLabel} productName={product.name} />
 
@@ -137,7 +137,7 @@ export default async function ProductDetailPage({
 
       {similarProducts.length > 0 && (
         <section className="max-w-7xl mx-auto px-4 md:px-8 pb-16">
-          <div className="border-t pt-10" style={{ borderColor: "rgba(199,196,215,0.4)" }}>
+          <div className="border-t pt-10" style={{ borderColor: "rgba(229,225,218,0.4)" }}>
             <SimilarProducts products={similarProducts} currentProductId={id} />
           </div>
         </section>

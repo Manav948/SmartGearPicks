@@ -31,17 +31,17 @@ export default async function CatalogPage({
 
   return (
     <PublicMotionProvider>
-    <div className="min-h-screen bg-[#f8f9ff] text-[#0b1c30]">
+    <div className="min-h-screen bg-[#F7F6F2] text-[#151515]">
       <Navbar />
       <main id="products" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 md:py-16 lg:px-8">
-        <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#4648d4]">The Collection</p>
-        <div className="mb-8 flex flex-wrap items-end justify-between gap-4 border-b border-[#c7c4d7]/50 pb-6">
+        <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#7c6853]">The Collection</p>
+        <div className="mb-8 flex flex-wrap items-end justify-between gap-4 border-b border-[#E5E1DA]/50 pb-6">
           <div>
             <h1 className="font-display text-3xl font-medium tracking-[-0.04em] sm:text-4xl">Explore all products</h1>
-            <p className="mt-2 text-sm text-[#686879]">Browse the complete collection by category.</p>
+            <p className="mt-2 text-sm text-[#6B6B6B]">Browse the complete collection by category.</p>
           </div>
           {initialCategory && (
-            <p className="text-sm text-[#686879]">Showing {CATEGORY_MAP[initialCategory] || initialCategory}</p>
+            <p className="text-sm text-[#6B6B6B]">Showing {CATEGORY_MAP[initialCategory] || initialCategory}</p>
           )}
         </div>
         <ProductGrid

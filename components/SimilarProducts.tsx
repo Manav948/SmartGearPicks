@@ -52,7 +52,7 @@ export default function SimilarProducts({
       <div className="flex items-center justify-between mb-5">
         <h2
           className="text-xl font-semibold tracking-tight"
-          style={{ fontFamily: "Geist, system-ui, sans-serif", color: "#0b1c30", letterSpacing: "-0.02em" }}
+          style={{ fontFamily: "Geist, system-ui, sans-serif", color: "#151515", letterSpacing: "-0.02em" }}
         >
           Similar Products
         </h2>
@@ -65,9 +65,9 @@ export default function SimilarProducts({
             aria-label="Scroll left"
             className="w-9 h-9 rounded-full flex items-center justify-center border transition-all active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed"
             style={{
-              backgroundColor: canScrollLeft ? "#0f172a" : "#ffffff",
-              borderColor: canScrollLeft ? "#0f172a" : "#c7c4d7",
-              color: canScrollLeft ? "#ffffff" : "#767586",
+              backgroundColor: canScrollLeft ? "#191816" : "#FAF8F4",
+              borderColor: canScrollLeft ? "#191816" : "#E5E1DA",
+              color: canScrollLeft ? "#FAF8F4" : "#6B6B6B",
             }}
           >
             <span className="material-symbols-outlined text-[18px]" style={{ fontVariationSettings: "'FILL' 0" }}>
@@ -80,9 +80,9 @@ export default function SimilarProducts({
             aria-label="Scroll right"
             className="w-9 h-9 rounded-full flex items-center justify-center border transition-all active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed"
             style={{
-              backgroundColor: canScrollRight ? "#0f172a" : "#ffffff",
-              borderColor: canScrollRight ? "#0f172a" : "#c7c4d7",
-              color: canScrollRight ? "#ffffff" : "#767586",
+              backgroundColor: canScrollRight ? "#191816" : "#FAF8F4",
+              borderColor: canScrollRight ? "#191816" : "#E5E1DA",
+              color: canScrollRight ? "#FAF8F4" : "#6B6B6B",
             }}
           >
             <span className="material-symbols-outlined text-[18px]" style={{ fontVariationSettings: "'FILL' 0" }}>

@@ -45,7 +45,7 @@ export default function ProductGrid({
   };
 
   const categoryButtonClass =
-    "shrink-0 whitespace-nowrap rounded-full border px-4 py-2 text-xs font-semibold transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4648d4]";
+    "shrink-0 whitespace-nowrap rounded-full border px-4 py-2 text-xs font-semibold transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7c6853]";
 
   return (
     <div className="space-y-6">
@@ -57,9 +57,9 @@ export default function ProductGrid({
           className={categoryButtonClass}
           style={{
             fontFamily: "Geist, sans-serif",
-            backgroundColor: !selectedCategory ? "#4648d4" : "#ffffff",
-            color: !selectedCategory ? "#ffffff" : "#464554",
-            borderColor: !selectedCategory ? "#4648d4" : "#c7c4d7",
+            backgroundColor: !selectedCategory ? "#7c6853" : "#FAF8F4",
+            color: !selectedCategory ? "#FAF8F4" : "#6B6B6B",
+            borderColor: !selectedCategory ? "#7c6853" : "#E5E1DA",
           }}
         >
           All Curations
@@ -75,9 +75,9 @@ export default function ProductGrid({
               className={categoryButtonClass}
               style={{
                 fontFamily: "Geist, sans-serif",
-                backgroundColor: selected ? "#4648d4" : "#ffffff",
-                color: selected ? "#ffffff" : "#464554",
-                borderColor: selected ? "#4648d4" : "#c7c4d7",
+                backgroundColor: selected ? "#7c6853" : "#FAF8F4",
+                color: selected ? "#FAF8F4" : "#6B6B6B",
+                borderColor: selected ? "#7c6853" : "#E5E1DA",
               }}
             >
               {CATEGORY_MAP[category] || category}
@@ -85,31 +85,31 @@ export default function ProductGrid({
           );
         })}
 
-        <label className="ml-auto flex min-h-11 min-w-[220px] flex-1 items-center gap-2 rounded-xl border border-[#c7c4d7] bg-white px-3 text-[#686879] transition-colors focus-within:border-[#4648d4] focus-within:ring-2 focus-within:ring-[#4648d4]/10 sm:max-w-xs">
-          <Search size={16} aria-hidden="true" className="text-[#4648d4]" />
+        <label className="ml-auto flex min-h-11 min-w-[220px] flex-1 items-center gap-2 rounded-xl border border-[#E5E1DA] bg-[#FAF8F4] px-3 text-[#6B6B6B] transition-colors focus-within:border-[#7c6853] focus-within:ring-2 focus-within:ring-[#7c6853]/10 sm:max-w-xs">
+          <Search size={16} aria-hidden="true" className="text-[#7c6853]" />
           <span className="sr-only">Search products</span>
           <input
             type="search"
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
             placeholder="Search products"
-            className="min-w-0 flex-1 bg-transparent text-sm text-[#0b1c30] outline-none placeholder:text-[#8a8999]"
+            className="min-w-0 flex-1 bg-transparent text-sm text-[#151515] outline-none placeholder:text-[#8a8999]"
           />
         </label>
       </div>
 
       {filteredProducts.length === 0 ? (
-        <div className="rounded-2xl border border-[#c7c4d7]/60 bg-white py-20 text-center shadow-sm">
+        <div className="rounded-2xl border border-[#E5E1DA]/60 bg-[#FAF8F4] py-20 text-center shadow-sm">
           <span
-            className="material-symbols-outlined mb-4 block text-[56px] text-[#c7c4d7]"
+            className="material-symbols-outlined mb-4 block text-[56px] text-[#E5E1DA]"
             style={{ fontVariationSettings: "'FILL' 0" }}
           >
             inventory_2
           </span>
-          <h3 className="font-semibold text-lg" style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30" }}>
+          <h3 className="font-semibold text-lg" style={{ fontFamily: "Geist, sans-serif", color: "#151515" }}>
             No products found
           </h3>
-          <p className="mt-2 text-sm text-[#767586]">
+          <p className="mt-2 text-sm text-[#6B6B6B]">
             Try resetting your filters or search criteria.
           </p>
         </div>

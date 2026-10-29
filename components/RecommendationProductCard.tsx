@@ -22,7 +22,7 @@ export default function RecommendationProductCard({ product, index = 0, adminMod
       <Link
         href={productHref}
         aria-label={adminMode ? "Edit " + product.name : "View " + product.name}
-        className="relative mb-4 block aspect-[4/5] overflow-hidden border border-[#e8e5de] bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#625e54]"
+        className="relative mb-4 block aspect-[4/5] overflow-hidden border border-[#e8e5de] bg-[#FAF8F4] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#625e54]"
       >
         <Image
           src={product.imageUrl}
@@ -46,7 +46,7 @@ export default function RecommendationProductCard({ product, index = 0, adminMod
           </p>
           <Link
             href={actionHref}
-            className="inline-flex min-h-10 items-center justify-between border border-[#d9d6ce] px-3 text-xs font-medium text-[#282721] transition-colors hover:border-[#25241f] hover:bg-[#25241f] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#625e54]"
+            className="inline-flex min-h-10 items-center justify-between border border-[#d9d6ce] px-3 text-xs font-medium text-[#282721] transition-colors hover:border-[#25241f] hover:bg-[#25241f] hover:text-[#F7F6F2] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#625e54]"
           >
             {adminMode ? "Edit product" : "View deal"} <span aria-hidden="true">↗</span>
           </Link>

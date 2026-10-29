@@ -35,11 +35,11 @@ export default function PrimaryDetails({
   return (
     <section
       className="rounded-xl p-6 border transition-shadow hover:shadow-sm"
-      style={{ backgroundColor: "#ffffff", borderColor: "rgba(199,196,215,0.4)" }}
+      style={{ backgroundColor: "#FAF8F4", borderColor: "rgba(229,225,218,0.4)" }}
     >
       <h2
         className="pb-2 mb-5 border-b"
-        style={{ ...SECTION_TITLE_STYLE, borderColor: "rgba(199,196,215,0.3)" }}
+        style={{ ...SECTION_TITLE_STYLE, borderColor: "rgba(229,225,218,0.3)" }}
       >
         Primary Details
       </h2>
@@ -57,8 +57,8 @@ export default function PrimaryDetails({
             placeholder="Enter product name..."
             className={INPUT_BASE}
             style={{
-              borderColor: "#c7c4d7",
-              color: "#0b1c30",
+              borderColor: "#E5E1DA",
+              color: "#151515",
               fontSize: "22px",
               fontFamily: "Geist, sans-serif",
               fontWeight: 500,
@@ -73,16 +73,16 @@ export default function PrimaryDetails({
               Affiliate URL
             </label>
             <div
-              className="flex items-center border rounded-lg overflow-hidden transition-all focus-within:border-[#4648d4] focus-within:ring-1 focus-within:ring-[#4648d4]"
-              style={{ borderColor: "#c7c4d7" }}
+              className="flex items-center border rounded-lg overflow-hidden transition-all focus-within:border-[#7c6853] focus-within:ring-1 focus-within:ring-[#7c6853]"
+              style={{ borderColor: "#E5E1DA" }}
             >
               <div
                 className="px-3 py-3 border-r flex items-center"
-                style={{ borderColor: "#c7c4d7", backgroundColor: "#eff4ff" }}
+                style={{ borderColor: "#E5E1DA", backgroundColor: "#F0EDE7" }}
               >
                 <span
                   className="material-symbols-outlined text-[20px]"
-                  style={{ color: "#767586", fontVariationSettings: "'FILL' 0" }}
+                  style={{ color: "#6B6B6B", fontVariationSettings: "'FILL' 0" }}
                 >
                   link
                 </span>
@@ -94,8 +94,8 @@ export default function PrimaryDetails({
                 value={affiliateLink}
                 onChange={(e) => setAffiliateLink(e.target.value)}
                 placeholder="https://amazon.com/dp/..."
-                className="flex-1 bg-transparent border-0 outline-none px-4 py-3 text-sm placeholder:text-[#767586]/60"
-                style={{ color: "#0b1c30" }}
+                className="flex-1 bg-transparent border-0 outline-none px-4 py-3 text-sm placeholder:text-[#6B6B6B]/60"
+                style={{ color: "#151515" }}
               />
             </div>
           </div>
@@ -105,16 +105,16 @@ export default function PrimaryDetails({
               Price (optional)
             </label>
             <div
-              className="flex items-center border rounded-lg overflow-hidden transition-all focus-within:border-[#4648d4] focus-within:ring-1 focus-within:ring-[#4648d4]"
-              style={{ borderColor: "#c7c4d7" }}
+              className="flex items-center border rounded-lg overflow-hidden transition-all focus-within:border-[#7c6853] focus-within:ring-1 focus-within:ring-[#7c6853]"
+              style={{ borderColor: "#E5E1DA" }}
             >
               <div
                 className="px-3 py-3 border-r flex items-center shrink-0"
-                style={{ borderColor: "#c7c4d7", backgroundColor: "#eff4ff" }}
+                style={{ borderColor: "#E5E1DA", backgroundColor: "#F0EDE7" }}
               >
                 <span
                   className="text-sm font-semibold select-none"
-                  style={{ color: "#4648d4", fontFamily: "Geist, sans-serif" }}
+                  style={{ color: "#7c6853", fontFamily: "Geist, sans-serif" }}
                 >
                   ₹
                 </span>
@@ -127,8 +127,8 @@ export default function PrimaryDetails({
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
                 placeholder="0.00"
-                className="flex-1 bg-transparent border-0 outline-none px-4 py-3 text-sm placeholder:text-[#767586]/60"
-                style={{ color: "#0b1c30" }}
+                className="flex-1 bg-transparent border-0 outline-none px-4 py-3 text-sm placeholder:text-[#6B6B6B]/60"
+                style={{ color: "#151515" }}
               />
             </div>
           </div>
@@ -143,8 +143,8 @@ export default function PrimaryDetails({
               id="product-category"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className="w-full appearance-none border rounded-lg px-4 py-3 text-sm outline-none transition-all focus:border-[#4648d4] focus:ring-1 focus:ring-[#4648d4] bg-transparent"
-              style={{ borderColor: "#c7c4d7", color: "#0b1c30" }}
+              className="w-full appearance-none border rounded-lg px-4 py-3 text-sm outline-none transition-all focus:border-[#7c6853] focus:ring-1 focus:ring-[#7c6853] bg-transparent"
+              style={{ borderColor: "#E5E1DA", color: "#151515" }}
             >
               {CATEGORIES.map((cat) => (
                 <option key={cat.value} value={cat.value}>
@@ -154,7 +154,7 @@ export default function PrimaryDetails({
             </select>
             <span
               className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"
-              style={{ color: "#767586", fontVariationSettings: "'FILL' 0" }}
+              style={{ color: "#6B6B6B", fontVariationSettings: "'FILL' 0" }}
             >
               expand_more
             </span>
@@ -176,9 +176,9 @@ export default function PrimaryDetails({
                   className="px-3.5 py-1.5 rounded-full text-xs font-semibold border transition-all duration-200 cursor-pointer"
                   style={{
                     fontFamily: "Geist, sans-serif",
-                    backgroundColor: isSelected ? "rgba(70, 72, 212, 0.08)" : "#ffffff",
-                    color: isSelected ? "#4648d4" : "#767586",
-                    borderColor: isSelected ? "#4648d4" : "rgba(199, 196, 215, 0.5)",
+                    backgroundColor: isSelected ? "rgba(124, 104, 83, 0.08)" : "#FAF8F4",
+                    color: isSelected ? "#7c6853" : "#6B6B6B",
+                    borderColor: isSelected ? "#7c6853" : "rgba(229, 225, 218, 0.5)",
                   }}
                 >
                   {t.label}

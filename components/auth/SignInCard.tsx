@@ -73,7 +73,7 @@ const SignInCard = () => {
                 <label
                   htmlFor="email"
                   className="text-xs font-semibold uppercase tracking-widest"
-                  style={{ fontFamily: "Geist, sans-serif", color: "#595c5e", letterSpacing: "0.05em" }}
+                  style={{ fontFamily: "Geist, sans-serif", color: "#6B6B6B", letterSpacing: "0.05em" }}
                 >
                   Work Email
                 </label>
@@ -85,8 +85,8 @@ const SignInCard = () => {
                     disabled={loading}
                     autoComplete="email"
                     {...field}
-                    className="admin-input w-full py-2.5 text-sm placeholder:text-[#767586]/50 transition-all"
-                    style={{ color: "#0b1c30" }}
+                    className="admin-input w-full py-2.5 text-sm placeholder:text-[#6B6B6B]/50 transition-all"
+                    style={{ color: "#151515" }}
                   />
                 </FormControl>
               </div>
@@ -106,7 +106,7 @@ const SignInCard = () => {
                   <label
                     htmlFor="password"
                     className="text-xs font-semibold uppercase tracking-widest"
-                    style={{ fontFamily: "Geist, sans-serif", color: "#595c5e", letterSpacing: "0.05em" }}
+                    style={{ fontFamily: "Geist, sans-serif", color: "#6B6B6B", letterSpacing: "0.05em" }}
                   >
                     Password
                   </label>
@@ -115,7 +115,7 @@ const SignInCard = () => {
                     className="text-xs font-semibold uppercase tracking-widest transition-colors hover:opacity-70"
                     style={{
                       fontFamily: "Geist, sans-serif",
-                      color: "#4648d4",
+                      color: "#7c6853",
                       letterSpacing: "0.05em",
                     }}
                   >
@@ -131,14 +131,14 @@ const SignInCard = () => {
                       disabled={loading}
                       autoComplete="current-password"
                       {...field}
-                      className="admin-input w-full py-2.5 pr-10 text-sm placeholder:text-[#767586]/50 transition-all"
-                      style={{ color: "#0b1c30" }}
+                      className="admin-input w-full py-2.5 pr-10 text-sm placeholder:text-[#6B6B6B]/50 transition-all"
+                      style={{ color: "#151515" }}
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
                       className="absolute right-2 top-1/2 -translate-y-1/2 transition-colors hover:opacity-80"
-                      style={{ color: "#767586" }}
+                      style={{ color: "#6B6B6B" }}
                     >
                       <span
                         className="material-symbols-outlined text-[20px]"
@@ -161,8 +161,8 @@ const SignInCard = () => {
           disabled={loading}
           className="w-full flex items-center justify-center gap-2 py-3 rounded-lg text-sm font-medium transition-all active:scale-[0.98] disabled:opacity-60 mt-2"
           style={{
-            backgroundColor: "#0b1c30",
-            color: "#ffffff",
+            backgroundColor: "#151515",
+            color: "#FAF8F4",
             fontFamily: "Geist, sans-serif",
             borderTop: "1px solid rgba(255,255,255,0.12)",
             boxShadow: "0 1px 2px rgba(0,0,0,0.05)",

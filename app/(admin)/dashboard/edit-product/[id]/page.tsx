@@ -41,7 +41,7 @@ export default async function EditProductPage({
   }
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen w-full max-w-full overflow-x-hidden" style={{ backgroundColor: "#f8f9ff", color: "#0b1c30" }}>
+    <div className="flex flex-col md:flex-row min-h-screen w-full max-w-full overflow-x-hidden" style={{ backgroundColor: "#F7F6F2", color: "#151515" }}>
      
       <Sidebar />
 
@@ -51,17 +51,17 @@ export default async function EditProductPage({
         <header
           className="sticky top-0 z-30 border-b px-4 md:px-8 py-4 flex justify-between items-center"
           style={{
-            backgroundColor: "rgba(248,249,255,0.85)",
+            backgroundColor: "rgba(247,246,242,0.85)",
             backdropFilter: "blur(20px)",
             WebkitBackdropFilter: "blur(20px)",
-            borderColor: "rgba(199,196,215,0.35)",
+            borderColor: "rgba(229,225,218,0.35)",
           }}
         >
           <div className="flex items-center gap-4">
             <Link
               href="/dashboard"
               className="flex items-center justify-center w-8 h-8 rounded-full transition-colors"
-              style={{ color: "#0b1c30" }}
+              style={{ color: "#151515" }}
             >
               <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 0" }}>
                 arrow_back
@@ -70,11 +70,11 @@ export default async function EditProductPage({
             <div>
               <h1
                 className="text-xl font-medium tracking-tight"
-                style={{ fontFamily: "Geist, sans-serif", color: "#0b1c30", letterSpacing: "-0.02em" }}
+                style={{ fontFamily: "Geist, sans-serif", color: "#151515", letterSpacing: "-0.02em" }}
               >
                 Edit Item
               </h1>
-              <p className="text-xs mt-0.5" style={{ color: "#767586" }}>
+              <p className="text-xs mt-0.5" style={{ color: "#6B6B6B" }}>
                 Update product information for your Storefront.
               </p>
             </div>
@@ -82,7 +82,7 @@ export default async function EditProductPage({
           <Link
             href="/dashboard"
             className="text-sm font-medium transition-colors hover:opacity-70 hidden sm:block"
-            style={{ fontFamily: "Geist, sans-serif", color: "#767586" }}
+            style={{ fontFamily: "Geist, sans-serif", color: "#6B6B6B" }}
           >
             ← Back to Dashboard
           </Link>
