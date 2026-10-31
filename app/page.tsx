@@ -82,19 +82,20 @@ export default async function HomePage() {
         <section
           aria-label="A more thoughtful way to discover products"
           data-scroll-reveal
-          className="overflow-hidden border-y border-[#d6d5c9] bg-[#e7e7dd] px-4 py-14 sm:px-6 sm:py-20"
+          className="overflow-hidden border-y border-[#2b1010] bg-black px-3 py-7 text-[#f87171] sm:px-6 sm:py-12 md:py-16"
         >
           <div data-scroll-reveal-item className="mx-auto max-w-6xl text-center">
-            <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-[#7c6853] sm:text-xs">
+            <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-[#ff6b64] sm:text-xs">
               The SmartGearPicks edit
             </p>
-            <div className="mx-auto h-[280px] max-w-5xl sm:h-[320px]">
+            <div className="mx-auto h-[190px] w-full max-w-5xl px-1 sm:h-[240px] md:h-[280px]">
               <ParticleText
-                text="Find what fits."
-                particleSize={2.4}
-                density={5}
-                color="#963d32"
-                highlightColor="#c45b4a"
+                className="sm:hidden"
+                text="Find your fit."
+                particleSize={3.8}
+                density={3}
+                color="#ef4444"
+                highlightColor="#ff8a80"
                 highlightMode="gradient"
                 intro="gather"
                 scatter={110}
@@ -105,13 +106,35 @@ export default async function HomePage() {
                 repelRadius={90}
                 idleDrift={0.25}
                 trigger="view"
-                fontSize="clamp(2.5rem, 8vw, 6.2rem)"
+                fontSize="clamp(2.15rem, 12vw, 3.3rem)"
+                fontWeight={650}
+                fontFamily="Geist, system-ui, sans-serif"
+                glow={false}
+              />
+              <ParticleText
+                className="hidden sm:block"
+                text="Find what fits."
+                particleSize={3.2}
+                density={5}
+                color="#ef4444"
+                highlightColor="#ff8a80"
+                highlightMode="gradient"
+                intro="gather"
+                scatter={110}
+                gatherDuration={1500}
+                stagger={100}
+                clickBurst={false}
+                pointerRepel={20}
+                repelRadius={90}
+                idleDrift={0.25}
+                trigger="view"
+                fontSize="clamp(2rem, 9.5vw, 6.2rem)"
                 fontWeight={650}
                 fontFamily="Geist, system-ui, sans-serif"
                 glow={false}
               />
             </div>
-            <p className="mx-auto mt-1 max-w-xl text-sm leading-7 text-[#6b6258] sm:text-base">
+            <p className="mx-auto mt-2 max-w-[22rem] px-2 text-sm leading-6 text-[#ff8a80] sm:max-w-xl sm:px-0 sm:leading-7 sm:text-base">
               Thoughtful picks for work, home, and everything in between—without the endless scrolling.
             </p>
           </div>

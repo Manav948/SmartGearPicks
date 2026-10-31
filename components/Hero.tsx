@@ -276,13 +276,6 @@ export default function Hero() {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="lg:col-span-7 space-y-4"
             >
-              {/* Refined Eyebrow */}
-              <div className="inline-flex items-center gap-2">
-                <span
-                  className="w-1.5 h-1.5 rounded-full"
-                  style={{ backgroundColor: "#7c6853" }}
-                />
-              </div>
 
               {/* Headline */}
               <h1

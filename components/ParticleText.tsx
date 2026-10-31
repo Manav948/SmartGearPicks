@@ -856,7 +856,7 @@ const ParticleText = ({
   return (
     <div
       ref={containerRef}
-      className={`relative isolate block h-full min-h-[240px] w-full overflow-hidden touch-pan-y ${className}`.trim()}
+      className={`relative isolate block h-full min-h-[160px] w-full overflow-hidden touch-pan-y sm:min-h-[200px] ${className}`.trim()}
       style={style}
     >
       <canvas ref={canvasRef} className="absolute inset-0 block h-full w-full" aria-hidden="true" />
