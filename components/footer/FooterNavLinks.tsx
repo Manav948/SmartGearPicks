@@ -1,8 +1,8 @@
 import React from "react";
 import Link from "next/link";
 
-const linkClass = "group inline-flex min-h-7 items-center gap-1 text-xs text-[#49443d] transition-colors hover:text-[#151515] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7c6853]";
-const headingClass = "mb-2 text-xs font-semibold text-[#151515]";
+const linkClass = "group inline-flex min-h-7 items-center gap-1 text-[13px] font-medium text-[#302a23] transition-colors hover:text-[#151515] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7c6853]";
+const headingClass = "mb-2 text-[13px] font-bold text-[#151515]";
 
 export function FooterNavLinks() {
   return (

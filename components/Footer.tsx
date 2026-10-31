@@ -20,7 +20,7 @@ export default function Footer() {
         loading="eager"
         className="-z-20 object-cover object-[65%_center]"
       />
-      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[#F7F6F2]/75 sm:bg-[#F7F6F2]/60 xl:bg-[#F7F6F2]/42" />
+      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[#F7F6F2]/82 sm:bg-[#F7F6F2]/68 xl:bg-[#F7F6F2]/54" />
 
       <div className="relative mx-auto max-w-[1600px] px-5 py-10 sm:px-8 sm:py-14 lg:px-12 lg:py-16">
         <FooterImageCopy />
@@ -31,9 +31,9 @@ export default function Footer() {
               <span aria-hidden="true" className="flex h-10 w-10 items-center justify-center border border-[#151515]/50 font-display text-lg font-semibold">S</span>
               <span className="font-display text-xl font-semibold tracking-[-0.04em]">SmartGearPicks</span>
             </Link>
-            <p className="mt-3 text-sm font-medium">Curated products. Smarter choices.</p>
-            <p className="mt-2 max-w-sm text-sm leading-6 text-[#49443d]">Useful products and thoughtful discoveries to make your next find a little easier.</p>
-            <a href="mailto:privacy@smartgearpicks.com" className="mt-4 inline-block text-xs text-[#49443d] underline decoration-[#151515]/30 underline-offset-4 transition hover:text-[#151515] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#7c6853]">Contact: privacy@smartgearpicks.com</a>
+            <p className="mt-3 text-sm font-semibold">Curated products. Smarter choices.</p>
+            <p className="mt-2 max-w-sm text-sm font-medium leading-6 text-[#302a23]">Useful products and thoughtful discoveries to make your next find a little easier.</p>
+            <a href="mailto:privacy@smartgearpicks.com" className="mt-4 inline-block text-xs font-semibold text-[#302a23] underline decoration-[#151515]/30 underline-offset-4 transition hover:text-[#151515] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#7c6853]">Contact: privacy@smartgearpicks.com</a>
           </div>
 
           <nav data-scroll-reveal-item aria-label="Footer navigation" className="grid grid-cols-2 gap-5 sm:col-span-1 xl:col-span-3">
