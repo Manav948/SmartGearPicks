@@ -1,619 +1,291 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
-import type { MotionValue } from "framer-motion";
-import { ArrowUpRight, Compass } from "lucide-react";
+import Link from "next/link";
+import {
+  AnimatePresence,
+  motion,
+  useReducedMotion,
+} from "framer-motion";
+import { ArrowUpRight, ChevronLeft, ChevronRight, Compass } from "lucide-react";
 import { CinematicText } from "@/components/ui/CinematicText";
 
-/**
- * Editorial Scene Configuration
- * Precision coordinates tuned to physically settle onto the stone podiums
- *
- * Podium landmarks in container coordinates:
- * - Center large round podium top: center ~(50%, 65%)
- * - Left square/round stepped podium: ~(22%, 75%)
- * - Right stepped podium: ~(78%, 73%)
- * - Back-left arch backdrop: ~(20%, 38%)
- * - Foliage & accent rocks: ~(82%, 52%)
- */
-
-interface ProductConfig {
+interface HeroProduct {
   id: string;
   name: string;
   category: string;
+  description: string;
   src: string;
   width: number;
   height: number;
-  zIndex: number;
-  // Final resting position (% of container)
-  rest: {
-    left: string;
-    top: string;
-    scale: number;
-    rotate: number;
-  };
-  // Entrance departure vectors (delta in px, rotate, scale)
-  entrance: {
-    x: number;
-    y: number;
-    rotate: number;
-    scale: number;
-  };
-  // Scroll progress response (0 to 1)
-  scrollRange: [number, number];
-  // Natural contact shadow configuration
-  shadow: string;
-  filter: string;
 }
-
-const PRODUCTS: ProductConfig[] = [
-  // 1. Handbag - Centerpiece on the main stone podium
-  {
-    id: "handbag",
-    name: "Sienna Italian Calfskin Satchel",
-    category: "Leather Craft",
-    src: "/hero-extracted/handbag.png",
-    width: 568,
-    height: 561,
-    zIndex: 22,
-    rest: {
-      left: "48%",
-      top: "46%",
-      scale: 0.88,
-      rotate: -1.5,
-    },
-    entrance: {
-      x: 0,
-      y: -140,
-      rotate: 4,
-      scale: 1.15,
-    },
-    scrollRange: [0.05, 0.45],
-    shadow: "drop-shadow(0 28px 24px rgba(70, 50, 30, 0.28))",
-    filter: "contrast(1.02) saturate(1.03)",
-  },
-  // 2. Smartphone - Sits elegantly on the left stepped stone podium
-  {
-    id: "smartphone",
-    name: "Ceramic Pro Titanium Edge",
-    category: "Personal Tech",
-    src: "/hero-extracted/smartphone.png",
-    width: 242,
-    height: 494,
-    zIndex: 25,
-    rest: {
-      left: "21%",
-      top: "54%",
-      scale: 0.78,
-      rotate: 3.5,
-    },
-    entrance: {
-      x: -180,
-      y: 60,
-      rotate: -12,
-      scale: 0.9,
-    },
-    scrollRange: [0.1, 0.52],
-    shadow: "drop-shadow(0 20px 20px rgba(10, 20, 40, 0.32))",
-    filter: "contrast(1.04)",
-  },
-  // 3. Headphones - Resting dynamically near the right stepped podium
-  {
-    id: "headphones",
-    name: "Studio Precision ANC Wireless",
-    category: "High-Fidelity Audio",
-    src: "/hero-extracted/headphones.png",
-    width: 318,
-    height: 353,
-    zIndex: 26,
-    rest: {
-      left: "75%",
-      top: "56%",
-      scale: 0.84,
-      rotate: 6,
-    },
-    entrance: {
-      x: 180,
-      y: -80,
-      rotate: -10,
-      scale: 1.1,
-    },
-    scrollRange: [0.12, 0.58],
-    shadow: "drop-shadow(0 22px 22px rgba(20, 15, 10, 0.34))",
-    filter: "contrast(1.03)",
-  },
-  // 4. Timepiece / Watch - On the foreground lower platform
+const PRODUCTS: HeroProduct[] = [
   {
     id: "watch",
     name: "Atelier Minimal 40mm Rose Gold",
-    category: "Horology",
+    category: "TIMEPIECE",
+    description: "A quiet statement in rose gold, finished with a warm leather strap.",
     src: "/hero-extracted/watch.png",
     width: 265,
     height: 401,
-    zIndex: 28,
-    rest: {
-      left: "35%",
-      top: "65%",
-      scale: 0.65,
-      rotate: -4,
-    },
-    entrance: {
-      x: -120,
-      y: 120,
-      rotate: 15,
-      scale: 0.85,
-    },
-    scrollRange: [0.22, 0.7],
-    shadow: "drop-shadow(0 16px 16px rgba(50, 30, 15, 0.28))",
-    filter: "contrast(1.04)",
   },
-  // 5. Earbuds - Placed delicately on the right tier next to foliage
+  {
+    id: "handbag",
+    name: "Sienna Italian Calfskin Satchel",
+    category: "LEATHER CRAFT",
+    description: "Soft Italian calfskin and considered details for everyday use.",
+    src: "/hero-extracted/handbag.png",
+    width: 568,
+    height: 561,
+  },
+  {
+    id: "smartphone",
+    name: "Ceramic Pro Titanium Edge",
+    category: "PERSONAL TECH",
+    description: "A vivid edge-to-edge display set inside a refined titanium frame.",
+    src: "/hero-extracted/smartphone.png",
+    width: 242,
+    height: 494,
+  },
   {
     id: "earbuds",
     name: "Acoustic Pods Pure White",
-    category: "Portable Audio",
+    category: "PORTABLE AUDIO",
+    description: "Compact everyday listening with a clean, easy-to-carry case.",
     src: "/hero-extracted/earbuds.png",
     width: 319,
     height: 391,
-    zIndex: 27,
-    rest: {
-      left: "64%",
-      top: "62%",
-      scale: 0.64,
-      rotate: 2,
-    },
-    entrance: {
-      x: 140,
-      y: 100,
-      rotate: -8,
-      scale: 0.85,
-    },
-    scrollRange: [0.25, 0.75],
-    shadow: "drop-shadow(0 16px 18px rgba(30, 30, 30, 0.22))",
-    filter: "contrast(1.02)",
   },
-  // 6. Sunglasses - Settled in the foreground base
   {
     id: "sunglasses",
     name: "Tortoiseshell Polarized Acetate",
-    category: "Eyewear",
+    category: "EYEWEAR",
+    description: "Classic tortoiseshell frames with a polished, lightweight finish.",
     src: "/hero-extracted/sunglasses.png",
     width: 719,
     height: 250,
-    zIndex: 29,
-    rest: {
-      left: "52%",
-      top: "76%",
-      scale: 0.62,
-      rotate: 2.5,
-    },
-    entrance: {
-      x: 0,
-      y: 160,
-      rotate: -6,
-      scale: 0.95,
-    },
-    scrollRange: [0.35, 0.85],
-    shadow: "drop-shadow(0 14px 14px rgba(40, 25, 10, 0.35))",
-    filter: "contrast(1.03)",
   },
 ];
 
+const slideVariants = {
+  enter: (direction: number) => ({
+    opacity: 0,
+    x: direction * 140,
+    scale: 0.94,
+  }),
+  center: {
+    opacity: 1,
+    x: 0,
+    scale: 1,
+  },
+  exit: (direction: number) => ({
+    opacity: 0,
+    x: direction * -140,
+    scale: 0.96,
+  }),
+};
+
 export default function Hero() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const shouldReduceMotion = useReducedMotion();
-  const [mounted, setMounted] = useState(false);
-  const [compactViewport, setCompactViewport] = useState(false);
+  const reducedMotion = useReducedMotion();
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [slideDirection, setSlideDirection] = useState(1);
+  const activeProduct = PRODUCTS[activeIndex];
 
-  useEffect(() => {
-    const frame = requestAnimationFrame(() => setMounted(true));
-    return () => cancelAnimationFrame(frame);
+  const moveTo = useCallback((step: number) => {
+    setSlideDirection(step);
+    setActiveIndex((current) => (current + step + PRODUCTS.length) % PRODUCTS.length);
   }, []);
 
   useEffect(() => {
-    const media = window.matchMedia("(max-width: 767px)");
-    const updateViewport = () => setCompactViewport(media.matches);
-    const frame = requestAnimationFrame(updateViewport);
-    media.addEventListener("change", updateViewport);
-    return () => {
-      cancelAnimationFrame(frame);
-      media.removeEventListener("change", updateViewport);
-    };
-  }, []);
+    if (reducedMotion) return;
 
-  // Track scroll through the bounded sticky section
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
+    const timer = window.setInterval(() => {
+      setActiveIndex((current) => (current + 1) % PRODUCTS.length);
+      setSlideDirection((current) => (current === 1 ? -1 : 1));
+    }, 5000);
+
+    return () => window.clearInterval(timer);
+  }, [reducedMotion]);
+
+  const slideTransition = reducedMotion
+    ? { duration: 0 }
+    : {
+        x: { type: "spring" as const, stiffness: 62, damping: 19 },
+        scale: { type: "spring" as const, stiffness: 62, damping: 19 },
+        opacity: { duration: 0.45 },
+      };
 
   return (
     <section
-      ref={containerRef}
       data-hero-section
-      className={`relative w-full ${shouldReduceMotion ? "h-auto" : "h-[190vh] max-md:h-[145vh]"}`}
-      style={{
-        backgroundColor: "#f5f2eb",
-      }}
+      aria-label="Featured product collection"
+      className="relative isolate h-[calc(100svh-68px)] min-h-[460px] w-full overflow-hidden bg-[#F5F2EB] sm:min-h-[540px]"
     >
-      {/* Sticky Hero Viewport Container */}
+      <Image
+        src="/hero-extracted/backdrop.png"
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="pointer-events-none object-cover object-center"
+        data-hero-parallax
+      />
       <div
-        className={`${shouldReduceMotion ? "relative min-h-[750px]" : "sticky top-0 h-screen"
-          } w-full overflow-hidden flex flex-col justify-between`}
-      >
-        {/* Layer 1: Architectural Backdrop with warm ivory sunlight */}
-        <div data-hero-parallax className="absolute inset-0 pointer-events-none z-0">
-          <Image
-            src="/hero-extracted/backdrop.png"
-            alt="Warm sunlit architectural studio background"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-center transform scale-[1.02]"
-            style={{
-              filter: "brightness(1.01) contrast(1.02)",
-            }}
-          />
-          {/* Subtle warm ambient vignette */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(ellipse 90% 80% at 50% 30%, transparent 40%, rgba(220, 212, 198, 0.35) 100%)",
-            }}
-          />
-        </div>
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-[1]"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(246,244,239,0.10) 0%, rgba(246,244,239,0.06) 48%, rgba(246,244,239,0.34) 100%)",
+        }}
+      />
 
-        {/* Editorial Text Layer (Top/Header Zone) */}
-        <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 md:pt-14 w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-            {/* Left Column: Editorial Headline & Stance */}
-            <motion.div
-              initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
-              animate={mounted ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="lg:col-span-7 space-y-4"
-            >
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-[57%] sm:h-[63%]">
+        <Image
+          src="/hero-extracted/podium-set.png"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-contain object-bottom drop-shadow-[0_28px_28px_rgba(50,40,30,0.16)]"
+        />
+      </div>
 
-              {/* Headline */}
-              <h1
-                className="text-4xl sm:text-5xl md:text-6xl font-medium tracking-tight text-[#111110] text-balance leading-[1.04]"
-                style={{
-                  fontFamily: "Geist, system-ui, sans-serif",
-                  letterSpacing: "-0.035em",
-                }}
-              >
-                <CinematicText as="span" className="block" delay={0.16} stagger={0.075} blur={18}>
-                  Better Finds.
-                </CinematicText>
-                <CinematicText
-                  as="span"
-                  className="block font-normal italic text-[#5b4c3b] [font-family:serif]"
-                  delay={0.34}
-                  stagger={0.075}
-                  blur={18}
-                >
-                  Less Guesswork.
-                </CinematicText>
-              </h1>
+      <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col px-4 pb-3 pt-5 sm:px-6 sm:pt-7 lg:px-8">
+        <header className="shrink-0 text-center">
+          <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.24em] text-[#7C6853] sm:text-[11px]">
+            A THOUGHTFUL EDIT OF EVERYDAY FINDS
+          </p>
+          <h1 className="font-display text-[clamp(1.8rem,4vw,3.5rem)] font-medium leading-[1.02] tracking-[-0.045em] text-[#22231F]">
+            Better Finds.{" "}
+            <span className="font-normal italic text-[#5B4C3B]">
+              Less Guesswork.
+            </span>
+          </h1>
+        </header>
 
-              {/* Supporting Editorial Deck */}
-              <p
-                className="text-base sm:text-lg max-w-xl text-[#4a4742] leading-relaxed pt-1"
-                style={{
-                  fontFamily: "Inter, sans-serif",
-                  letterSpacing: "-0.01em",
-                }}
-              >
-                <CinematicText
-                  as="span"
-                  className="block font-normal italic text-[#5b4c3b] [font-family:serif]"
-                  delay={0.34}
-                  stagger={0.075}
-                  blur={18}
-                >
-                  Thoughtfully curated products for the way you live, work, and
-                  create. Discover standout finds without the endless scrolling.
-                </CinematicText>
-              </p>
-
-              {/* CTAs */}
-              <div className="flex flex-wrap items-center gap-3 pt-3">
-                <a
-                  href="#products"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 active:scale-95 shadow-sm"
-                  style={{
-                    backgroundColor: "#181715",
-                    color: "#faf8f4",
-                    fontFamily: "Geist, sans-serif",
-                    letterSpacing: "0.01em",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = "#322f2b";
-                    e.currentTarget.style.transform = "translateY(-1px)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = "#181715";
-                    e.currentTarget.style.transform = "translateY(0)";
-                  }}
-                >
-                  <span>Explore Collection</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </a>
-
-                <a
-                  href="#how-we-curate"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 border active:scale-95"
-                  style={{
-                    backgroundColor: "rgba(255, 255, 255, 0.45)",
-                    borderColor: "rgba(160, 145, 125, 0.35)",
-                    color: "#282522",
-                    fontFamily: "Geist, sans-serif",
-                    backdropFilter: "blur(8px)",
-                    WebkitBackdropFilter: "blur(8px)",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = "rgba(255, 255, 255, 0.85)";
-                    e.currentTarget.style.borderColor = "rgba(120, 100, 80, 0.5)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = "rgba(255, 255, 255, 0.45)";
-                    e.currentTarget.style.borderColor = "rgba(160, 145, 125, 0.35)";
-                  }}
-                >
-                  <Compass className="w-3.5 h-3.5 text-[#6c5845]" />
-                  <span>How We Curate</span>
-                </a>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Scene Area: Fixed perspective 3D/assembly stage */}
-        <div className="relative w-full flex-1 min-h-[380px] sm:min-h-[460px] md:min-h-[520px] max-w-[1400px] mx-auto px-2 sm:px-6">
-          {/* Layer 2: Cream Stone Product Podium Stage */}
-          <motion.div
-            initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.97, y: 30 }}
-            animate={mounted ? { opacity: 1, scale: 1, y: 0 } : {}}
-            transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute inset-x-0 bottom-0 top-[10%] flex items-end justify-center pointer-events-none z-10"
+        <div className="relative min-h-0 flex-1">
+          <AnimatePresence
+            initial={false}
+            mode="wait"
+            custom={slideDirection}
           >
-            <div className="relative w-full max-w-[1180px] h-[75%] min-h-[300px] sm:h-[82%] md:h-[90%]">
+            <motion.div
+              key={activeProduct.id}
+              custom={slideDirection}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={slideTransition}
+              className="pointer-events-none absolute z-20"
+              style={{
+                left: "50%",
+              top: "45%",
+                translateX: "-50%",
+                translateY: "-50%",
+                filter: "drop-shadow(0 24px 22px rgba(45, 35, 25, 0.24))",
+              }}
+            >
               <Image
-                src="/hero-extracted/podium-set.png"
-                alt="Minimalist Cream Stone Product Podium Set with architectural arch and natural stone"
-                fill
+                src={activeProduct.src}
+                alt={activeProduct.name}
+                width={activeProduct.width}
+                height={activeProduct.height}
                 priority
-                sizes="(max-width: 1200px) 100vw, 1200px"
-                className="object-contain object-bottom"
-                style={{
-                  filter:
-                    "drop-shadow(0 35px 35px rgba(50, 40, 30, 0.22)) contrast(1.02)",
-                }}
+                sizes="(max-width: 640px) 58vw, (max-width: 1024px) 36vw, 420px"
+                className="h-auto w-auto max-h-[32vh] max-w-[68vw] object-contain sm:max-h-[44vh] sm:max-w-[44vw] lg:max-h-[50vh] lg:max-w-[40vw]"
               />
-            </div>
-          </motion.div>
+            </motion.div>
+          </AnimatePresence>
 
-          {/* Layer 3: Independent Animated Products Layer */}
-          <div className="absolute inset-0 pointer-events-none z-20">
-            <div className="relative w-full h-full max-w-[1180px] mx-auto">
-              {PRODUCTS.map((prod) => (
-                <AnimatedProductItem
-                  key={prod.id}
-                  config={prod}
-                  scrollYProgress={scrollYProgress}
-                  reducedMotion={shouldReduceMotion ?? false}
-                  mounted={mounted}
-                  compactViewport={compactViewport}
-                />
-              ))}
-            </div>
+          <div className="absolute inset-x-0 bottom-0 z-30 px-3 pb-1 text-center sm:px-8">
+            <AnimatePresence
+              initial={false}
+              mode="wait"
+              custom={slideDirection}
+            >
+              <motion.div
+                key={activeProduct.id}
+                custom={slideDirection}
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -14 }}
+                transition={reducedMotion ? { duration: 0 } : { duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                className="mx-auto max-w-2xl"
+              >
+                <CinematicText
+                  as="p"
+                  delay={0.04}
+                  stagger={0.035}
+                  blur={10}
+                  className="mb-1.5 text-[9px] font-semibold uppercase tracking-[0.24em] text-[#9A624B] sm:text-[10px]"
+                >
+                  {activeProduct.category}
+                </CinematicText>
+                <CinematicText
+                  as="h2"
+                  delay={0.08}
+                  stagger={0.045}
+                  blur={14}
+                  className="font-display text-xl font-medium leading-tight tracking-[-0.035em] text-[#22231F] text-balance sm:text-2xl md:text-3xl lg:text-4xl"
+                >
+                  {activeProduct.name}
+                </CinematicText>
+                <CinematicText
+                  as="p"
+                  delay={0.14}
+                  stagger={0.025}
+                  blur={9}
+                  className="mx-auto mt-2 max-w-lg font-sans text-[11px] leading-relaxed text-[#5F5D57] sm:text-xs md:text-sm"
+                >
+                  {activeProduct.description}
+                </CinematicText>
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
 
-        {/* Bottom subtle progress & scroll invitation */}
-        <div className="relative z-30 pb-4 px-8 flex justify-between items-center text-[11px] font-mono text-[#827568]">
-          <div className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#827568]/40 animate-pulse" />
-            <span className="hidden sm:inline">Scroll to assemble composition</span>
-            <span className="sm:hidden">Scroll to discover</span>
+        <footer className="relative z-40 flex shrink-0 items-center justify-between gap-2 pt-2">
+          <Link
+            href="#new-arrivals"
+            className="inline-flex min-h-9 items-center gap-2 rounded-full bg-[#22231F] px-4 text-[11px] font-medium text-[#F6F4EF] transition-colors hover:bg-[#354538] sm:min-h-10 sm:px-5 sm:text-xs"
+          >
+            <span>Explore Collection</span>
+            <ArrowUpRight size={14} />
+          </Link>
+
+          <div className="flex items-center gap-1.5">
+            <button
+              type="button"
+              onClick={() => moveTo(-1)}
+              aria-label="Show previous featured product"
+              className="grid h-9 w-9 place-items-center rounded-full border border-[#7C6853]/35 bg-white/55 text-[#22231F] transition-colors hover:bg-white/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#354538]"
+            >
+              <ChevronLeft size={16} />
+            </button>
+            <span className="min-w-12 text-center font-mono text-[10px] text-[#5F5D57]" aria-live="off">
+              {String(activeIndex + 1).padStart(2, "0")} / {String(PRODUCTS.length).padStart(2, "0")}
+            </span>
+            <button
+              type="button"
+              onClick={() => moveTo(1)}
+              aria-label="Show next featured product"
+              className="grid h-9 w-9 place-items-center rounded-full border border-[#7C6853]/35 bg-white/55 text-[#22231F] transition-colors hover:bg-white/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#354538]"
+            >
+              <ChevronRight size={16} />
+            </button>
           </div>
 
-          <div className="flex items-center gap-3">
-            <span>6 CURATED OBJECTS</span>
-            <span className="opacity-30">|</span>
-            <span>AUTUMN / WINTER</span>
-          </div>
-        </div>
+          <a
+            href="#how-we-curate"
+            className="hidden min-h-9 items-center gap-1.5 text-[11px] font-medium text-[#45443F] transition-colors hover:text-[#22231F] sm:inline-flex sm:text-xs"
+          >
+            <Compass size={14} />
+            <span>How We Curate</span>
+          </a>
+        </footer>
       </div>
     </section>
-  );
-}
-
-/**
- * Animated Product Component
- * Combines smooth page-load entrance stagger with reactive scroll mapping
- */
-interface AnimatedProductItemProps {
-  config: ProductConfig;
-  scrollYProgress: MotionValue<number>;
-  reducedMotion: boolean;
-  mounted: boolean;
-  compactViewport: boolean;
-}
-
-function AnimatedProductItem(props: AnimatedProductItemProps) {
-  if (props.compactViewport && !props.reducedMotion) {
-    return <CompactAnimatedProductItem config={props.config} scrollYProgress={props.scrollYProgress} mounted={props.mounted} />;
-  }
-  return <FullAnimatedProductItem config={props.config} scrollYProgress={props.scrollYProgress} reducedMotion={props.reducedMotion} mounted={props.mounted} />;
-}
-
-function CompactAnimatedProductItem({
-  config,
-  scrollYProgress,
-  mounted,
-}: {
-  config: ProductConfig;
-  scrollYProgress: MotionValue<number>;
-  mounted: boolean;
-}) {
-  const [start, end] = config.scrollRange;
-  const arrivalX = config.entrance.x * 0.34;
-  const arrivalY = config.entrance.y * 0.48;
-  const scrollX = useTransform(scrollYProgress, [start, end], [arrivalX, 0]);
-  const scrollY = useTransform(scrollYProgress, [start, end], [arrivalY, 0]);
-
-  return (
-    <motion.div
-      style={{
-        position: "absolute",
-        left: config.rest.left,
-        top: config.rest.top,
-        x: scrollX,
-        y: scrollY,
-        scale: config.rest.scale,
-        rotate: config.rest.rotate,
-        zIndex: config.zIndex,
-        translateX: "-50%",
-        translateY: "-50%",
-      }}
-      initial={{ opacity: 0 }}
-      animate={mounted ? { opacity: 1 } : {}}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-    >
-      <div
-        style={{ filter: "drop-shadow(0 7px 7px rgba(40, 30, 20, 0.18))" }}
-        className="pointer-events-none select-none"
-        title={`${config.name} — ${config.category}`}
-      >
-        <Image
-          src={config.src}
-          alt={config.name}
-          width={config.width}
-          height={config.height}
-          priority={config.id === "handbag"}
-          className="h-auto w-auto max-w-[130px] select-none sm:max-w-[200px] pointer-events-none"
-        />
-      </div>
-    </motion.div>
-  );
-}
-
-function FullAnimatedProductItem({
-  config,
-  scrollYProgress,
-  reducedMotion,
-  mounted,
-}: {
-  config: ProductConfig;
-  scrollYProgress: MotionValue<number>;
-  reducedMotion: boolean;
-  mounted: boolean;
-}) {
-  const [start, end] = config.scrollRange;
-
-  // Scroll transforms: interpolates between arrival delta and 0 (resting position)
-  const scrollX = useTransform(scrollYProgress, [start, end], [config.entrance.x, 0]);
-  const scrollY = useTransform(scrollYProgress, [start, end], [config.entrance.y, 0]);
-  const scrollRotate = useTransform(
-    scrollYProgress,
-    [start, end],
-    [config.rest.rotate + config.entrance.rotate, config.rest.rotate]
-  );
-  const scrollScale = useTransform(
-    scrollYProgress,
-    [start, end],
-    [config.rest.scale * config.entrance.scale, config.rest.scale]
-  );
-  const scrollOpacity = useTransform(
-    scrollYProgress,
-    [start, start + 0.1, end],
-    [0.4, 0.9, 1]
-  );
-
-  // If reduced motion is requested, render statically at perfect resting position
-  if (reducedMotion) {
-    return (
-      <div
-        className="absolute transition-transform duration-300"
-        style={{
-          left: config.rest.left,
-          top: config.rest.top,
-          transform: `translate(-50%, -50%) scale(${config.rest.scale}) rotate(${config.rest.rotate}deg)`,
-          zIndex: config.zIndex,
-        }}
-      >
-        <div
-          style={{
-            filter: `${config.shadow} ${config.filter}`,
-          }}
-        >
-          <Image
-            src={config.src}
-            alt={config.name}
-            width={config.width}
-            height={config.height}
-            priority={config.id === "handbag"}
-            className="w-auto h-auto max-w-[180px] sm:max-w-[240px] md:max-w-[320px] select-none"
-          />
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <motion.div
-      style={{
-        position: "absolute",
-        left: config.rest.left,
-        top: config.rest.top,
-        x: scrollX,
-        y: scrollY,
-        scale: scrollScale,
-        rotate: scrollRotate,
-        opacity: scrollOpacity,
-        zIndex: config.zIndex,
-        translateX: "-50%",
-        translateY: "-50%",
-      }}
-      initial={{
-        opacity: 0,
-        x: config.entrance.x * 1.3,
-        y: config.entrance.y * 1.3,
-      }}
-      animate={
-        mounted
-          ? {
-            opacity: 1,
-            x: config.entrance.x,
-            y: config.entrance.y,
-          }
-          : {}
-      }
-      transition={{
-        duration: 1.1,
-        ease: [0.16, 1, 0.3, 1],
-      }}
-    >
-      <div
-        style={{
-          filter: `${config.shadow} ${config.filter}`,
-        }}
-        className="transition-transform duration-300 hover:scale-105 pointer-events-auto cursor-pointer"
-        title={`${config.name} — ${config.category}`}
-      >
-        <Image
-          src={config.src}
-          alt={config.name}
-          width={config.width}
-          height={config.height}
-          priority={config.id === "handbag"}
-          className="w-auto h-auto max-w-[130px] sm:max-w-[200px] md:max-w-[280px] lg:max-w-[330px] select-none pointer-events-none"
-        />
-      </div>
-    </motion.div>
   );
 }
