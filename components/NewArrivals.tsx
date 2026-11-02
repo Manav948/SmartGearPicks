@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import type { Product } from "@/components/ProductCard";
+import { CATEGORY_MAP, type Product } from "@/components/ProductCard";
 import CircularGallery from "@/components/CircularGallery";
 
 interface NewArrivalsProps {
@@ -15,11 +15,11 @@ export default function NewArrivals({ products }: NewArrivalsProps) {
 
   const galleryProducts = products.filter((product) => Boolean(product.imageUrl));
   const galleryItems = galleryProducts.map((product) => ({
-      image: product.imageUrl,
-      text: product.name,
-      description: product.description,
-      alt: product.name,
-    }));
+    image: product.imageUrl,
+    text: CATEGORY_MAP[product.category] || product.category.replace(/_/g, " "),
+    description: [product.name, product.description].filter(Boolean).join(" — "),
+    alt: `${CATEGORY_MAP[product.category] || product.category}: ${product.name}`,
+  }));
 
   if (galleryItems.length === 0) return null;
 

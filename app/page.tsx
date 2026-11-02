@@ -88,11 +88,11 @@ export default async function HomePage() {
         {/* 2. Hero — Full-screen sticky parallax transformation */}
         <Hero />
 
-        {/* 3. Trust and Value Strip */}
-        <TrustValueStrip />
-
-        {/* 4. Brand Introduction */}
+        {/* 3. Brand Introduction */}
         <BrandIntroduction />
+
+        {/* 4. Trust and Value Strip */}
+        <TrustValueStrip />
 
         {/* 5. Shop by Category */}
         {availableCategories.length > 0 && (

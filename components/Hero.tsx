@@ -380,7 +380,7 @@ export default function Hero() {
             transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
             className="absolute inset-x-0 bottom-0 top-[10%] flex items-end justify-center pointer-events-none z-10"
           >
-            <div className="relative w-full max-w-[1180px] h-[75%] sm:h-[82%] md:h-[90%]">
+            <div className="relative w-full max-w-[1180px] h-[75%] min-h-[300px] sm:h-[82%] md:h-[90%]">
               <Image
                 src="/hero-extracted/podium-set.png"
                 alt="Minimalist Cream Stone Product Podium Set with architectural arch and natural stone"
