@@ -146,21 +146,6 @@ const CLASSES = {
   hidden: 'sr-only'
 };
 const STEPS: Record<string, number> = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 };
-const DEFAULT_ITEMS: GalleryItem[] = [
-  { image: 'https://picsum.photos/seed/1/800/600', text: 'Bridge' },
-  { image: 'https://picsum.photos/seed/2/800/600', text: 'Desk Setup' },
-  { image: 'https://picsum.photos/seed/3/800/600', text: 'Waterfall' },
-  { image: 'https://picsum.photos/seed/4/800/600', text: 'Strawberries' },
-  { image: 'https://picsum.photos/seed/5/800/600', text: 'Deep Diving' },
-  { image: 'https://picsum.photos/seed/16/800/600', text: 'Train Track' },
-  { image: 'https://picsum.photos/seed/17/800/600', text: 'Santorini' },
-  { image: 'https://picsum.photos/seed/8/800/600', text: 'Blurry Lights' },
-  { image: 'https://picsum.photos/seed/9/800/600', text: 'New York' },
-  { image: 'https://picsum.photos/seed/10/800/600', text: 'Good Boy' },
-  { image: 'https://picsum.photos/seed/21/800/600', text: 'Coastline' },
-  { image: 'https://picsum.photos/seed/12/800/600', text: 'Palm Trees' }
-];
-
 const VERTEX = `#version 300 es
 in vec2 aPosition;
 uniform vec2 uResolution;
@@ -388,7 +373,7 @@ const CircularGallery = ({
   const fontRef = useRef(font);
   const [active, setActive] = useState(0);
   const [open, setOpen] = useState(false);
-  const list = Array.isArray(items) && items.length ? items : DEFAULT_ITEMS;
+  const list = Array.isArray(items) ? items : [];
   const settings: Settings = {
     items: list,
     bend,
@@ -433,6 +418,7 @@ const CircularGallery = ({
     const canvas = canvasRef.current;
     const labelLayer = labelsRef.current;
     const caption = captionRef.current;
+    if (!settingsRef.current.items.length) return undefined;
     const gl = canvas?.getContext('webgl2', {
       alpha: true,
       premultipliedAlpha: true,

@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowUpRight, MoreVertical, Edit2, Trash2 } from "lucide-react";
 import { toast } from "react-hot-toast";
 
 export interface Product {
@@ -29,12 +30,12 @@ export const CATEGORY_MAP: Record<string, string> = {
   SPORTS_OUTDOORS: "Sports & Outdoors",
   TOYS_KIDS: "Toys & Kids",
   AUTOMOTIVE: "Automotive",
-  OFFICE_PRODUCTIVITY: "Office",
+  OFFICE_PRODUCTIVITY: "Office & Workspace",
   PET_SUPPLIES: "Pet Supplies",
   FOOD_BEVERAGES: "Food & Drinks",
   GIFT_CATEGORIES: "Gifts",
-  TRAVEL: "Travel",
-  CREATOR_ESSENTIALS: "Creator",
+  TRAVEL: "Travel & Luggage",
+  CREATOR_ESSENTIALS: "Creator Gear",
 };
 
 interface ProductCardProps {
@@ -52,6 +53,7 @@ export default function ProductCard({
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const categoryLabel = CATEGORY_MAP[product.category] || product.category;
+  const isAmazon = product.affiliateLink?.toLowerCase().includes("amazon");
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -63,10 +65,9 @@ export default function ProductCard({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
- 
   const chips = [
     categoryLabel,
-    ...(product.productTags?.slice(0, 2).map((t) =>
+    ...(product.productTags?.slice(0, 1).map((t) =>
       t.tag.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
     ) ?? []),
   ];
@@ -75,121 +76,87 @@ export default function ProductCard({
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="group flex min-w-0 flex-col overflow-hidden transition-all duration-300 relative"
-      style={{
-        border: "none",
-        boxShadow: "none",
-        transform: "none",
-      }}
+      className="group relative flex flex-col overflow-hidden rounded-md border border-[#DDDCD3] bg-[#FFFFFF] transition-all duration-300 hover:border-[#B66F52] hover:shadow-[0_8px_24px_-4px_rgba(34,35,31,0.06)] hover:-translate-y-0.5"
     >
-      
-      <div className="relative aspect-[4/5] overflow-hidden shrink-0 border border-[#e8e5de] bg-[#FAF8F4]" style={{ position: "relative" }}>
-        <Link href={`/product/${product.id}`} className="block w-full h-full relative" style={{ position: "relative" }}>
+      {/* Product Image Stage */}
+      <div className="relative aspect-[4/5] w-full shrink-0 overflow-hidden bg-[#EBE5DA]/25">
+        <Link href={`/product/${product.id}`} className="relative block h-full w-full">
           <Image
             src={product.imageUrl}
             alt={product.name}
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            className="object-contain p-3 transition-transform duration-500"
-            style={{ transform: hovered ? "scale(1.06)" : "scale(1)" }}
-            priority
+            className="object-contain p-4 transition-transform duration-500 ease-out"
+            style={{ transform: hovered ? "scale(1.05)" : "scale(1)" }}
+            priority={false}
             unoptimized
           />
 
-        
+          {/* Quick view hover badge */}
           <div
-            className="absolute inset-0 flex items-end justify-center pb-4 transition-opacity duration-300"
-            style={{ opacity: hovered ? 1 : 0, background: "linear-gradient(to top, rgba(0,0,0,0.22) 0%, transparent 55%)" }}
+            className="absolute inset-x-0 bottom-0 flex items-center justify-center p-3 transition-opacity duration-200 bg-gradient-to-t from-[#22231F]/30 to-transparent"
+            style={{ opacity: hovered ? 1 : 0 }}
           >
-            <span
-              className="px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg"
-              style={{ backgroundColor: "rgba(255,255,255,0.95)", color: "#151515", fontFamily: "Geist, sans-serif" }}
-            >
+            <span className="rounded-full bg-[#FFFFFF]/95 px-3 py-1 text-[11px] font-medium text-[#22231F] shadow-sm">
               View Details →
             </span>
           </div>
         </Link>
 
-        
+        {/* Admin Menu */}
         {isAdmin && (
-          <div className="absolute top-2.5 right-2.5 z-20" ref={dropdownRef}>
+          <div className="absolute right-2.5 top-2.5 z-20" ref={dropdownRef}>
             <button
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
                 setShowDropdown((prev) => !prev);
               }}
-              className="w-8 h-8 rounded-full flex items-center justify-center bg-[#FAF8F4]/90 hover:bg-[#FAF8F4] ext-on-surface-variant hover:text-[#ba1a1a] shadow-md border border-gray-100 transition-all active:scale-[0.93]"
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-[#DDDCD3] bg-[#FFFFFF]/95 text-[#22231F] shadow-sm transition hover:bg-[#F6F4EF] active:scale-95"
               title="Actions"
             >
-              <span className="material-symbols-outlined text-[18px] select-none">
-                more_vert
-              </span>
+              <MoreVertical size={16} />
             </button>
 
             {showDropdown && (
-              <div
-                className="absolute right-0 mt-1.5 w-36 bg-[#FAF8F4] rounded-xl shadow-lg border border-[#E5E1DA] py-1 z-30"
-                style={{
-                  transformOrigin: "top right"
-                }}
-              >
+              <div className="absolute right-0 mt-1.5 w-36 overflow-hidden rounded-md border border-[#DDDCD3] bg-[#FFFFFF] py-1 shadow-lg z-30">
                 <Link
                   href={`/dashboard/edit-product/${product.id}`}
                   onClick={(e) => {
                     e.stopPropagation();
                     setShowDropdown(false);
                   }}
-                  className="w-full px-3 py-2 text-left text-xs font-semibold text-[#151515] hover:bg-[#F0EDE7] transition-colors flex items-center gap-1.5 border-b border-[#E5E1DA]"
+                  className="flex items-center gap-2 border-b border-[#DDDCD3]/50 px-3 py-2 text-xs font-medium text-[#22231F] hover:bg-[#F6F4EF]"
                 >
-                  <span className="material-symbols-outlined text-[16px]">
-                    edit
-                  </span>
-                  Edit Item
+                  <Edit2 size={13} />
+                  <span>Edit Item</span>
                 </Link>
                 <button
                   onClick={async (e) => {
                     e.preventDefault();
                     e.stopPropagation();
-
-                    const confirmDelete = window.confirm(
-                      `Are you sure you want to delete "${product.name}"?`
-                    );
-                    if (!confirmDelete) {
+                    if (!window.confirm(`Delete "${product.name}"?`)) {
                       setShowDropdown(false);
                       return;
                     }
-
-                    const toastId = toast.loading(`Deleting "${product.name}"...`);
-
+                    const toastId = toast.loading("Deleting product...");
                     try {
                       const response = await fetch(`/api/products/${product.id}`, {
                         method: "DELETE",
                       });
-
-                      const data = await response.json();
-
-                      if (!response.ok) {
-                        throw new Error(data.error || "Failed to delete product");
-                      }
-
-                      toast.success(`"${product.name}" deleted successfully`, { id: toastId });
-                      if (onDeleteSuccess) {
-                        onDeleteSuccess(product.id);
-                      }
+                      if (!response.ok) throw new Error("Failed to delete");
+                      toast.success("Product deleted", { id: toastId });
+                      if (onDeleteSuccess) onDeleteSuccess(product.id);
                     } catch (err: any) {
-                      console.error("Delete product error:", err);
-                      toast.error(err.message || "Failed to delete product", { id: toastId });
+                      toast.error(err.message || "Failed to delete", { id: toastId });
                     } finally {
                       setShowDropdown(false);
                     }
                   }}
-                  className="w-full px-3 py-2 text-left text-xs font-semibold text-[#ba1a1a] hover:bg-[#ba1a1a]/08 transition-colors flex items-center gap-1.5"
+                  className="flex w-full items-center gap-2 px-3 py-2 text-xs font-medium text-[#ba1a1a] hover:bg-[#ffdad6]/20"
                 >
-                  <span className="material-symbols-outlined text-[16px]">
-                    delete
-                  </span>
-                  Delete Item
+                  <Trash2 size={13} />
+                  <span>Delete Item</span>
                 </button>
               </div>
             )}
@@ -197,87 +164,60 @@ export default function ProductCard({
         )}
       </div>
 
-     
-      <div className="flex flex-col flex-1 p-4 gap-2">
-       
-        <div className="flex flex-wrap gap-1.5">
-          {chips.map((chip, i) => (
-            <span
-              key={i}
-              className="text-[10px] font-semibold px-2 py-0.5 rounded-full"
-              style={{
-                fontFamily: "Geist, sans-serif",
-                letterSpacing: "0.02em",
-                backgroundColor: i === 0 ? "rgba(124,104,83,0.07)" : "#F0EDE7",
-                color: i === 0 ? "#7c6853" : "#6B6B6B",
-                border: i === 0 ? "1px solid rgba(124,104,83,0.14)" : "1px solid #E5E1DA",
-              }}
-            >
-              {chip}
-            </span>
-          ))}
+      {/* Product Content */}
+      <div className="flex flex-1 flex-col justify-between p-4">
+        <div>
+          {/* Chips */}
+          <div className="mb-2 flex flex-wrap gap-1.5">
+            {chips.map((chip, i) => (
+              <span
+                key={chip}
+                className="rounded-xs bg-[#E5E9E0] px-2 py-0.5 text-[10px] font-medium tracking-[0.06em] uppercase text-[#354538]"
+              >
+                {chip}
+              </span>
+            ))}
+          </div>
+
+          {/* Title */}
+          <Link href={`/product/${product.id}`}>
+            <h3 className="line-clamp-2 text-sm sm:text-[15px] font-medium leading-snug tracking-[-0.015em] text-[#22231F] transition-colors group-hover:text-[#354538]">
+              {product.name}
+            </h3>
+          </Link>
+
+          {/* Description */}
+          {product.description && (
+            <p className="mt-1.5 line-clamp-2 text-xs leading-relaxed text-[#6B6B66]">
+              {product.description}
+            </p>
+          )}
         </div>
 
-       
-        <Link href={`/product/${product.id}`}>
-          <h3
-            className="font-semibold leading-snug line-clamp-2 transition-colors"
-            style={{
-              fontFamily: "Geist, system-ui, sans-serif",
-              fontSize: "15px",
-              color: hovered ? "#625e54" : "#22211d",
-              letterSpacing: "-0.015em",
-              lineHeight: "1.35",
-            }}
+        {/* Bottom Bar: Price & Affiliate CTA */}
+        <div className="mt-4 flex flex-col gap-2.5 border-t border-[#DDDCD3]/60 pt-3">
+          <div className="flex items-baseline justify-between">
+            <span className="text-[11px] text-[#6B6B66]">Guide price</span>
+            <span className="font-display text-sm font-semibold text-[#22231F]">
+              {product.price != null ? (
+                `₹${product.price.toLocaleString("en-IN")}`
+              ) : (
+                <span className="text-xs font-normal text-[#6B6B66]">Check retailer</span>
+              )}
+            </span>
+          </div>
+
+          <a
+            href={`/api/redirect/${product.id}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex min-h-[38px] w-full items-center justify-center gap-1.5 rounded-sm border border-[#DDDCD3] bg-[#F6F4EF] px-3 text-xs font-medium text-[#22231F] transition-all duration-200 hover:border-[#22231F] hover:bg-[#22231F] hover:text-[#F6F4EF] active:scale-[0.98]"
           >
-            {product.name}
-          </h3>
-        </Link>
-
-       
-        <p
-          className="text-xs leading-relaxed line-clamp-2 flex-1"
-          style={{ color: "#6B6B6B", lineHeight: "1.55" }}
-        >
-          {product.description}
-        </p>
-
-     
-        {product.price != null && (
-          <p
-            className="font-bold"
-            style={{
-              fontFamily: "Geist, sans-serif",
-              fontSize: "16px",
-              color: "#25241f",
-              letterSpacing: "-0.02em",
-              marginTop: "2px",
-            }}
-          >
-            ₹{product.price.toLocaleString("en-IN")}
-          </p>
-        )}
-
-   
-        <a
-          href={`/api/redirect/${product.id}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-1 inline-flex min-h-10 w-full items-center justify-center gap-1.5 border border-[#d9d6ce] px-3 text-xs font-medium transition-colors hover:border-[#25241f] hover:bg-[#25241f] hover:text-[#F7F6F2]"
-          style={{
-            backgroundColor: "transparent",
-            color: "#282721",
-            fontFamily: "Geist, sans-serif",
-            letterSpacing: "0.01em",
-          }}
-        >
-          {product.affiliateLink.toLowerCase().includes("amazon") ? "View on Amazon" : "View Deal"}
-          <span style={{ fontSize: "13px" }}>→</span>
-        </a>
+            <span>{isAmazon ? "View on Amazon" : "View Product"}</span>
+            <ArrowUpRight size={13} />
+          </a>
+        </div>
       </div>
     </div>
   );
 }
-
-
-

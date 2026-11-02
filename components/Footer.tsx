@@ -4,55 +4,83 @@ import Link from "next/link";
 import { FooterImageCopy } from "./footer/FooterImageCopy";
 import { FooterNavLinks } from "./footer/FooterNavLinks";
 import { FooterBottomBar } from "./footer/FooterBottomBar";
-import { FooterNewsletter } from "./footer/FooterNewsletter";
 import { FooterTrustHighlights } from "./footer/FooterTrustHighlights";
 import { FooterDisclosure } from "./footer/FooterDisclosure";
 
 export default function Footer() {
   return (
-    <footer className="relative isolate w-full overflow-hidden border-t border-[#E5E1DA] bg-[#eee3d1] text-[#151515]">
+    <footer className="relative isolate w-full overflow-hidden border-t border-[#DDDCD3] bg-[#EBE5DA] text-[#22231F]">
+      {/* Background Graphic Asset */}
       <Image
         src="/footerbg.png"
         alt=""
         fill
         sizes="100vw"
-        quality={75}
-        loading="eager"
-        className="-z-20 object-cover object-[65%_center]"
+        quality={80}
+        loading="lazy"
+        className="-z-20 object-cover object-[60%_center]"
       />
-      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[#F7F6F2]/82 sm:bg-[#F7F6F2]/68 xl:bg-[#F7F6F2]/54" />
+      {/* Visual Transition Overlay */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 bg-gradient-to-b from-[#F6F4EF] via-[#F6F4EF]/85 to-[#F6F4EF]/70"
+      />
 
-      <div className="relative mx-auto max-w-[1600px] px-5 py-10 sm:px-8 sm:py-14 lg:px-12 lg:py-16">
+      <div className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
+        {/* Big Editorial Heading */}
         <FooterImageCopy />
 
-        <div data-scroll-reveal className="grid grid-cols-1 gap-x-8 gap-y-10 border-t border-[#151515]/20 pt-8 sm:grid-cols-2 lg:gap-x-10 xl:grid-cols-12">
-          <div data-scroll-reveal-item className="sm:col-span-1 xl:col-span-3">
-            <Link href="/" aria-label="SmartGearPicks home" className="inline-flex items-center gap-3 rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#7c6853]">
-              <span aria-hidden="true" className="flex h-10 w-10 items-center justify-center border border-[#151515]/50 font-display text-lg font-semibold">S</span>
-              <span className="font-display text-xl font-semibold tracking-[-0.04em]">SmartGearPicks</span>
+        {/* Multi-column Grid */}
+        <div
+          data-scroll-reveal
+          className="grid grid-cols-1 gap-x-8 gap-y-10 border-t border-[#DDDCD3] pt-10 sm:grid-cols-2 lg:grid-cols-12"
+        >
+          {/* Brand Col */}
+          <div data-scroll-reveal-item className="sm:col-span-1 lg:col-span-4 space-y-3">
+            <Link
+              href="/"
+              aria-label="SmartGearPicks home"
+              className="inline-flex items-center gap-2.5 font-display text-xl font-semibold tracking-[-0.03em] text-[#22231F]"
+            >
+              <span className="flex h-7 w-7 items-center justify-center rounded-sm bg-[#354538] text-[12px] font-bold text-[#F6F4EF]">
+                S
+              </span>
+              <span>SmartGearPicks</span>
             </Link>
-            <p className="mt-3 text-sm font-semibold">Curated products. Smarter choices.</p>
-            <p className="mt-2 max-w-sm text-sm font-medium leading-6 text-[#302a23]">Useful products and thoughtful discoveries to make your next find a little easier.</p>
-            <a href="mailto:privacy@smartgearpicks.com" className="mt-4 inline-block text-xs font-semibold text-[#302a23] underline decoration-[#151515]/30 underline-offset-4 transition hover:text-[#151515] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#7c6853]">Contact: privacy@smartgearpicks.com</a>
+            <p className="text-sm font-medium text-[#22231F]">
+              Curated products. Smarter choices.
+            </p>
+            <p className="max-w-sm text-xs leading-relaxed text-[#6B6B66]">
+              Useful products, practical tools, and thoughtful discoveries to make your next purchase clear and confident.
+            </p>
+            <div className="pt-2">
+              <a
+                href="mailto:contact@smartgearpicks.com"
+                className="text-xs font-medium text-[#354538] underline decoration-[#DDDCD3] underline-offset-4 transition hover:text-[#22231F]"
+              >
+                contact@smartgearpicks.com
+              </a>
+            </div>
           </div>
 
-          <nav data-scroll-reveal-item aria-label="Footer navigation" className="grid grid-cols-2 gap-5 sm:col-span-1 xl:col-span-3">
+          {/* Navigation & Departments */}
+          <nav
+            data-scroll-reveal-item
+            aria-label="Footer navigation"
+            className="grid grid-cols-2 gap-6 sm:col-span-1 lg:col-span-4"
+          >
             <FooterNavLinks />
           </nav>
 
-          <div data-scroll-reveal-item className="sm:col-span-2 xl:col-span-3">
-            <FooterNewsletter />
-          </div>
-
-          <div data-scroll-reveal-item className="sm:col-span-2 xl:col-span-3">
+          {/* Trust Highlights */}
+          <div data-scroll-reveal-item className="sm:col-span-2 lg:col-span-4">
             <FooterTrustHighlights />
           </div>
         </div>
 
-        <div className="mt-8 flex flex-col gap-4 border-t border-[#151515]/20 pt-5 xl:flex-row xl:items-center xl:justify-between">
-          <div className="max-w-2xl xl:max-w-[44%]">
-            <FooterDisclosure />
-          </div>
+        {/* Legal & Amazon Affiliate Disclosure Bar */}
+        <div className="mt-10 flex flex-col gap-5 border-t border-[#DDDCD3] pt-6">
+          <FooterDisclosure />
           <FooterBottomBar />
         </div>
       </div>

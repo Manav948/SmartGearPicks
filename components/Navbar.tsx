@@ -4,15 +4,18 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { ArrowDown, ArrowUpRight, Menu, Search, X } from "lucide-react";
+import { ChevronDown, ArrowUpRight, Menu, Search, X } from "lucide-react";
 import { CATEGORY_MAP } from "@/components/ProductCard";
 
 const LINKS = [
   { label: "Home", href: "/" },
   { label: "Products", href: "/catalog" },
-  { label: "About", href: "/#how-we-curate" },
+  { label: "How We Curate", href: "/#how-we-curate" },
+  { label: "FAQ", href: "/#faq" },
 ];
-const FOCUS = "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#7c6853]";
+
+const FOCUS_RING =
+  "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#354538]";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -34,11 +37,12 @@ export default function Navbar() {
   };
 
   useEffect(() => {
-    const sentinel = document.querySelector("[data-navbar-sentinel]");
-    if (!sentinel) return;
-    const observer = new IntersectionObserver(([entry]) => setScrolled(!entry.isIntersecting));
-    observer.observe(sentinel);
-    return () => observer.disconnect();
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 16);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
@@ -46,7 +50,9 @@ export default function Navbar() {
       if (event.key === "Escape") closeAll();
     };
     const onPointerDown = (event: PointerEvent) => {
-      if (headerRef.current && !headerRef.current.contains(event.target as Node)) closeAll();
+      if (headerRef.current && !headerRef.current.contains(event.target as Node)) {
+        closeAll();
+      }
     };
     document.addEventListener("keydown", onKeyDown);
     document.addEventListener("pointerdown", onPointerDown);
@@ -66,7 +72,9 @@ export default function Navbar() {
   }, [mobileOpen]);
 
   useEffect(() => {
-    if (searchOpen) inputRef.current?.focus();
+    if (searchOpen) {
+      inputRef.current?.focus();
+    }
   }, [searchOpen]);
 
   const submitSearch = (event: FormEvent<HTMLFormElement>) => {
@@ -77,131 +85,276 @@ export default function Navbar() {
     }
     closeAll();
   };
-  const active = (href: string) => href === "/" ? pathname === "/" : href === "/catalog" && pathname === "/catalog";
-  const aboutHref = pathname === "/" ? "#how-we-curate" : "/#how-we-curate";
-  const transition = reducedMotion ? { duration: 0 } : { duration: 0.17, ease: "easeOut" as const };
+
+  const active = (href: string) => {
+    if (href === "/") return pathname === "/";
+    if (href === "/catalog") return pathname === "/catalog";
+    return false;
+  };
+
+  const transition = reducedMotion ? { duration: 0 } : { duration: 0.16, ease: "easeOut" as const };
 
   return (
-    <>
-      <div data-navbar-sentinel aria-hidden="true" className="h-px" />
-      <header
-        ref={headerRef}
-        className={"sticky top-0 z-50 border-b transition-colors duration-200 motion-reduce:transition-none " +
-          (scrolled ? "border-[#E5E1DA] bg-[#FAF8F4]" : "border-transparent bg-[#F7F6F2]")}
+    <header
+      ref={headerRef}
+      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+        scrolled
+          ? "border-b border-[#DDDCD3] bg-[#FFFFFF]/95 shadow-[0_4px_20px_-4px_rgba(34,35,31,0.04)] backdrop-blur-md"
+          : "border-b border-[#DDDCD3]/60 bg-[#F6F4EF]/90 backdrop-blur-sm"
+      }`}
+    >
+      <nav
+        aria-label="Main navigation"
+        className="mx-auto flex h-[68px] max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8"
       >
-        <nav aria-label="Main navigation" className="mx-auto flex h-[68px] max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-          <Link href="/" onClick={closeAll} aria-label="SmartGearPicks home" className={"shrink-0 font-display text-[19px] font-semibold tracking-[-0.055em] text-[#151515] sm:text-[21px] " + FOCUS}>
-            SmartGearPicks
-          </Link>
+        {/* Brand identity */}
+        <Link
+          href="/"
+          onClick={closeAll}
+          aria-label="SmartGearPicks home"
+          className={`flex items-center gap-2.5 font-display text-lg font-semibold tracking-[-0.035em] text-[#22231F] sm:text-xl ${FOCUS_RING}`}
+        >
+          <span className="flex h-7 w-7 items-center justify-center rounded-sm bg-[#354538] text-[13px] font-bold text-[#F6F4EF]">
+            S
+          </span>
+          <span>SmartGearPicks</span>
+        </Link>
 
-          <div className="hidden items-center gap-1 lg:flex">
-            {LINKS.map(({ label, href }) => {
-              const target = label === "About" ? aboutHref : href;
-              return (
-                <Link key={label} href={target} aria-current={active(href) ? "page" : undefined} onClick={closeAll}
-                  className={"relative rounded-sm px-3 py-2 text-[13px] font-medium transition-colors hover:bg-[#F0EDE7] hover:text-[#151515] " + FOCUS + " " +
-                    (active(href) ? "text-[#151515] after:absolute after:inset-x-3 after:-bottom-[13px] after:h-px after:bg-[#7c6853]" : "text-[#6B6B6B]")}>
+        {/* Desktop links */}
+        <div className="hidden items-center gap-1 lg:flex">
+          {LINKS.map(({ label, href }) => (
+            <Link
+              key={label}
+              href={href}
+              aria-current={active(href) ? "page" : undefined}
+              onClick={closeAll}
+              className={`relative rounded-sm px-3.5 py-2 text-[13px] font-medium transition-colors hover:bg-[#E5E9E0] hover:text-[#22231F] ${FOCUS_RING} ${
+                active(href)
+                  ? "text-[#22231F] after:absolute after:inset-x-3.5 after:-bottom-[13px] after:h-[2px] after:bg-[#B66F52]"
+                  : "text-[#6B6B66]"
+              }`}
+            >
+              {label}
+            </Link>
+          ))}
+
+          {/* Categories dropdown */}
+          <div className="relative">
+            <button
+              type="button"
+              aria-expanded={categoriesOpen}
+              aria-haspopup="true"
+              aria-controls="desktop-category-menu"
+              onClick={() => setCategoriesOpen((open) => !open)}
+              className={`inline-flex items-center gap-1.5 rounded-sm px-3.5 py-2 text-[13px] font-medium text-[#6B6B66] transition-colors hover:bg-[#E5E9E0] hover:text-[#22231F] ${FOCUS_RING}`}
+            >
+              Categories
+              <ChevronDown
+                size={14}
+                aria-hidden="true"
+                className={`transition-transform duration-200 ${categoriesOpen ? "rotate-180 text-[#B66F52]" : ""}`}
+              />
+            </button>
+            <AnimatePresence>
+              {categoriesOpen && (
+                <motion.div
+                  id="desktop-category-menu"
+                  data-lenis-prevent
+                  initial={reducedMotion ? false : { opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={reducedMotion ? undefined : { opacity: 0, y: 4 }}
+                  transition={transition}
+                  className="absolute left-0 top-[calc(100%+14px)] z-50 grid max-h-[min(70vh,460px)] w-[460px] grid-cols-2 gap-x-2 gap-y-1 overflow-y-auto rounded-md border border-[#DDDCD3] bg-[#FFFFFF] p-3.5 shadow-[0_16px_36px_-6px_rgba(34,35,31,0.1)]"
+                >
+                  {Object.entries(CATEGORY_MAP).map(([category, label]) => (
+                    <Link
+                      key={category}
+                      href={`/catalog?category=${encodeURIComponent(category)}`}
+                      onClick={closeAll}
+                      className={`flex items-center rounded-sm px-3 py-2 text-[13px] text-[#22231F] transition-colors hover:bg-[#E5E9E0] hover:text-[#354538] ${FOCUS_RING}`}
+                    >
+                      {label}
+                    </Link>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </div>
+
+        {/* Right CTA / Search controls */}
+        <div className="hidden shrink-0 items-center gap-3 md:flex">
+          <button
+            type="button"
+            aria-label={searchOpen ? "Close product search" : "Search products"}
+            aria-expanded={searchOpen}
+            onClick={() => setSearchOpen((open) => !open)}
+            className={`grid size-9 place-items-center rounded-sm text-[#6B6B66] transition-colors hover:bg-[#E5E9E0] hover:text-[#22231F] ${FOCUS_RING}`}
+          >
+            {searchOpen ? <X size={18} aria-hidden="true" /> : <Search size={18} aria-hidden="true" />}
+          </button>
+          <Link
+            href="/catalog"
+            onClick={closeAll}
+            className={`inline-flex h-9 items-center gap-1.5 rounded-sm bg-[#22231F] px-4 text-[13px] font-medium text-[#F6F4EF] transition-colors hover:bg-[#354538] ${FOCUS_RING}`}
+          >
+            <span>Explore Collection</span>
+            <ArrowUpRight size={14} aria-hidden="true" />
+          </Link>
+        </div>
+
+        {/* Mobile controls */}
+        <div className="flex items-center gap-1 md:hidden">
+          <button
+            type="button"
+            aria-label={searchOpen ? "Close product search" : "Search products"}
+            aria-expanded={searchOpen}
+            onClick={() => {
+              setMobileOpen(false);
+              setSearchOpen((open) => !open);
+            }}
+            className={`grid size-10 place-items-center rounded-sm text-[#6B6B66] hover:bg-[#E5E9E0] ${FOCUS_RING}`}
+          >
+            {searchOpen ? <X size={19} aria-hidden="true" /> : <Search size={19} aria-hidden="true" />}
+          </button>
+          <button
+            type="button"
+            aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-navigation-menu"
+            onClick={() => {
+              setSearchOpen(false);
+              setMobileOpen((open) => !open);
+            }}
+            className={`grid size-10 place-items-center rounded-sm text-[#22231F] hover:bg-[#E5E9E0] ${FOCUS_RING}`}
+          >
+            {mobileOpen ? <X size={21} aria-hidden="true" /> : <Menu size={21} aria-hidden="true" />}
+          </button>
+        </div>
+      </nav>
+
+      {/* Search drawer */}
+      <AnimatePresence>
+        {searchOpen && (
+          <motion.div
+            initial={reducedMotion ? false : { opacity: 0, y: -4 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={reducedMotion ? undefined : { opacity: 0, y: -4 }}
+            transition={transition}
+            className="border-t border-[#DDDCD3] bg-[#FFFFFF] px-4 py-3 sm:px-6 lg:px-8 shadow-sm"
+          >
+            <form
+              action="/catalog"
+              method="get"
+              role="search"
+              onSubmit={submitSearch}
+              className="mx-auto flex max-w-7xl items-center gap-3"
+            >
+              <Search size={18} aria-hidden="true" className="shrink-0 text-[#6B6B66]" />
+              <label htmlFor="navbar-product-search" className="sr-only">
+                Search products
+              </label>
+              <input
+                ref={inputRef}
+                id="navbar-product-search"
+                name="q"
+                type="search"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="Search by product name, category, or keyword..."
+                className="min-w-0 flex-1 border-0 bg-transparent py-1.5 text-sm text-[#22231F] outline-none placeholder:text-[#6B6B66]"
+              />
+              <button
+                type="submit"
+                className={`rounded-sm bg-[#354538] px-3.5 py-1.5 text-xs font-medium text-[#F6F4EF] hover:bg-[#22231F] ${FOCUS_RING}`}
+              >
+                Search
+              </button>
+            </form>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Mobile drawer */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            id="mobile-navigation-menu"
+            initial={reducedMotion ? false : { opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={reducedMotion ? undefined : { opacity: 0, y: -6 }}
+            transition={transition}
+            data-lenis-prevent
+            className="absolute inset-x-0 top-full max-h-[calc(100dvh-68px)] overflow-y-auto border-b border-[#DDDCD3] bg-[#FFFFFF] px-4 pb-6 pt-3 shadow-[0_16px_36px_rgba(34,35,31,0.08)] md:hidden"
+          >
+            <nav aria-label="Mobile navigation" className="mx-auto max-w-7xl space-y-1">
+              {LINKS.map(({ label, href }) => (
+                <Link
+                  key={label}
+                  href={href}
+                  aria-current={active(href) ? "page" : undefined}
+                  onClick={closeAll}
+                  className={`flex min-h-11 items-center border-b border-[#DDDCD3]/50 text-[14px] font-medium ${FOCUS_RING} ${
+                    active(href) ? "text-[#354538] font-semibold" : "text-[#22231F]"
+                  }`}
+                >
                   {label}
                 </Link>
-              );
-            })}
-            <div className="relative">
-              <button type="button" aria-expanded={categoriesOpen} aria-haspopup="true" aria-controls="desktop-category-menu"
-                onClick={() => setCategoriesOpen((open) => !open)}
-                className={"inline-flex items-center gap-1 rounded-sm px-3 py-2 text-[13px] font-medium text-[#6B6B6B] transition-colors hover:bg-[#F0EDE7] hover:text-[#151515] " + FOCUS}>
-                Categories <ArrowDown size={13} aria-hidden="true" className={"transition-transform " + (categoriesOpen ? "rotate-180" : "")} />
+              ))}
+
+              <button
+                type="button"
+                aria-expanded={mobileCategoriesOpen}
+                aria-controls="mobile-category-list"
+                onClick={() => setMobileCategoriesOpen((open) => !open)}
+                className={`flex min-h-11 w-full items-center justify-between border-b border-[#DDDCD3]/50 text-left text-[14px] font-medium text-[#22231F] ${FOCUS_RING}`}
+              >
+                Categories
+                <ChevronDown
+                  size={16}
+                  aria-hidden="true"
+                  className={`transition-transform duration-200 ${mobileCategoriesOpen ? "rotate-180 text-[#B66F52]" : ""}`}
+                />
               </button>
+
               <AnimatePresence>
-                {categoriesOpen && (
-                  <motion.div id="desktop-category-menu" data-lenis-prevent initial={reducedMotion ? false : { opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={reducedMotion ? undefined : { opacity: 0, y: 4 }} transition={transition}
-                    className="absolute left-0 top-[calc(100%+14px)] z-50 grid max-h-[min(70vh,440px)] w-[440px] grid-cols-2 gap-x-2 gap-y-0.5 overflow-y-auto border border-[#E5E1DA] bg-[#F7F6F2] p-3 shadow-[0_12px_30px_rgba(21,21,21,0.08)]">
+                {mobileCategoriesOpen && (
+                  <motion.div
+                    id="mobile-category-list"
+                    initial={reducedMotion ? false : { opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={reducedMotion ? undefined : { opacity: 0, height: 0 }}
+                    transition={transition}
+                    className="grid grid-cols-2 gap-x-2 gap-y-1 overflow-hidden border-b border-[#DDDCD3]/50 py-2.5"
+                  >
                     {Object.entries(CATEGORY_MAP).map(([category, label]) => (
-                      <Link key={category} href={"/catalog?category=" + encodeURIComponent(category)} onClick={closeAll}
-                        className={"px-3 py-2.5 text-[13px] text-[#55534f] transition-colors hover:bg-[#F0EDE7] hover:text-[#151515] " + FOCUS}>
+                      <Link
+                        key={category}
+                        href={`/catalog?category=${encodeURIComponent(category)}`}
+                        onClick={closeAll}
+                        className={`rounded px-2 py-1.5 text-[13px] text-[#6B6B66] hover:bg-[#E5E9E0] hover:text-[#22231F] ${FOCUS_RING}`}
+                      >
                         {label}
                       </Link>
                     ))}
                   </motion.div>
                 )}
               </AnimatePresence>
-            </div>
-          </div>
 
-          <div className="hidden shrink-0 items-center gap-3 md:flex">
-            <button type="button" aria-label={searchOpen ? "Close product search" : "Search products"} aria-expanded={searchOpen}
-              onClick={() => setSearchOpen((open) => !open)}
-              className={"grid size-10 place-items-center text-[#55534f] transition-colors hover:bg-[#F0EDE7] hover:text-[#151515] " + FOCUS}>
-              {searchOpen ? <X size={18} aria-hidden="true" /> : <Search size={18} aria-hidden="true" />}
-            </button>
-            <Link href="/catalog" onClick={closeAll}
-              className={"inline-flex h-10 items-center gap-2 bg-[#191816] px-4 text-[13px] font-medium text-[#F7F6F2] transition-colors hover:bg-[#34312c] " + FOCUS}>
-              Explore Products <ArrowUpRight size={14} aria-hidden="true" />
-            </Link>
-          </div>
-
-          <div className="flex items-center gap-1 md:hidden">
-            <button type="button" aria-label={searchOpen ? "Close product search" : "Search products"} aria-expanded={searchOpen}
-              onClick={() => { setMobileOpen(false); setSearchOpen((open) => !open); }}
-              className={"grid size-10 place-items-center text-[#55534f] hover:bg-[#F0EDE7] " + FOCUS}>
-              {searchOpen ? <X size={19} aria-hidden="true" /> : <Search size={19} aria-hidden="true" />}
-            </button>
-            <button type="button" aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"} aria-expanded={mobileOpen} aria-controls="mobile-navigation-menu"
-              onClick={() => { setSearchOpen(false); setMobileOpen((open) => !open); }}
-              className={"grid size-10 place-items-center text-[#151515] hover:bg-[#F0EDE7] " + FOCUS}>
-              {mobileOpen ? <X size={21} aria-hidden="true" /> : <Menu size={21} aria-hidden="true" />}
-            </button>
-          </div>
-        </nav>
-
-        <AnimatePresence>
-          {searchOpen && (
-            <motion.div initial={reducedMotion ? false : { opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} exit={reducedMotion ? undefined : { opacity: 0, y: -4 }} transition={transition}
-              className="border-t border-[#E5E1DA] bg-[#F7F6F2] px-4 py-3 sm:px-6 lg:px-8">
-              <form action="/catalog" method="get" role="search" onSubmit={submitSearch} className="mx-auto flex max-w-7xl items-center gap-3">
-                <Search size={17} aria-hidden="true" className="shrink-0 text-[#77736d]" />
-                <label htmlFor="navbar-product-search" className="sr-only">Search products</label>
-                <input ref={inputRef} id="navbar-product-search" name="q" type="search" value={query} onChange={(event) => setQuery(event.target.value)}
-                  placeholder="Search the collection" className="min-w-0 flex-1 border-0 bg-transparent py-2 text-sm text-[#151515] outline-none placeholder:text-[#88847d]" />
-                <button type="submit" className={"border-b border-[#a99a86] px-1 py-1 text-sm font-medium text-[#332b23] hover:text-[#151515] " + FOCUS}>Search</button>
-              </form>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        <AnimatePresence>
-          {mobileOpen && (
-            <motion.div id="mobile-navigation-menu" initial={reducedMotion ? false : { opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={reducedMotion ? undefined : { opacity: 0, y: -6 }} transition={transition}
-              data-lenis-prevent className="absolute inset-x-0 top-full max-h-[calc(100dvh-68px)] overflow-y-auto border-b border-[#E5E1DA] bg-[#F7F6F2] px-4 pb-6 pt-3 shadow-[0_12px_30px_rgba(21,21,21,0.08)] md:hidden">
-              <nav aria-label="Mobile navigation" className="mx-auto max-w-7xl">
-                {LINKS.map(({ label, href }) => {
-                  const target = label === "About" ? aboutHref : href;
-                  return <Link key={label} href={target} aria-current={active(href) ? "page" : undefined} onClick={closeAll}
-                    className={"flex min-h-12 items-center border-b border-[#E5E1DA] text-[15px] font-medium " + FOCUS + " " + (active(href) ? "text-[#151515]" : "text-[#6B6B6B]")}>{label}</Link>;
-                })}
-                <button type="button" aria-expanded={mobileCategoriesOpen} aria-controls="mobile-category-list" onClick={() => setMobileCategoriesOpen((open) => !open)}
-                  className={"flex min-h-12 w-full items-center justify-between border-b border-[#E5E1DA] text-left text-[15px] font-medium text-[#6B6B6B] " + FOCUS}>
-                  Categories <ArrowDown size={15} aria-hidden="true" className={"transition-transform " + (mobileCategoriesOpen ? "rotate-180" : "")} />
-                </button>
-                <AnimatePresence>
-                  {mobileCategoriesOpen && (
-                    <motion.div id="mobile-category-list" initial={reducedMotion ? false : { opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={reducedMotion ? undefined : { opacity: 0, height: 0 }} transition={transition}
-                      className="grid grid-cols-2 gap-x-3 overflow-hidden border-b border-[#E5E1DA] py-2">
-                      {Object.entries(CATEGORY_MAP).map(([category, label]) => (
-                        <Link key={category} href={"/catalog?category=" + encodeURIComponent(category)} onClick={closeAll}
-                          className={"min-h-10 py-2 text-[13px] text-[#6B6B6B] hover:text-[#151515] " + FOCUS}>{label}</Link>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-                <Link href="/catalog" onClick={closeAll}
-                  className={"mt-5 inline-flex h-11 w-full items-center justify-center gap-2 bg-[#191816] text-sm font-medium text-[#F7F6F2] hover:bg-[#34312c] " + FOCUS}>
-                  Explore Products <ArrowUpRight size={15} aria-hidden="true" />
+              <div className="pt-4">
+                <Link
+                  href="/catalog"
+                  onClick={closeAll}
+                  className={`inline-flex h-11 w-full items-center justify-center gap-2 rounded-sm bg-[#22231F] text-sm font-medium text-[#F6F4EF] hover:bg-[#354538] ${FOCUS_RING}`}
+                >
+                  <span>Explore Collection</span>
+                  <ArrowUpRight size={15} aria-hidden="true" />
                 </Link>
-              </nav>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </header>
-    </>
+              </div>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
   );
 }

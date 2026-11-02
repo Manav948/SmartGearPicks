@@ -2,12 +2,17 @@ import React from "react";
 import { prisma } from "@/lib/prisma";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import ParticleText from "@/components/ParticleText";
-import CurationProcess from "@/components/CurationProcess";
+import TrustValueStrip from "@/components/TrustValueStrip";
+import BrandIntroduction from "@/components/BrandIntroduction";
+import ShopByCategory from "@/components/ShopByCategory";
 import NewArrivals from "@/components/NewArrivals";
 import TopPicks from "@/components/TopPicks";
 import CuratedProducts from "@/components/CuratedProducts";
 import type { CategoryPreview } from "@/components/CuratedProducts";
+import EditorialDiscoveryBanner from "@/components/EditorialDiscoveryBanner";
+import CurationProcess from "@/components/CurationProcess";
+import FAQSection from "@/components/FAQSection";
+import NewsletterSection from "@/components/NewsletterSection";
 import Footer from "@/components/Footer";
 import { CATEGORY_MAP, type Product } from "@/components/ProductCard";
 import PublicMotionProvider from "@/components/PublicMotionProvider";
@@ -16,196 +21,145 @@ import DriftWall from "@/components/ui/DriftWall";
 export const revalidate = 0;
 
 export default async function HomePage() {
-  let newArrivals: Product[] = [];
-  let topPicks: Product[] = [];
+  let allProducts: Product[] = [];
+  let availableCategories: { category: string; count: number; imageUrl?: string }[] = [];
   let categoryPreviews: CategoryPreview[] = [];
-  let wallProducts: { id: string; imageUrl: string; name: string }[] = [];
 
   try {
-    const [arrivals, picks, availableCategories, wallItems] = await Promise.all([
-      prisma.product.findMany({
-        orderBy: { createdAt: "desc" },
-        take: 12,
-        include: { productTags: { select: { tag: true } } },
-      }),
-      prisma.product.findMany({
-        orderBy: [{ clicks: "desc" }, { createdAt: "desc" }],
-        take: 4,
-        include: { productTags: { select: { tag: true } } },
-      }),
-      prisma.product.findMany({ distinct: ["category"], select: { category: true } }),
-      prisma.product.findMany({
-        orderBy: { createdAt: "desc" },
-        take: 36,
-        select: { id: true, imageUrl: true, name: true },
-      }),
-    ]);
-
-    newArrivals = arrivals;
-    topPicks = picks;
-    wallProducts = wallItems;
-    const categoryOrder = Object.keys(CATEGORY_MAP);
-    availableCategories.sort((a, b) => {
-      const aIndex = categoryOrder.indexOf(a.category);
-      const bIndex = categoryOrder.indexOf(b.category);
-      if (aIndex === -1 && bIndex === -1) return a.category.localeCompare(b.category);
-      if (aIndex === -1) return 1;
-      if (bIndex === -1) return -1;
-      return aIndex - bIndex;
+    const products = await prisma.product.findMany({
+      orderBy: { createdAt: "desc" },
+      include: { productTags: { select: { tag: true } } },
     });
+    allProducts = products;
 
-    categoryPreviews = await Promise.all(availableCategories.map(async ({ category }) => ({
+    // Aggregate unique categories with counts and primary image
+    const categoryCountMap = new Map<string, { count: number; imageUrl?: string }>();
+    for (const prod of products) {
+      const existing = categoryCountMap.get(prod.category);
+      if (existing) {
+        existing.count += 1;
+      } else {
+        categoryCountMap.set(prod.category, { count: 1, imageUrl: prod.imageUrl });
+      }
+    }
+
+    const categoryOrder = Object.keys(CATEGORY_MAP);
+    availableCategories = Array.from(categoryCountMap.entries())
+      .map(([category, info]) => ({
+        category,
+        count: info.count,
+        imageUrl: info.imageUrl,
+      }))
+      .sort((a, b) => {
+        const aIndex = categoryOrder.indexOf(a.category);
+        const bIndex = categoryOrder.indexOf(b.category);
+        if (aIndex === -1 && bIndex === -1) return a.category.localeCompare(b.category);
+        if (aIndex === -1) return 1;
+        if (bIndex === -1) return -1;
+        return aIndex - bIndex;
+      });
+
+    categoryPreviews = availableCategories.map(({ category }) => ({
       category,
-      products: await prisma.product.findMany({
-        where: { category },
-        orderBy: { createdAt: "desc" },
-        take: 4,
-        include: { productTags: { select: { tag: true } } },
-      }),
-    })));
+      products: allProducts.filter((p) => p.category === category).slice(0, 4),
+    }));
   } catch (err) {
-    console.error("[HomePage] Failed to fetch product previews:", err);
+    console.error("[HomePage] Failed to fetch product data:", err);
   }
 
-  const usedImages = new Set<string>();
-  const items = wallProducts.flatMap((product) => {
-    if (!product.imageUrl || usedImages.has(product.imageUrl)) return [];
-    usedImages.add(product.imageUrl);
+  // Derive New Arrivals and Top Picks
+  const newArrivals = allProducts.slice(0, 8);
+  const topPicks = [...allProducts]
+    .sort((a, b) => (b.clicks ?? 0) - (a.clicks ?? 0))
+    .slice(0, 4);
+  const seenImages = new Set<string>();
+  const wallItems = allProducts.flatMap((product) => {
+    if (!product.imageUrl || seenImages.has(product.imageUrl)) return [];
+    seenImages.add(product.imageUrl);
     return [{ image: product.imageUrl, title: product.name, href: `/product/${product.id}` }];
-  });
+  }).slice(0, 36);
 
   return (
     <PublicMotionProvider>
-      <div className="min-h-screen" style={{ backgroundColor: "#F7F6F2", color: "#151515" }}>
+      <div className="min-h-screen bg-[#F6F4EF] text-[#22231F] selection:bg-[#E5E9E0]">
+        {/* 1. Navbar */}
         <Navbar />
+
+        {/* 2. Hero — Full-screen sticky parallax transformation */}
         <Hero />
-        <section
-          aria-label="A more thoughtful way to discover products"
-          data-scroll-reveal
-          className="overflow-hidden border-y border-[#2b1010] bg-black px-3 py-7 text-[#f87171] sm:px-6 sm:py-12 md:py-16"
-        >
-          <div data-scroll-reveal-item className="mx-auto max-w-6xl text-center">
-            <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-[#ff6b64] sm:text-xs">
-              The SmartGearPicks edit
-            </p>
-            <div className="mx-auto h-[190px] w-full max-w-5xl px-1 sm:h-[240px] md:h-[280px]">
-              <ParticleText
-                className="sm:hidden"
-                text="Find your fit."
-                particleSize={3.8}
-                density={3}
-                color="#ef4444"
-                highlightColor="#ff8a80"
-                highlightMode="gradient"
-                intro="gather"
-                scatter={110}
-                gatherDuration={1500}
-                stagger={100}
-                clickBurst={false}
-                pointerRepel={20}
-                repelRadius={90}
-                idleDrift={0.25}
-                trigger="view"
-                fontSize="clamp(2.15rem, 12vw, 3.3rem)"
-                fontWeight={650}
-                fontFamily="Geist, system-ui, sans-serif"
-                glow={false}
-              />
-              <ParticleText
-                className="hidden sm:block"
-                text="Find what fits."
-                particleSize={3.2}
-                density={5}
-                color="#ef4444"
-                highlightColor="#ff8a80"
-                highlightMode="gradient"
-                intro="gather"
-                scatter={110}
-                gatherDuration={1500}
-                stagger={100}
-                clickBurst={false}
-                pointerRepel={20}
-                repelRadius={90}
-                idleDrift={0.25}
-                trigger="view"
-                fontSize="clamp(2rem, 9.5vw, 6.2rem)"
-                fontWeight={650}
-                fontFamily="Geist, system-ui, sans-serif"
-                glow={false}
-              />
-            </div>
-            <p className="mx-auto mt-2 max-w-[22rem] px-2 text-sm leading-6 text-[#ff8a80] sm:max-w-xl sm:px-0 sm:leading-7 sm:text-base">
-              Thoughtful picks for work, home, and everything in between—without the endless scrolling.
-            </p>
-          </div>
-        </section>
-        <CurationProcess />
 
-        {newArrivals.length > 0 && <NewArrivals products={newArrivals} />}
-        {topPicks.length > 0 && <TopPicks products={topPicks} />}
+        {/* 3. Trust and Value Strip */}
+        <TrustValueStrip />
 
-        <CuratedProducts categories={categoryPreviews} />
-        {items.length > 0 && (
+        {/* 4. Brand Introduction */}
+        <BrandIntroduction />
+
+        {/* 5. Shop by Category */}
+        {availableCategories.length > 0 && (
+          <ShopByCategory categories={availableCategories} />
+        )}
+
+        {/* 6. New Arrivals */}
+        {newArrivals.length > 0 && (
+          <NewArrivals products={newArrivals} />
+        )}
+
+        {/* 7. Top Recommendations */}
+        {topPicks.length > 0 && (
+          <TopPicks products={topPicks} />
+        )}
+
+        {/* 8. Curated Products */}
+        {categoryPreviews.length > 0 && (
+          <CuratedProducts categories={categoryPreviews} />
+        )}
+
+        {wallItems.length > 0 && (
           <section
-            aria-label="Moving wall of products from the collection"
-            data-scroll-reveal className="h-[100svh] min-h-[520px] w-full overflow-hidden bg-[#F5F2EB]"
+            aria-label="Browse products from the collection"
+            data-scroll-reveal
+            className="h-[75svh] min-h-[480px] w-full overflow-hidden border-b border-[#DDDCD3] bg-[#F6F4EF]"
           >
-            <div data-scroll-reveal-item className="h-full w-full md:hidden">
-              <DriftWall
-                items={items}
-                columns={Math.min(4, items.length)}
-                tileWidth={136}
-                tileHeight={184}
-                gap={12}
-                radius={7}
-                tilt={7}
-                turn={-6}
-                perspective={1000}
-                depth={64}
-                speed={16}
-                variance={0.14}
-                parallax={0.2}
-                pauseOnHover
-                lift={30}
-                fade={0.96}
-                dim={0.96}
-                overlayOpacity={0.12}
-                overlayColor="#7c6853"
-                className="h-full w-full"
-              />
-            </div>
-            <div data-scroll-reveal-item className="hidden h-full w-full md:block">
-              <DriftWall
-                items={items}
-                columns={Math.min(6, items.length)}
-                tileWidth={188}
-                tileHeight={246}
-                gap={14}
-                radius={8}
-                tilt={9}
-                turn={-8}
-                perspective={1100}
-                depth={90}
-                speed={20}
-                variance={0.18}
-                parallax={0.28}
-                pauseOnHover
-                lift={38}
-                fade={0.96}
-                dim={0.96}
-                overlayOpacity={0.12}
-                overlayColor="#7c6853"
-                className="h-full w-full"
-              />
-            </div>
+            <DriftWall
+              items={wallItems}
+              columns={Math.min(6, wallItems.length)}
+              tileWidth={188}
+              tileHeight={246}
+              gap={14}
+              radius={8}
+              tilt={9}
+              turn={-8}
+              perspective={1100}
+              depth={90}
+              speed={20}
+              variance={0.18}
+              parallax={0.28}
+              pauseOnHover
+              lift={38}
+              fade={0.96}
+              dim={0.96}
+              overlayOpacity={0.12}
+              overlayColor="#7c6853"
+              className="h-full w-full"
+            />
           </section>
         )}
+
+        {/* 9. Editorial Discovery Banner */}
+        <EditorialDiscoveryBanner />
+
+        {/* 10. How We Curate */}
+        <CurationProcess />
+
+        {/* 11. FAQ Section */}
+        <FAQSection />
+
+        {/* 12. Newsletter */}
+        <NewsletterSection />
+
+        {/* 13. Footer */}
         <Footer />
       </div>
     </PublicMotionProvider>
   );
 }
-
-
-
-

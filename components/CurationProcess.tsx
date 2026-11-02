@@ -1,105 +1,101 @@
+"use client";
+
 import React from "react";
-import { ShieldCheck, Sparkles, SlidersHorizontal, Eye } from "lucide-react";
+import { Search, Eye, SlidersHorizontal, ShoppingBag } from "lucide-react";
+
+const STEPS = [
+  {
+    step: "01",
+    label: "DISCOVER",
+    desc: "Find useful products across different categories.",
+    icon: Search,
+  },
+  {
+    step: "02",
+    label: "EXPLORE",
+    desc: "Review product details and available information.",
+    icon: Eye,
+  },
+  {
+    step: "03",
+    label: "COMPARE",
+    desc: "Consider available options before deciding.",
+    icon: SlidersHorizontal,
+  },
+  {
+    step: "04",
+    label: "CHOOSE",
+    desc: "Visit the retailer to complete your purchase.",
+    icon: ShoppingBag,
+  },
+];
 
 export default function CurationProcess() {
-  const pillars = [
-    {
-      icon: Eye,
-      title: "Discovery & Sourcing",
-      desc: "We monitor global design studios, independent tech innovators, and craft ateliers to locate exceptional gear that stands apart from mass-market noise.",
-    },
-    {
-      icon: ShieldCheck,
-      title: "Real-World Testing",
-      desc: "Every recommendation undergoes weeks of rigorous everyday testing for build integrity, tactile ergonomics, and everyday reliability before consideration.",
-    },
-    {
-      icon: SlidersHorizontal,
-      title: "Design & Utility Audit",
-      desc: "We prioritize clean aesthetics, timeless materials, and effortless utility. If a product doesn't genuinely elevate daily routines, it doesn't make the cut.",
-    },
-    {
-      icon: Sparkles,
-      title: "Uncompromising Edit",
-      desc: "Less than 3% of reviewed products earn a spot on SmartGearPicks. We curate fewer, better things so you spend zero time second-guessing.",
-    },
-  ];
-
   return (
     <section
-      data-scroll-reveal
       id="how-we-curate"
-      className="py-16 md:py-24 border-y relative overflow-hidden"
-      style={{
-        backgroundColor: "#f5f3ec",
-        borderColor: "rgba(229, 225, 218, 0.4)",
-      }}
+      aria-labelledby="how-we-curate-heading"
+      data-scroll-reveal
+      className="border-b border-[#DDDCD3] bg-[#F6F4EF] py-16 sm:py-20 md:py-24"
     >
-      <div className="max-w-7xl mx-auto px-4 md:px-8">
-        <div data-scroll-reveal-item className="max-w-2xl mb-12 md:mb-16">
-          <span
-            className="text-xs font-semibold tracking-widest uppercase block mb-3"
-            style={{
-              fontFamily: "Geist, sans-serif",
-              color: "#786550",
-              letterSpacing: "0.15em",
-            }}
-          >
-            EDITORIAL INTEGRITY
-          </span>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div
+          data-scroll-reveal-item
+          className="mx-auto max-w-2xl text-center mb-12 sm:mb-16"
+        >
+          <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#B66F52]">
+            OUR PROCESS
+          </p>
           <h2
-            className="text-3xl md:text-4xl font-semibold tracking-tight text-[#111110]"
-            style={{ fontFamily: "Geist, sans-serif", letterSpacing: "-0.03em" }}
+            id="how-we-curate-heading"
+            className="font-display text-3xl font-medium tracking-tight text-[#22231F] sm:text-4xl"
           >
             How We Curate
           </h2>
-          <p
-            className="mt-4 text-base md:text-lg leading-relaxed text-[#55524c]"
-            style={{ fontFamily: "Inter, sans-serif" }}
-          >
-            We eliminate analysis paralysis with an exacting standard of utility, aesthetic harmony, and material craftsmanship. Here is our four-stage evaluation methodology.
+          <p className="mt-3 text-sm sm:text-base leading-relaxed text-[#6B6B66]">
+            A clear, transparent workflow to help you discover standout products without endless browsing.
           </p>
         </div>
 
-        <div data-scroll-reveal-item className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-          {pillars.map((item, idx) => {
-            const Icon = item.icon;
+        {/* 4 Process Cards */}
+        <div
+          data-scroll-reveal-item
+          className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6"
+        >
+          {STEPS.map((step) => {
+            const Icon = step.icon;
             return (
               <div
-                key={idx}
-                className="p-6 md:p-8 rounded-2xl border transition-all duration-300 hover:shadow-md"
-                style={{
-                  backgroundColor: "#faf8f4",
-                  borderColor: "rgba(180, 170, 155, 0.35)",
-                }}
+                key={step.step}
+                className="group relative flex flex-col justify-between rounded-md border border-[#DDDCD3] bg-[#FFFFFF] p-6 sm:p-7 transition-all duration-300 hover:border-[#354538] hover:shadow-[0_8px_20px_-4px_rgba(34,35,31,0.06)] hover:-translate-y-0.5"
               >
-                <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-6"
-                  style={{
-                    backgroundColor: "rgba(120, 101, 80, 0.1)",
-                    color: "#5c4832",
-                  }}
-                >
-                  <Icon className="w-5 h-5 stroke-[1.75]" />
+                <div>
+                  {/* Step Header */}
+                  <div className="mb-5 flex items-center justify-between">
+                    <span className="font-mono text-xs font-semibold text-[#B66F52]">
+                      {step.step}
+                    </span>
+                    <div className="flex h-9 w-9 items-center justify-center rounded-sm bg-[#E5E9E0] text-[#354538] transition-colors group-hover:bg-[#354538] group-hover:text-[#F6F4EF]">
+                      <Icon size={18} strokeWidth={1.75} aria-hidden="true" />
+                    </div>
+                  </div>
+
+                  {/* Step Title */}
+                  <h3 className="font-display text-base font-semibold tracking-[-0.01em] text-[#22231F]">
+                    {step.label}
+                  </h3>
+
+                  {/* Step Description */}
+                  <p className="mt-2 text-xs sm:text-sm leading-relaxed text-[#6B6B66]">
+                    {step.desc}
+                  </p>
                 </div>
-                <div
-                  className="text-xs font-mono mb-2"
-                  style={{ color: "#8a7b6c" }}
-                >
-                  0{idx + 1}
+
+                {/* Subtle indicator bar */}
+                <div className="mt-6 h-[2px] w-full bg-[#EBE5DA] overflow-hidden rounded-full">
+                  <div className="h-full w-0 bg-[#354538] transition-all duration-500 ease-out group-hover:w-full" />
                 </div>
-                <h3
-                  className="text-lg font-medium mb-3 text-[#111110]"
-                  style={{ fontFamily: "Geist, sans-serif" }}
-                >
-                  {item.title}
-                </h3>
-                <p
-                  className="text-sm leading-relaxed text-[#636058]"
-                  style={{ fontFamily: "Inter, sans-serif" }}
-                >
-                  {item.desc}
-                </p>
               </div>
             );
           })}

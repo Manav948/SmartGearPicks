@@ -1,57 +1,109 @@
 "use client";
 
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 import { Product, CATEGORY_MAP } from "@/components/ProductCard";
 
-export default function RecommendationProductCard({ product, index = 0, adminMode = false }: { product: Product; index?: number; adminMode?: boolean }) {
-  const reduceMotion = useReducedMotion();
+interface RecommendationProductCardProps {
+  product: Product;
+  index?: number;
+  adminMode?: boolean;
+}
+
+export default function RecommendationProductCard({
+  product,
+  index = 0,
+  adminMode = false,
+}: RecommendationProductCardProps) {
   const categoryLabel = CATEGORY_MAP[product.category] || product.category;
-  const productHref = adminMode ? "/dashboard/edit-product/" + product.id : "/product/" + product.id;
-  const actionHref = adminMode ? productHref : "/api/redirect/" + product.id;
+  const productDetailHref = `/product/${product.id}`;
+  const affiliateActionHref = adminMode
+    ? `/dashboard/edit-product/${product.id}`
+    : `/api/redirect/${product.id}`;
+  const isAmazon = product.affiliateLink?.toLowerCase().includes("amazon");
 
   return (
-    <motion.article
-      initial={reduceMotion ? false : { opacity: 0, y: 14 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.4, delay: reduceMotion ? 0 : index * 0.05, ease: "easeOut" }}
-      className="group flex min-w-0 flex-col"
+    <article
+      data-scroll-reveal-item
+      className="group flex flex-col overflow-hidden rounded-md border border-[#DDDCD3] bg-[#FFFFFF] transition-all duration-300 hover:border-[#B66F52] hover:shadow-[0_8px_24px_-4px_rgba(34,35,31,0.06)] hover:-translate-y-0.5"
     >
+      {/* Product Image Area */}
       <Link
-        href={productHref}
-        aria-label={adminMode ? "Edit " + product.name : "View " + product.name}
-        className="relative mb-4 block aspect-[4/5] overflow-hidden border border-[#e8e5de] bg-[#FAF8F4] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#625e54]"
+        href={productDetailHref}
+        aria-label={`View details of ${product.name}`}
+        className="relative block aspect-[4/5] w-full overflow-hidden bg-[#EBE5DA]/25 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#354538]"
       >
         <Image
           src={product.imageUrl}
           alt={product.name}
           fill
-          sizes="(max-width: 639px) 45vw, (max-width: 1023px) 30vw, 23vw"
-          className="object-contain p-3 transition-transform duration-500 ease-out group-hover:scale-[1.025] motion-reduce:transition-none"
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+          className="object-contain p-4 transition-transform duration-500 ease-out group-hover:scale-105"
           unoptimized
         />
+
+        {/* Hover quick preview badge */}
+        <div className="absolute inset-x-0 bottom-0 flex items-center justify-center p-3 opacity-0 transition-opacity duration-200 group-hover:opacity-100 bg-gradient-to-t from-[#22231F]/30 to-transparent">
+          <span className="rounded-full bg-[#FFFFFF]/95 px-3 py-1 text-[11px] font-medium text-[#22231F] shadow-sm">
+            Quick View →
+          </span>
+        </div>
       </Link>
-      <div className="flex flex-1 flex-col">
-        <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.14em] text-[#817e75]">{categoryLabel}</p>
-        <Link href={productHref} className="focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#625e54]">
-          <h3 className="line-clamp-2 min-h-[2.75rem] text-sm font-medium leading-[1.4] tracking-[-0.015em] text-[#22211d] transition-colors group-hover:text-[#625e54] sm:text-[15px]">
-            {product.name}
-          </h3>
-        </Link>
-        <div className="mt-3 flex flex-1 flex-col justify-end gap-4 border-t border-[#eeece7] pt-3">
-          <p className="text-sm font-semibold text-[#25241f]">
-            {product.price != null ? "₹" + product.price.toLocaleString("en-IN") : <span className="font-normal text-[#77746d]">Price unavailable</span>}
-          </p>
+
+      {/* Product Details Area */}
+      <div className="flex flex-1 flex-col justify-between p-4">
+        <div>
+          {/* Category Chip */}
+          <div className="mb-2 flex items-center gap-1.5">
+            <span className="inline-block rounded-xs bg-[#E5E9E0] px-2 py-0.5 text-[10px] font-medium tracking-[0.06em] uppercase text-[#354538]">
+              {categoryLabel}
+            </span>
+          </div>
+
+          {/* Title */}
           <Link
-            href={actionHref}
-            className="inline-flex min-h-10 items-center justify-between border border-[#d9d6ce] px-3 text-xs font-medium text-[#282721] transition-colors hover:border-[#25241f] hover:bg-[#25241f] hover:text-[#F7F6F2] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#625e54]"
+            href={productDetailHref}
+            className="focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#354538]"
           >
-            {adminMode ? "Edit product" : "View deal"} <span aria-hidden="true">↗</span>
+            <h3 className="line-clamp-2 text-sm font-medium leading-snug tracking-[-0.015em] text-[#22231F] transition-colors group-hover:text-[#354538] sm:text-[15px]">
+              {product.name}
+            </h3>
           </Link>
+
+          {/* Description snippet */}
+          {product.description && (
+            <p className="mt-1.5 line-clamp-2 text-xs leading-relaxed text-[#6B6B66]">
+              {product.description}
+            </p>
+          )}
+        </div>
+
+        {/* Bottom Bar: Price & Affiliate Action */}
+        <div className="mt-4 flex flex-col gap-2.5 border-t border-[#DDDCD3]/60 pt-3">
+          <div className="flex items-baseline justify-between">
+            <span className="text-[11px] text-[#6B6B66]">Guide price</span>
+            <span className="font-display text-sm font-semibold text-[#22231F]">
+              {product.price != null ? (
+                `₹${product.price.toLocaleString("en-IN")}`
+              ) : (
+                <span className="text-xs font-normal text-[#6B6B66]">Check retailer</span>
+              )}
+            </span>
+          </div>
+
+          <a
+            href={affiliateActionHref}
+            target={adminMode ? "_self" : "_blank"}
+            rel={adminMode ? undefined : "noopener noreferrer"}
+            className="inline-flex min-h-[38px] w-full items-center justify-center gap-1.5 rounded-sm border border-[#DDDCD3] bg-[#F6F4EF] px-3 text-xs font-medium text-[#22231F] transition-all duration-200 hover:border-[#22231F] hover:bg-[#22231F] hover:text-[#F6F4EF] active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#354538]"
+          >
+            <span>{adminMode ? "Edit Product" : isAmazon ? "View on Amazon" : "View Product"}</span>
+            <ArrowUpRight size={13} />
+          </a>
         </div>
       </div>
-    </motion.article>
+    </article>
   );
 }

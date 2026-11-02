@@ -3,91 +3,94 @@
 @import "lenis/dist/lenis.css";
 
 /* ───────────────────────────────────────────────────────────────
-   Pickora Design System — Stitch: project/1847021904551923770
-   Light mode, warm editorial, muted brown primary
+   SmartGearPicks Design System — 60 / 30 / 10 Premium Editorial Palette
+   Primary (60%): Warm Ivory #F6F4EF
+   Secondary (30%): Muted Sage #E5E9E0, Soft White #FFFFFF, Warm Stone #EBE5DA
+   Accent (10%): Terracotta #B66F52, Deep Olive #354538,
+                 Primary Text #22231F, Secondary Text #6B6B66, Borders #DDDCD3
 ─────────────────────────────────────────────────────────────── */
 
 @custom-variant dark (&:is(.dark *));
 
 /* Tailwind v4 theme inline overrides */
 @theme inline {
-  /* Brand colours */
-  --color-primary:                  #7c6853;
-  --color-primary-container:        #8a7b6c;
-  --color-on-primary:               #FAF8F4;
-  --color-on-primary-container:     #FAF8F4;
-  --color-primary-fixed:            #F0EDE7;
-  --color-primary-fixed-dim:        #E5E1DA;
-  --color-on-primary-fixed:         #3b2e23;
-  --color-on-primary-fixed-variant: #6b5845;
-  --color-inverse-primary:          #E5E1DA;
-  --color-surface-tint:             #7c6853;
+  /* Brand accents & primaries */
+  --color-primary:                  #354538; /* Deep Olive */
+  --color-primary-container:        #455749;
+  --color-on-primary:               #F6F4EF;
+  --color-on-primary-container:     #F6F4EF;
+  --color-primary-fixed:            #E5E9E0;
+  --color-primary-fixed-dim:        #D8DEC0;
+  --color-on-primary-fixed:         #1d271f;
+  --color-on-primary-fixed-variant: #354538;
+  --color-inverse-primary:          #E5E9E0;
+  --color-surface-tint:             #354538;
 
-  /* Secondary */
-  --color-secondary:                #6b5845;
-  --color-secondary-container:      #F0EDE7;
-  --color-on-secondary:             #FAF8F4;
-  --color-on-secondary-container:   #6b5845;
-  --color-secondary-fixed:          #F0EDE7;
-  --color-secondary-fixed-dim:      #E5E1DA;
-  --color-on-secondary-fixed:       #151515;
-  --color-on-secondary-fixed-variant: #6B6B6B;
+  /* Secondary & Accents */
+  --color-secondary:                #B66F52; /* Terracotta */
+  --color-secondary-container:      #F5E8E2;
+  --color-on-secondary:             #FFFFFF;
+  --color-on-secondary-container:   #753d27;
+  --color-secondary-fixed:          #EBE5DA; /* Warm Stone */
+  --color-secondary-fixed-dim:      #DDDCD3;
+  --color-on-secondary-fixed:       #22231F;
+  --color-on-secondary-fixed-variant: #6B6B66;
 
   /* Tertiary */
-  --color-tertiary:                 #6B6B6B;
-  --color-tertiary-container:       #817e75;
-  --color-on-tertiary:              #FAF8F4;
-  --color-on-tertiary-container:    #F7F6F2;
-  --color-tertiary-fixed:           #F0EDE7;
-  --color-tertiary-fixed-dim:       #E5E1DA;
-  --color-on-tertiary-fixed:        #151515;
-  --color-on-tertiary-fixed-variant: #6B6B6B;
+  --color-tertiary:                 #6B6B66; /* Secondary Text */
+  --color-tertiary-container:       #EBE5DA;
+  --color-on-tertiary:              #FFFFFF;
+  --color-on-tertiary-container:    #22231F;
+  --color-tertiary-fixed:           #E5E9E0;
+  --color-tertiary-fixed-dim:       #DDDCD3;
+  --color-on-tertiary-fixed:        #22231F;
+  --color-on-tertiary-fixed-variant: #6B6B66;
 
   /* Error */
   --color-error:                    #ba1a1a;
   --color-error-container:          #ffdad6;
-  --color-on-error:                 #FAF8F4;
+  --color-on-error:                 #FFFFFF;
   --color-on-error-container:       #93000a;
 
   /* Surface scale */
-  --color-surface:                  #F7F6F2;
-  --color-surface-dim:              #E5E1DA;
-  --color-surface-bright:           #F7F6F2;
-  --color-surface-container-lowest: #FAF8F4;
-  --color-surface-container-low:    #F0EDE7;
-  --color-surface-container:        #F0EDE7;
-  --color-surface-container-high:   #F0EDE7;
-  --color-surface-container-highest:#E5E1DA;
-  --color-surface-variant:          #E5E1DA;
+  --color-surface:                  #FFFFFF; /* Soft White */
+  --color-surface-dim:              #EBE5DA; /* Warm Stone */
+  --color-surface-bright:           #FFFFFF;
+  --color-surface-container-lowest: #FFFFFF;
+  --color-surface-container-low:    #F6F4EF; /* Warm Ivory */
+  --color-surface-container:        #F6F4EF;
+  --color-surface-container-high:   #EBE5DA;
+  --color-surface-container-highest:#E5E9E0; /* Muted Sage */
+  --color-surface-variant:          #E5E9E0;
 
   /* On-surface */
-  --color-on-surface:               #151515;
-  --color-on-surface-variant:       #6B6B6B;
-  --color-inverse-surface:          #34312c;
-  --color-inverse-on-surface:       #F7F6F2;
+  --color-on-surface:               #22231F; /* Primary Text */
+  --color-on-surface-variant:       #6B6B66; /* Secondary Text */
+  --color-inverse-surface:          #22231F;
+  --color-inverse-on-surface:       #F6F4EF;
 
-  /* Outline */
-  --color-outline:                  #6B6B6B;
-  --color-outline-variant:          #E5E1DA;
+  /* Outline & Borders */
+  --color-outline:                  #DDDCD3; /* Borders */
+  --color-outline-variant:          #EBE5DA;
 
   /* Background */
-  --color-background:               #F7F6F2;
-  --color-on-background:            #151515;
+  --color-background:               #F6F4EF; /* Warm Ivory dominant 60% */
+  --color-on-background:            #22231F;
 
   /* Shadcn compat aliases */
-  --color-foreground:               #151515;
-  --color-card:                     #FAF8F4;
-  --color-card-foreground:          #151515;
-  --color-popover:                  #FAF8F4;
-  --color-popover-foreground:       #151515;
-  --color-muted:                    #F0EDE7;
-  --color-muted-foreground:         #6B6B6B;
-  --color-accent:                   #F0EDE7;
-  --color-accent-foreground:        #151515;
+  --color-foreground:               #22231F;
+  --color-card:                     #FFFFFF;
+  --color-card-foreground:          #22231F;
+  --color-popover:                  #FFFFFF;
+  --color-popover-foreground:       #22231F;
+  --color-muted:                    #EBE5DA;
+  --color-muted-foreground:         #6B6B66;
+  --color-accent:                   #B66F52; /* Terracotta */
+  --color-accent-foreground:        #FFFFFF;
   --color-destructive:              #ba1a1a;
-  --color-border:                   #E5E1DA;
-  --color-input:                    #E5E1DA;
-  --color-ring:                     #7c6853;
+  --color-border:                   #DDDCD3;
+  --color-input:                    #DDDCD3;
+  --color-ring:                     #354538;
 
   /* Radius scale */
   --radius-sm: 0.25rem;
@@ -114,11 +117,12 @@
     color-scheme: light;
     scroll-behavior: auto;
     scroll-padding-top: 5rem;
+    background-color: #F6F4EF;
   }
 
   body {
-    background-color: #F7F6F2;
-    color: #151515;
+    background-color: #F6F4EF;
+    color: #22231F;
     font-family: 'Inter', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -126,23 +130,28 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Geist', system-ui, sans-serif;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
+    color: #22231F;
   }
 
   ::selection {
-    background-color: #F0EDE7;
-    color: #151515;
+    background-color: #E5E9E0;
+    color: #22231F;
   }
 }
 
 /* ── Utilities ─────────────────────────────────────────────── */
 @layer utilities {
-  /* Glassmorphism panel */
-  .glass-panel {
-    background: rgba(247, 246, 242, 0.72);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(229, 225, 218, 0.4);
+  /* Editorial surface panels */
+  .editorial-card {
+    background-color: #FFFFFF;
+    border: 1px solid #DDDCD3;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+  }
+  .editorial-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px -6px rgba(34, 35, 31, 0.08);
+    border-color: #B66F52;
   }
 
   /* Hide scrollbar */
@@ -153,23 +162,23 @@
   .thin-scrollbar::-webkit-scrollbar { width: 4px; }
   .thin-scrollbar::-webkit-scrollbar-track { background: transparent; }
   .thin-scrollbar::-webkit-scrollbar-thumb {
-    background: #E5E1DA;
+    background: #DDDCD3;
     border-radius: 9999px;
   }
 
   /* Admin bottom-border style input */
   .admin-input {
     border: none;
-    border-bottom: 1px solid #E5E1DA;
+    border-bottom: 1px solid #DDDCD3;
     border-radius: 0;
     background-color: transparent;
     transition: all 0.2s ease-in-out;
     outline: none;
   }
   .admin-input:focus {
-    border: 1px solid #7c6853;
+    border: 1px solid #354538;
     border-radius: 0.25rem;
-    box-shadow: 0 0 0 1px #7c6853;
+    box-shadow: 0 0 0 1px #354538;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
   }
@@ -177,34 +186,58 @@
   /* Text balance */
   .text-balance { text-wrap: balance; }
 
-  /* Premium button press */
-  .btn-primary {
-    background: #191816;
-    color: #FAF8F4;
-    border-top: 1px solid rgba(250, 248, 244, 0.5);
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    transition: background 0.15s, transform 0.1s;
+  /* Editorial primary button */
+  .btn-editorial-primary {
+    background-color: #22231F;
+    color: #F6F4EF;
+    border: 1px solid #22231F;
+    transition: background-color 0.2s ease, transform 0.15s ease, border-color 0.2s ease;
   }
-  .btn-primary:hover { background: #34312c; transform: translateY(-1px); }
-  .btn-primary:active { transform: scale(0.97); }
+  .btn-editorial-primary:hover {
+    background-color: #354538;
+    border-color: #354538;
+    transform: translateY(-1px);
+  }
+  .btn-editorial-primary:active {
+    transform: scale(0.98);
+  }
 
-  /* Surface elevation card */
-  .card-elevated {
-    background: #FAF8F4;
-    border: 1px solid rgba(229, 225, 218, 0.4);
-    border-radius: 0.75rem;
-    transition: box-shadow 0.3s, transform 0.3s;
+  /* Editorial secondary button */
+  .btn-editorial-secondary {
+    background-color: #FFFFFF;
+    color: #22231F;
+    border: 1px solid #DDDCD3;
+    transition: all 0.2s ease;
   }
-  .card-elevated:hover {
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-    transform: translateY(-2px);
+  .btn-editorial-secondary:hover {
+    background-color: #E5E9E0;
+    border-color: #354538;
+    color: #354538;
+  }
+
+  /* Editorial accent button (Terracotta) */
+  .btn-terracotta {
+    background-color: #B66F52;
+    color: #FFFFFF;
+    border: 1px solid #B66F52;
+    transition: all 0.2s ease;
+  }
+  .btn-terracotta:hover {
+    background-color: #a05c41;
+    border-color: #a05c41;
+    transform: translateY(-1px);
   }
 
   /* Warm chip / badge */
-  .chip-primary {
-    background: rgba(124, 104, 83, 0.1);
-    color: #7c6853;
-    border: 1px solid rgba(124, 104, 83, 0.2);
+  .chip-subtle {
+    background-color: #E5E9E0;
+    color: #354538;
+    border: 1px solid rgba(53, 69, 56, 0.15);
+  }
+  .chip-terracotta {
+    background-color: rgba(182, 111, 82, 0.1);
+    color: #B66F52;
+    border: 1px solid rgba(182, 111, 82, 0.25);
   }
 }
 
