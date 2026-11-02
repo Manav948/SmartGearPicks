@@ -11,6 +11,7 @@ import Footer from "@/components/Footer";
 import { CATEGORY_MAP, type Product } from "@/components/ProductCard";
 import PublicMotionProvider from "@/components/PublicMotionProvider";
 import DriftWall from "@/components/ui/DriftWall";
+import FAQSection from "@/components/FAQSection";
 
 export const revalidate = 0;
 
@@ -78,7 +79,6 @@ export default async function HomePage() {
       <div className="min-h-screen" style={{ backgroundColor: "#f8f9ff", color: "#0b1c30" }}>
         <Navbar />
         <Hero />
-        <CurationProcess />
 
         {newArrivals.length > 0 && <NewArrivals products={newArrivals} />}
         {topPicks.length > 0 && <TopPicks products={topPicks} />}
@@ -87,7 +87,7 @@ export default async function HomePage() {
         {items.length > 0 && (
           <section
             aria-label="Moving wall of products from the collection"
-            data-scroll-reveal className="h-[100svh] min-h-[520px] w-full overflow-hidden bg-[#f8f9ff]"
+            data-scroll-reveal className="h-[100svh] min-h-[520px] w-full overflow-hidden bg-[#F6F4EF]"
           >
             <div data-scroll-reveal-item className="h-full w-full md:hidden">
               <DriftWall
@@ -109,7 +109,7 @@ export default async function HomePage() {
                 fade={0.92}
                 dim={0.96}
                 overlayOpacity={0.12}
-                overlayColor="#4648d4"
+                overlayColor="#354538"
                 className="h-full w-full"
               />
             </div>
@@ -133,12 +133,14 @@ export default async function HomePage() {
                 fade={0.92}
                 dim={0.96}
                 overlayOpacity={0.12}
-                overlayColor="#4648d4"
+                overlayColor="#354538"
                 className="h-full w-full"
               />
             </div>
           </section>
         )}
+        <CurationProcess />
+        <FAQSection />
         <Footer />
       </div>
     </PublicMotionProvider>
