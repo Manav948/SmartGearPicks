@@ -2,7 +2,6 @@ import React from "react";
 import { prisma } from "@/lib/prisma";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import Brands from "@/components/Brands";
 import CurationProcess from "@/components/CurationProcess";
 import NewArrivals from "@/components/NewArrivals";
 import TopPicks from "@/components/TopPicks";
@@ -79,7 +78,6 @@ export default async function HomePage() {
       <div className="min-h-screen" style={{ backgroundColor: "#f8f9ff", color: "#0b1c30" }}>
         <Navbar />
         <Hero />
-        <Brands />
         <CurationProcess />
 
         {newArrivals.length > 0 && <NewArrivals products={newArrivals} />}
@@ -146,6 +144,7 @@ export default async function HomePage() {
     </PublicMotionProvider>
   );
 }
+
 
 
 

@@ -75,8 +75,8 @@ export default function Hero() {
                 alt={activeProduct.name}
                 fill
                 priority={activeIndex === 0}
-                sizes="(max-width: 640px) 78vw, (max-width: 1024px) 48vw, 560px"
-                className="object-contain px-[16%] pb-24 pt-5 sm:px-[24%] sm:pb-16 sm:pt-0"
+                sizes="(max-width: 640px) 92vw, (max-width: 1024px) 68vw, 760px"
+                className="scale-125 object-contain px-[5%] pb-24 pt-5 sm:scale-[1.3] sm:px-[14%] sm:pb-16 sm:pt-0"
               />
             </motion.div>
           </AnimatePresence>
@@ -123,3 +123,5 @@ export default function Hero() {
     </section>
   );
 }
+
+
