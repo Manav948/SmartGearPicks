@@ -11,167 +11,240 @@ import { ArrowUpRight } from "lucide-react";
 import PublicMotionProvider from "@/components/PublicMotionProvider";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy – SmartGearPicks",
+  title: "Privacy Policy",
   description:
-    "SmartGearPicks Privacy Policy detailing data collection practices, cookies, third-party affiliate disclosures, Pinterest API integration compliance, and user privacy rights.",
+    "SmartGearPicks Privacy Policy detailing data collection practices, Google AdSense and third-party advertising cookies, affiliate disclosures, and user privacy rights.",
+  alternates: {
+    canonical: "/privacy",
+  },
 };
 
 export default function PrivacyPolicyPage() {
-  const lastUpdated = "August 19, 2026";
+  const lastUpdated = "November 3, 2026";
 
   const sections: LegalSectionItem[] = [
     { id: "overview", label: "1. Overview & Scope", iconName: "shield" },
     { id: "information-collected", label: "2. Information We Collect", iconName: "eye" },
-    { id: "pinterest-api", label: "3. Pinterest & Social Disclosures", iconName: "share" },
-    { id: "cookies", label: "4. Cookies & Tracking", iconName: "cookie" },
-    { id: "how-we-use-data", label: "5. How We Use Information", iconName: "file" },
-    { id: "affiliate-disclosure", label: "6. Affiliate & External Links", iconName: "link" },
-    { id: "data-security", label: "7. Data Security & Storage", iconName: "lock" },
-    { id: "user-rights", label: "8. User Rights & Data Deletion", iconName: "database" },
-    { id: "contact-us", label: "9. Contact Information", iconName: "mail" },
+    { id: "cookies", label: "3. Cookies & Tracking", iconName: "cookie" },
+    { id: "adsense-advertising", label: "4. Google AdSense & Advertising", iconName: "sparkles" },
+    { id: "affiliate-disclosure", label: "5. Affiliate Links & Attribution", iconName: "link" },
+    { id: "how-we-use-data", label: "6. How We Use Information", iconName: "file" },
+    { id: "social-integrations", label: "7. Social & Third-Party Platforms", iconName: "share" },
+    { id: "data-security", label: "8. Data Security & Retention", iconName: "lock" },
+    { id: "user-rights", label: "9. User Rights (GDPR & CCPA)", iconName: "database" },
+    { id: "contact-us", label: "10. Contact Information", iconName: "mail" },
   ];
 
   return (
     <PublicMotionProvider>
-    <div className="min-h-screen flex flex-col font-sans" style={{ backgroundColor: "#F7F6F2", color: "#151515" }}>
-      <Navbar />
+      <div className="min-h-screen flex flex-col font-sans bg-[#F6F4EF] text-[#22231F]">
+        <Navbar />
 
-   
-      <LegalHero
-        title="Privacy Policy"
-        subtitle="SmartGearPicks values your trust. This document details how we handle user data, cookies, affiliate links, and compliance with platform requirements including Pinterest developer guidelines."
-        category="Legal & Trust Compliance"
-        lastUpdated={lastUpdated}
-        iconName="shield"
-      />
+        <LegalHero
+          title="Privacy Policy"
+          subtitle="SmartGearPicks values your privacy. This document outlines how we collect, use, and protect your information, including our advertising and affiliate disclosures."
+          category="Legal & Trust Compliance"
+          lastUpdated={lastUpdated}
+          iconName="shield"
+        />
 
-     
-      <main className="max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-16 flex-1 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-         
-          <LegalSidebar sections={sections} />
+        <main className="max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-16 flex-1 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+            <LegalSidebar sections={sections} />
 
-        
-          <div className="lg:col-span-8 space-y-8 leading-relaxed" style={{ color: "#6B6B6B" }}>
-            
-            <LegalSection id="overview" title="1. Overview & Scope" iconName="shield">
-              <p>
-                SmartGearPicks (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) operates the digital platform hosted at this domain. We are dedicated to providing curated product recommendations, tech gear reviews, and creator tool showcases.
-              </p>
-              <p>
-                This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website, interact with our curated links, or use connected platform tools and social integrations (including Pinterest and affiliate partners).
-              </p>
-            </LegalSection>
+            <div className="lg:col-span-8 space-y-8 leading-relaxed text-[#6B6B66]">
+              {/* Section 1 */}
+              <LegalSection id="overview" title="1. Overview & Scope" iconName="shield">
+                <p>
+                  SmartGearPicks (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) operates the digital platform
+                  available at <strong>smartgearpicks.com</strong>. We provide curated product recommendations,
+                  gear discovery, and links to external merchant platforms.
+                </p>
+                <p>
+                  This Privacy Policy describes how we collect, process, and disclose information when you visit our
+                  website, engage with our curated picks, or interact with connected services and advertising partners.
+                </p>
+              </LegalSection>
 
-       
-            <LegalSection id="information-collected" title="2. Information We Collect" iconName="eye">
-              <p>
-                We collect information to deliver a smooth browsing experience, verify traffic authenticity, and track aggregate product interactions:
-              </p>
-              <ul className="list-disc pl-5 space-y-2" style={{ color: "#6B6B6B" }}>
-                <li>
-                  <strong style={{ color: "#151515" }}>Automatically Collected Log Data:</strong> IP address, browser type, operating system, device details, referring URLs, pages viewed, timestamp, and exit links.
-                </li>
-                <li>
-                  <strong style={{ color: "#151515" }}>Interaction & Click Analytics:</strong> Click counts on product listings, search queries, and referral link redirects.
-                </li>
-                <li>
-                  <strong style={{ color: "#151515" }}>Voluntarily Provided Information:</strong> Email address provided during newsletter subscription or support inquiries.
-                </li>
-              </ul>
-            </LegalSection>
+              {/* Section 2 */}
+              <LegalSection id="information-collected" title="2. Information We Collect" iconName="eye">
+                <p>
+                  We collect information necessary to maintain website functionality, ensure security, and improve
+                  curated content:
+                </p>
+                <ul className="list-disc pl-5 space-y-2">
+                  <li>
+                    <strong className="text-[#22231F]">Technical &amp; Log Data:</strong> Browser type, operating
+                    system, Internet Protocol (IP) address, referring URL, pages viewed, device characteristics,
+                    and timestamp of visits.
+                  </li>
+                  <li>
+                    <strong className="text-[#22231F]">Aggregated Engagement Data:</strong> Click interactions with
+                    product catalog listings, search filter queries, and category navigations.
+                  </li>
+                  <li>
+                    <strong className="text-[#22231F]">Voluntarily Provided Information:</strong> Name and email
+                    address when you submit inquiries through our contact form or subscribe to our newsletter.
+                  </li>
+                </ul>
+              </LegalSection>
 
-          
-            <LegalSection id="pinterest-api" title="3. Pinterest & Social Disclosures" iconName="share">
-              <p>
-                SmartGearPicks integrates social sharing features, including Pinterest API features, Pinterest Save buttons, and metadata tags designed to facilitate product pin creation on Pinterest.
-              </p>
-
-              <LegalHighlightBox title="Pinterest Platform Terms Compliance" iconName="share">
-                When you interact with Pinterest features or save our curated products to your Pinterest boards, Pinterest may collect information directly from your browser. We adhere to the Pinterest Developer & API Terms of Service. We do not sell user data obtained through Pinterest APIs to third parties, nor do we attempt to re-identify Pinterest users.
-              </LegalHighlightBox>
-
-              <p>
-                For more details on how Pinterest processes data, please inspect the official{" "}
-                <a
-                  href="https://policy.pinterest.com/en/privacy-policy"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-semibold underline hover:text-[#7c6853] inline-flex items-center gap-1"
-                  style={{ color: "#7c6853" }}
-                >
-                  Pinterest Privacy Policy <ArrowUpRight className="w-3 h-3" />
-                </a>.
-              </p>
-            </LegalSection>
-
-        
-            <LegalSection id="cookies" title="4. Cookies & Tracking Technologies" iconName="cookie">
-              <p>
-                Cookies are small text files stored on your browser. We use first-party and third-party cookies for essential functionality, performance measurement, and affiliate link attribution.
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-3">
-                <div className="bg-[#FAF8F4] border rounded-xl p-4 shadow-xs" style={{ borderColor: "rgba(229, 225, 218, 0.4)" }}>
-                  <h4 className="font-semibold text-xs mb-1" style={{ color: "#151515" }}>Essential Cookies</h4>
-                  <p className="text-xs" style={{ color: "#6B6B6B" }}>Necessary for website operation, session state, and security routing.</p>
+              {/* Section 3 */}
+              <LegalSection id="cookies" title="3. Cookies & Tracking Technologies" iconName="cookie">
+                <p>
+                  Cookies are small data files placed on your device to enable website operations and analytical
+                  measurement. We classify cookies on SmartGearPicks as follows:
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-3">
+                  <div className="bg-[#FFFFFF] border border-[#DDDCD3] rounded-sm p-4 shadow-2xs">
+                    <h4 className="font-semibold text-xs mb-1 text-[#22231F]">Essential &amp; Operational Cookies</h4>
+                    <p className="text-xs text-[#6B6B66]">
+                      Required for basic navigation, security enforcement, and session routing.
+                    </p>
+                  </div>
+                  <div className="bg-[#FFFFFF] border border-[#DDDCD3] rounded-sm p-4 shadow-2xs">
+                    <h4 className="font-semibold text-xs mb-1 text-[#22231F]">Affiliate Attribution Cookies</h4>
+                    <p className="text-xs text-[#6B6B66]">
+                      Set by merchant partners (e.g., Amazon Associates) to attribute qualifying referrals upon redirection.
+                    </p>
+                  </div>
                 </div>
-                <div className="bg-[#FAF8F4] border rounded-xl p-4 shadow-xs" style={{ borderColor: "rgba(229, 225, 218, 0.4)" }}>
-                  <h4 className="font-semibold text-xs mb-1" style={{ color: "#151515" }}>Affiliate Attribution Cookies</h4>
-                  <p className="text-xs" style={{ color: "#6B6B6B" }}>Placed by partner networks (such as Amazon Associates) to attribute successful merchant referrals.</p>
-                </div>
-              </div>
-            </LegalSection>
+                <p className="text-xs">
+                  You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent. However,
+                  some features of the site may function with limited efficiency if cookies are disabled.
+                </p>
+              </LegalSection>
 
-            
-            <LegalSection id="how-we-use-data" title="5. How We Use Information" iconName="file">
-              <p>We use collected information for the following business purposes:</p>
-              <ul className="list-disc pl-5 space-y-2" style={{ color: "#6B6B6B" }}>
-                <li>To operate, maintain, and optimize our curated product platform.</li>
-                <li>To measure click-through rates and optimize curated recommendations based on audience engagement.</li>
-                <li>To maintain platform security, detect fraudulent clicks, and protect against cyber threats.</li>
-                <li>To comply with regulatory obligations and API partner policies (e.g., Pinterest Developer guidelines).</li>
-              </ul>
-            </LegalSection>
+              {/* Section 4: Google AdSense and Third-Party Advertising */}
+              <LegalSection id="adsense-advertising" title="4. Google AdSense & Third-Party Advertising" iconName="sparkles">
+                <p>
+                  We may serve digital advertisements on SmartGearPicks through third-party advertising networks,
+                  including <strong>Google AdSense</strong>.
+                </p>
 
-           
-            <LegalSection id="affiliate-disclosure" title="6. Affiliate & External Links Disclosure" iconName="link">
-              <p>
-                SmartGearPicks is a participant in affiliate advertising programs (including the Amazon Services LLC Associates Program and partner affiliate networks). Our product recommendations contain affiliate links. When you click an outbound link and make a purchase on a merchant site, we may earn a referral commission at no extra cost to you.
-              </p>
-            </LegalSection>
+                <LegalHighlightBox title="Mandatory Google Advertising Disclosure" iconName="sparkles">
+                  <ul className="list-disc pl-4 space-y-1.5">
+                    <li>
+                      Third-party vendors, including Google, use cookies to serve ads based on a user&apos;s prior visits
+                      to this website or other websites across the Internet.
+                    </li>
+                    <li>
+                      Google&apos;s use of advertising cookies enables it and its partners to serve ads to users based on
+                      their visits to SmartGearPicks and/or other sites on the Internet.
+                    </li>
+                    <li>
+                      Users may opt out of personalized advertising by visiting{" "}
+                      <a
+                        href="https://adssettings.google.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-semibold text-[#354538] underline"
+                      >
+                        Google Ads Settings
+                      </a>.
+                    </li>
+                    <li>
+                      Alternatively, users can opt out of a third-party vendor&apos;s use of cookies for personalized advertising
+                      by visiting{" "}
+                      <a
+                        href="https://www.aboutads.info"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-semibold text-[#354538] underline"
+                      >
+                        www.aboutads.info
+                      </a>.
+                    </li>
+                  </ul>
+                </LegalHighlightBox>
 
-          
-            <LegalSection id="data-security" title="7. Data Security & Retention" iconName="lock">
-              <p>
-                We implement administrative, technical, and physical security controls to protect your data. All data transmitted between your browser and our site is encrypted using Transport Layer Security (TLS/HTTPS).
-              </p>
-            </LegalSection>
+                <p>
+                  These third-party ad servers or ad networks use technology in the advertisements and links that appear on
+                  SmartGearPicks, sent directly to your browser. They automatically receive your IP address when this occurs.
+                  SmartGearPicks has no access to or control over these cookies that are used by third-party advertisers.
+                </p>
+              </LegalSection>
 
-           
-            <LegalSection id="user-rights" title="8. User Rights & Data Deletion" iconName="database">
-              <p>
-                Under applicable privacy laws (GDPR, CCPA), you have rights regarding access, deletion, and restriction of personal data.
-              </p>
+              {/* Section 5: Affiliate Links Disclosure */}
+              <LegalSection id="affiliate-disclosure" title="5. Affiliate Links & Commission Attribution" iconName="link">
+                <p>
+                  SmartGearPicks is an affiliate-supported product discovery engine. Many outbound links on our site are affiliate
+                  links. When you click an affiliate link to an external merchant (such as Amazon) and complete a qualifying
+                  purchase, we may earn an affiliate commission.
+                </p>
+                <LegalHighlightBox title="Amazon Associates Program Statement" iconName="link">
+                  SmartGearPicks is a participant in the Amazon Services LLC Associates Program, an affiliate advertising program
+                  designed to provide a means for sites to earn advertising fees by advertising and linking to Amazon.com.
+                </LegalHighlightBox>
+                <p>
+                  Purchasing through an affiliate link incurs no additional cost to you. We curate products independently based on
+                  utility, build quality, and verified customer feedback.
+                </p>
+              </LegalSection>
 
-              <LegalHighlightBox title="Data Deletion Requests" iconName="database">
-                You may request complete deletion of any stored logs or contact data associated with your interaction by emailing our privacy compliance officer.
-              </LegalHighlightBox>
-            </LegalSection>
+              {/* Section 6 */}
+              <LegalSection id="how-we-use-data" title="6. How We Use Information" iconName="file">
+                <p>We use information collected on SmartGearPicks for legitimate business purposes:</p>
+                <ul className="list-disc pl-5 space-y-2">
+                  <li>To provide, operate, and maintain our product catalog and discovery features.</li>
+                  <li>To analyze aggregate trends, popular product categories, and platform traffic patterns.</li>
+                  <li>To prevent abusive bots, malicious traffic, and fraudulent affiliate click inflation.</li>
+                  <li>To respond to user messages, inquiries, and legal correspondence.</li>
+                </ul>
+              </LegalSection>
 
-            
-            <LegalSection id="contact-us" title="9. Contact Information" iconName="mail">
-              <LegalContactCard
-                officeName="SmartGearPicks Privacy Team"
-                email="privacy@smartgearpicks.com"
-                buttonLabel="Contact Privacy Office"
-              />
-            </LegalSection>
+              {/* Section 7 */}
+              <LegalSection id="social-integrations" title="7. Social & Third-Party Platforms" iconName="share">
+                <p>
+                  Our site may include social sharing capabilities or metadata tags (including Pinterest integration features).
+                  When you use these features to share or save products, third-party platforms may collect data in accordance
+                  with their own terms and privacy practices.
+                </p>
+                <p>
+                  We encourage you to review the privacy policies of any third-party social platforms you interact with.
+                </p>
+              </LegalSection>
+
+              {/* Section 8 */}
+              <LegalSection id="data-security" title="8. Data Security & Retention" iconName="lock">
+                <p>
+                  We implement industry-standard technical, organizational, and physical safeguards. All communication between
+                  your device and SmartGearPicks is encrypted using modern Transport Layer Security (TLS/HTTPS).
+                </p>
+                <p>
+                  Server log data is retained only for standard diagnostic and security audit windows before being aggregated or purged.
+                </p>
+              </LegalSection>
+
+              {/* Section 9 */}
+              <LegalSection id="user-rights" title="9. User Rights (GDPR & CCPA Compliance)" iconName="database">
+                <p>
+                  Depending on your geographic location, you hold statutory rights under applicable privacy legislation,
+                  including the European General Data Protection Regulation (GDPR) and the California Consumer Privacy Act (CCPA):
+                </p>
+                <ul className="list-disc pl-5 space-y-1.5">
+                  <li><strong className="text-[#22231F]">Right of Access:</strong> Request confirmation and copies of personal data stored.</li>
+                  <li><strong className="text-[#22231F]">Right to Rectification:</strong> Request correction of inaccurate information.</li>
+                  <li><strong className="text-[#22231F]">Right to Erasure:</strong> Request permanent deletion of your contact data.</li>
+                  <li><strong className="text-[#22231F]">Right to Opt-Out:</strong> Exercise opt-out choices for analytical cookies or advertising identifiers.</li>
+                </ul>
+              </LegalSection>
+
+              {/* Section 10 */}
+              <LegalSection id="contact-us" title="10. Contact Information" iconName="mail">
+                <LegalContactCard
+                  officeName="SmartGearPicks Privacy &amp; Compliance Team"
+                  email="privacy@smartgearpicks.com"
+                  buttonLabel="Email Privacy Office"
+                  description="For questions, data access requests, or regulatory compliance inquiries, contact our dedicated privacy compliance team."
+                />
+              </LegalSection>
+            </div>
           </div>
-        </div>
-      </main>
+        </main>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
     </PublicMotionProvider>
   );
 }

@@ -12,7 +12,7 @@ export function FooterNavLinks() {
   return (
     <>
       <div>
-        <h3 className={headingClass}>Explore</h3>
+        <h3 className={headingClass}>Company &amp; Explore</h3>
         <ul className="space-y-1.5">
           <li>
             <Link href="/" className={linkClass}>
@@ -25,8 +25,13 @@ export function FooterNavLinks() {
             </Link>
           </li>
           <li>
-            <Link href="/#trending" className={linkClass}>
-              Top Recommendations
+            <Link href="/about" className={linkClass}>
+              About Us
+            </Link>
+          </li>
+          <li>
+            <Link href="/contact" className={linkClass}>
+              Contact Us
             </Link>
           </li>
           <li>
@@ -43,9 +48,29 @@ export function FooterNavLinks() {
       </div>
 
       <div>
-        <h3 className={headingClass}>Departments</h3>
+        <h3 className={headingClass}>Legal &amp; Trust</h3>
         <ul className="space-y-1.5">
-          {topCategories.map(([category, label]) => (
+          <li>
+            <Link href="/privacy" className={linkClass}>
+              Privacy Policy
+            </Link>
+          </li>
+          <li>
+            <Link href="/terms" className={linkClass}>
+              Terms of Service
+            </Link>
+          </li>
+          <li>
+            <Link href="/disclaimer" className={linkClass}>
+              Disclaimer &amp; Affiliates
+            </Link>
+          </li>
+          <li className="pt-2 border-t border-[#DDDCD3]/60">
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-[#B66F52] block mb-1">
+              Top Categories
+            </span>
+          </li>
+          {topCategories.slice(0, 3).map(([category, label]) => (
             <li key={category}>
               <Link
                 href={`/catalog?category=${encodeURIComponent(category)}`}
@@ -55,11 +80,6 @@ export function FooterNavLinks() {
               </Link>
             </li>
           ))}
-          <li>
-            <Link href="/catalog" className={linkClass}>
-              More Categories →
-            </Link>
-          </li>
         </ul>
       </div>
     </>

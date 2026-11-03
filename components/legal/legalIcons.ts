@@ -15,6 +15,14 @@ import {
   AlertTriangle,
   ShieldAlert,
   Link2,
+  Users,
+  Heart,
+  Target,
+  MessageSquare,
+  Info,
+  Compass,
+  Search,
+  Globe,
   LucideIcon,
 } from "lucide-react";
 
@@ -61,6 +69,23 @@ export function getLegalIcon(iconName?: string): LucideIcon {
     case "shieldalert":
     case "shield-alert":
       return ShieldAlert;
+    case "users":
+      return Users;
+    case "heart":
+      return Heart;
+    case "target":
+      return Target;
+    case "message":
+    case "messagesquare":
+      return MessageSquare;
+    case "info":
+      return Info;
+    case "compass":
+      return Compass;
+    case "search":
+      return Search;
+    case "globe":
+      return Globe;
     default:
       return FileText;
   }

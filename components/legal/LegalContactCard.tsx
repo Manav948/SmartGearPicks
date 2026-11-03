@@ -15,8 +15,8 @@ interface LegalContactCardProps {
 export function LegalContactCard({
   officeName = "SmartGearPicks Compliance Office",
   email,
-  websiteUrl = "https://smartgearpicks.com",
-  buttonLabel = "Email Privacy Team",
+  websiteUrl = "https://www.smartgearpicks.com",
+  buttonLabel = "Email Compliance Team",
   buttonHref,
   description = "If you have questions, comments, or compliance concerns regarding this policy, feel free to reach out directly to our team.",
 }: LegalContactCardProps) {
@@ -30,26 +30,26 @@ export function LegalContactCard({
   };
 
   return (
-    <div className="bg-[#FAF8F4] border rounded-2xl p-6 shadow-xs" style={{ borderColor: "rgba(229, 225, 218, 0.4)" }}>
-      <p className="text-xs mb-4" style={{ color: "#6B6B6B" }}>{description}</p>
+    <div className="bg-[#FFFFFF] border border-[#DDDCD3] rounded-md p-6 shadow-xs">
+      <p className="text-xs mb-4 text-[#6B6B66]">{description}</p>
 
-      <div
-        className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border p-4 rounded-xl"
-        style={{ backgroundColor: "#F0EDE7", borderColor: "rgba(229, 225, 218, 0.4)" }}
-      >
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border border-[#DDDCD3] p-4 rounded-sm bg-[#F6F4EF]">
         <div className="space-y-1 text-xs">
-          <div className="font-semibold flex items-center gap-1.5" style={{ color: "#151515" }}>
-            <Mail className="w-3.5 h-3.5 text-[#7c6853]" />
+          <div className="font-semibold flex items-center gap-1.5 text-[#22231F]">
+            <Mail className="w-3.5 h-3.5 text-[#354538]" />
             <span>{officeName}</span>
           </div>
-          <div className="flex items-center gap-2" style={{ color: "#6B6B6B" }}>
+          <div className="flex items-center gap-2 text-[#6B6B66]">
             <span>Email:</span>
-            <a href={`mailto:${email}`} className="font-semibold hover:underline" style={{ color: "#7c6853" }}>
+            <a
+              href={`mailto:${email}`}
+              className="font-semibold text-[#354538] hover:underline"
+            >
               {email}
             </a>
             <button
               onClick={handleCopy}
-              className="p-1 rounded bg-[#FAF8F4] text-[#6B6B6B] hover:text-[#7c6853] border border-[#E5E1DA] transition-colors cursor-pointer"
+              className="p-1 rounded bg-[#FFFFFF] text-[#6B6B66] hover:text-[#22231F] border border-[#DDDCD3] transition-colors cursor-pointer"
               title="Copy Email Address"
             >
               {copied ? (
@@ -59,15 +59,14 @@ export function LegalContactCard({
               )}
             </button>
           </div>
-          <div style={{ color: "#6B6B6B" }}>
-            Website: <span className="font-medium" style={{ color: "#151515" }}>{websiteUrl}</span>
+          <div className="text-[#6B6B66]">
+            Website: <span className="font-medium text-[#22231F]">{websiteUrl}</span>
           </div>
         </div>
 
         <a
           href={mailHref}
-          className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-[#F7F6F2] text-xs font-medium transition-all active:scale-95 shrink-0 shadow-xs"
-          style={{ backgroundColor: "#191816", fontFamily: "Geist, sans-serif" }}
+          className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-sm bg-[#22231F] text-[#F6F4EF] text-xs font-medium transition-all hover:bg-[#354538] active:scale-95 shrink-0 shadow-xs"
         >
           <span>{buttonLabel}</span>
           <ArrowUpRight className="w-3.5 h-3.5" />

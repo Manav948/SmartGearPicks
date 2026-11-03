@@ -5,7 +5,19 @@ export function FooterBottomBar() {
   return (
     <div className="flex flex-col gap-3 text-[11px] font-medium text-[#6B6B66] sm:flex-row sm:items-center sm:justify-between">
       <p>© {new Date().getFullYear()} SmartGearPicks. All rights reserved.</p>
-      <nav aria-label="Legal links" className="flex flex-wrap items-center gap-x-5 gap-y-2">
+      <nav aria-label="Legal and compliance links" className="flex flex-wrap items-center gap-x-5 gap-y-2">
+        <Link
+          href="/about"
+          className="transition-colors hover:text-[#22231F] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#354538]"
+        >
+          About Us
+        </Link>
+        <Link
+          href="/contact"
+          className="transition-colors hover:text-[#22231F] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#354538]"
+        >
+          Contact Us
+        </Link>
         <Link
           href="/privacy"
           className="transition-colors hover:text-[#22231F] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#354538]"
@@ -19,10 +31,10 @@ export function FooterBottomBar() {
           Terms of Service
         </Link>
         <Link
-          href="/privacy#affiliate-disclosure"
+          href="/disclaimer"
           className="transition-colors hover:text-[#22231F] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#354538]"
         >
-          Affiliate Disclosure
+          Disclaimer
         </Link>
       </nav>
     </div>

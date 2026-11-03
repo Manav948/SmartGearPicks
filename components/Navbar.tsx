@@ -10,8 +10,9 @@ import { CATEGORY_MAP } from "@/components/ProductCard";
 const LINKS = [
   { label: "Home", href: "/" },
   { label: "Products", href: "/catalog" },
+  { label: "About Us", href: "/about" },
   { label: "How We Curate", href: "/#how-we-curate" },
-  { label: "FAQ", href: "/#faq" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const FOCUS_RING =
@@ -89,6 +90,8 @@ export default function Navbar() {
   const active = (href: string) => {
     if (href === "/") return pathname === "/";
     if (href === "/catalog") return pathname === "/catalog";
+    if (href === "/about") return pathname === "/about";
+    if (href === "/contact") return pathname === "/contact";
     return false;
   };
 

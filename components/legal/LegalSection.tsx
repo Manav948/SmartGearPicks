@@ -19,21 +19,17 @@ export function LegalSection({
   return (
     <section
       id={id}
-      className="scroll-mt-28 bg-[#FAF8F4] border transition-colors duration-200 rounded-2xl p-6 md:p-8 shadow-xs hover:border-[#7c6853]/40"
-      style={{ borderColor: "rgba(229, 225, 218, 0.4)" }}
+      className="scroll-mt-28 bg-[#FFFFFF] border border-[#DDDCD3] transition-colors duration-200 rounded-md p-6 md:p-8 shadow-xs hover:border-[#354538]/50"
     >
       <div className="flex items-center gap-3 mb-5">
-        <div className="p-2.5 rounded-xl border bg-[#F0EDE7] border-[#E5E1DA]/40 text-[#7c6853]">
+        <div className="p-2 rounded-sm border border-[#DDDCD3] bg-[#E5E9E0] text-[#354538]">
           <Icon className="w-5 h-5" />
         </div>
-        <h2
-          className="text-xl font-semibold tracking-tight"
-          style={{ fontFamily: "Geist, sans-serif", color: "#151515" }}
-        >
+        <h2 className="font-display text-xl font-semibold tracking-tight text-[#22231F]">
           {title}
         </h2>
       </div>
-      <div className="text-sm leading-relaxed space-y-4 font-normal" style={{ color: "#6B6B6B" }}>
+      <div className="text-sm leading-relaxed space-y-4 font-normal text-[#6B6B66]">
         {children}
       </div>
     </section>

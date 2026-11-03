@@ -15,18 +15,12 @@ export function LegalHighlightBox({
   const Icon = iconName ? getLegalIcon(iconName) : null;
 
   return (
-    <div
-      className="border rounded-xl p-4 my-4 text-xs space-y-2"
-      style={{
-        backgroundColor: "#F0EDE7",
-        borderColor: "rgba(229, 225, 218, 0.5)",
-      }}
-    >
-      <div className="font-semibold flex items-center gap-1.5" style={{ color: "#151515" }}>
-        {Icon && <Icon className="w-4 h-4 text-[#7c6853] shrink-0" />}
+    <div className="border border-[#DDDCD3] rounded-sm p-4 my-4 text-xs space-y-2 bg-[#E5E9E0]/40">
+      <div className="font-semibold flex items-center gap-1.5 text-[#22231F]">
+        {Icon && <Icon className="w-4 h-4 text-[#B66F52] shrink-0" />}
         <span>{title}</span>
       </div>
-      <div className="text-[12.5px] leading-relaxed" style={{ color: "#6B6B6B" }}>
+      <div className="text-[12.5px] leading-relaxed text-[#6B6B66]">
         {children}
       </div>
     </div>
