@@ -44,7 +44,7 @@ export default function ProductDetailsRight({
           {name}
         </h1>
 
-        {/* Curator badge */}
+        {/* Curator badge — Honest editorial phrasing */}
         <div
           className="inline-flex items-center gap-1.5 mt-4 px-3 py-1.5 rounded-full text-xs font-semibold border"
           style={{
@@ -57,7 +57,7 @@ export default function ProductDetailsRight({
           <span className="material-symbols-outlined text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>
             verified
           </span>
-          Curator&apos;s Pick — Handpicked &amp; Tested
+          Curator&apos;s Pick — Curated Selection
         </div>
 
         {/* Price display */}
@@ -70,13 +70,16 @@ export default function ProductDetailsRight({
               className="text-xs font-semibold uppercase tracking-wider"
               style={{ fontFamily: "Geist, sans-serif", color: "#6B6B6B", letterSpacing: "0.06em" }}
             >
-              Price
+              Estimated Price
             </span>
             <span
               className="text-3xl font-bold tracking-tight"
               style={{ fontFamily: "Geist, system-ui, sans-serif", color: "#151515", letterSpacing: "-0.03em" }}
             >
               ₹{price.toLocaleString("en-IN")}
+            </span>
+            <span className="text-[11px] text-[#6B6B66] ml-auto">
+              Subject to retailer updates
             </span>
           </div>
         )}
@@ -85,20 +88,35 @@ export default function ProductDetailsRight({
       {/* Divider */}
       <div className="border-t" style={{ borderColor: "rgba(229,225,218,0.4)" }} />
 
-      {/* Description */}
-      <div>
-        <h2
-          className="text-xs font-semibold uppercase tracking-widest mb-3"
-          style={{ fontFamily: "Geist, sans-serif", color: "#6B6B6B", letterSpacing: "0.08em" }}
-        >
-          Editorial Notes
-        </h2>
-        <p
-          className="text-base leading-relaxed"
-          style={{ color: "#6B6B6B", lineHeight: "1.7", letterSpacing: "-0.01em" }}
-        >
-          {description}
-        </p>
+      {/* Structured Editorial Content */}
+      <div className="space-y-6">
+        <div>
+          <h2
+            className="text-xs font-semibold uppercase tracking-widest mb-2.5"
+            style={{ fontFamily: "Geist, sans-serif", color: "#6B6B6B", letterSpacing: "0.08em" }}
+          >
+            Editorial Overview
+          </h2>
+          <p
+            className="text-base leading-relaxed text-[#22231F]"
+            style={{ lineHeight: "1.7", letterSpacing: "-0.01em" }}
+          >
+            {description}
+          </p>
+        </div>
+
+        {/* Practical Considerations Box */}
+        <div className="rounded-xl border border-[#DDDCD3] bg-[#FAF8F4] p-4 text-xs space-y-2 text-[#6B6B66]">
+          <h3 className="font-semibold text-[#22231F] flex items-center gap-1.5 text-xs">
+            <span className="material-symbols-outlined text-[15px] text-[#7c6853]">info</span>
+            Curator Notes &amp; Practical Considerations
+          </h3>
+          <ul className="list-disc pl-4 space-y-1 text-[12px] leading-relaxed">
+            <li>Selected for everyday build quality, functional ergonomics, and clean design.</li>
+            <li>Referenced price is indicative; always verify the final checkout price and shipping terms on the merchant page.</li>
+            <li>Qualifying purchases through our referral links support our independent editorial index at no additional cost to you.</li>
+          </ul>
+        </div>
       </div>
 
       {/* Stats row */}
@@ -119,10 +137,10 @@ export default function ProductDetailsRight({
           style={{ backgroundColor: "#FAF8F4", borderColor: "rgba(229,225,218,0.35)" }}
         >
           <p className="text-xs font-semibold uppercase tracking-wider mb-1" style={{ fontFamily: "Geist, sans-serif", color: "#6B6B6B", letterSpacing: "0.05em" }}>
-            Total Views
+            Engagement
           </p>
           <p className="text-sm font-medium" style={{ fontFamily: "Geist, sans-serif", color: "#7c6853" }}>
-            {clicks.toLocaleString()} clicks
+            {clicks.toLocaleString()} views
           </p>
         </div>
       </div>
@@ -130,13 +148,13 @@ export default function ProductDetailsRight({
       {/* Divider */}
       <div className="border-t" style={{ borderColor: "rgba(229,225,218,0.4)" }} />
 
-      {/* CTA Buttons */}
+      {/* CTA Buttons — Non-deceptive referral phrasing */}
       <div className="flex flex-col gap-3">
         <a
           href={`/api/redirect/${id}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="w-full flex items-center justify-center gap-2.5 py-4 rounded-xl text-base font-medium transition-all active:scale-[0.98]"
+          className="w-full flex items-center justify-center gap-2.5 py-4 rounded-xl text-base font-medium transition-all active:scale-[0.98] hover:bg-[#354538]"
           style={{
             backgroundColor: "#191816",
             color: "#FAF8F4",
@@ -145,18 +163,15 @@ export default function ProductDetailsRight({
             boxShadow: "0 4px 12px rgba(0,0,0,0.12)",
           }}
         >
-          <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 0" }}>
-            shopping_bag
-          </span>
-          View Deal & Buy Now
+          <span>View on Retailer</span>
           <span className="material-symbols-outlined text-[18px]" style={{ fontVariationSettings: "'FILL' 0" }}>
             arrow_outward
           </span>
         </a>
 
         <Link
-          href="/"
-          className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl text-sm font-medium border transition-all active:scale-[0.98]"
+          href="/catalog"
+          className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl text-sm font-medium border transition-all active:scale-[0.98] hover:bg-[#E5E9E0]"
           style={{
             backgroundColor: "transparent",
             color: "#6B6B6B",
@@ -167,7 +182,7 @@ export default function ProductDetailsRight({
           <span className="material-symbols-outlined text-[18px]" style={{ fontVariationSettings: "'FILL' 0" }}>
             arrow_back
           </span>
-          Browse More Products
+          Browse Full Catalog
         </Link>
       </div>
 
@@ -177,9 +192,9 @@ export default function ProductDetailsRight({
         style={{ backgroundColor: "#F0EDE7", borderColor: "rgba(229,225,218,0.3)" }}
       >
         {[
-          { icon: "verified_user", label: "Verified Affiliate" },
-          { icon: "local_shipping", label: "Direct to Store" },
-          { icon: "thumb_up", label: "Curator Approved" },
+          { icon: "verified_user", label: "Affiliate Link" },
+          { icon: "local_shipping", label: "Direct to Retailer" },
+          { icon: "thumb_up", label: "Editorially Selected" },
         ].map(({ icon, label }) => (
           <div key={label} className="flex items-center gap-1.5 justify-center whitespace-nowrap">
             <span

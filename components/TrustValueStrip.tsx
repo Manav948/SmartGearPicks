@@ -6,23 +6,23 @@ import { Compass, LayoutGrid, Sparkles, ShoppingBag } from "lucide-react";
 const VALUES = [
   {
     icon: Compass,
-    title: "Thoughtfully Curated",
-    description: "Handpicked selections focused on quality, design, and practical utility.",
+    title: "Independent Selection",
+    description: "Handpicked recommendations focused on materials, durability, and practical utility.",
   },
   {
     icon: LayoutGrid,
-    title: "Explore More Categories",
-    description: "Discover useful items across everyday tech, lifestyle, home, and workspace.",
+    title: "Organized Catalog",
+    description: "Structured collections across workspace gear, audio tech, home goods, and travel.",
   },
   {
     icon: Sparkles,
-    title: "Discover Useful Products",
-    description: "Clear recommendations without sponsored clutter or fake review hype.",
+    title: "Editorial Clarity",
+    description: "Objective product information and verified specifications without paid placements.",
   },
   {
     icon: ShoppingBag,
-    title: "Shop With Clarity",
-    description: "Direct links to trusted retailer checkouts with honest affiliate transparency.",
+    title: "Verified Retailers",
+    description: "Direct links to trusted merchant checkouts with full affiliate transparency.",
   },
 ];
 
@@ -66,4 +66,3 @@ export default function TrustValueStrip() {
     </section>
   );
 }
-

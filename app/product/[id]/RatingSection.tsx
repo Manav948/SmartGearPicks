@@ -20,12 +20,9 @@ export default function RatingSection({ productId }: { productId: string }) {
   const [name, setName] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
-  // Load from localStorage
+  // Load from localStorage cleanly
   useEffect(() => {
-    let stored = localStorage.getItem(STORAGE_KEY(productId));
-    if (!stored) {
-      stored = localStorage.getItem(`pickora_ratings_${productId}`);
-    }
+    const stored = localStorage.getItem(STORAGE_KEY(productId));
     if (stored) {
       try {
         setReviews(JSON.parse(stored));
@@ -73,7 +70,7 @@ export default function RatingSection({ productId }: { productId: string }) {
         className="text-xl font-medium tracking-tight mb-6"
         style={{ fontFamily: "Geist, sans-serif", color: "#151515", letterSpacing: "-0.02em" }}
       >
-        Ratings & Reviews
+        Ratings &amp; Reviews
       </h2>
 
       {/* Summary */}
@@ -143,7 +140,7 @@ export default function RatingSection({ productId }: { productId: string }) {
               onClick={() => setSelectedStar(s)}
               onMouseEnter={() => setHoverStar(s)}
               onMouseLeave={() => setHoverStar(0)}
-              className="transition-transform active:scale-90"
+              className="transition-transform active:scale-90 cursor-pointer"
             >
               <span
                 className="material-symbols-outlined text-[28px]"
@@ -207,7 +204,7 @@ export default function RatingSection({ productId }: { productId: string }) {
             type="button"
             onClick={handleSubmit}
             disabled={!selectedStar || !name.trim()}
-            className="px-5 py-3 rounded-xl text-sm font-medium transition-all active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed shadow-sm hover:shadow"
+            className="px-5 py-3 rounded-xl text-sm font-medium transition-all active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed shadow-sm hover:shadow cursor-pointer"
             style={{
               backgroundColor: "#191816",
               color: "#FAF8F4",

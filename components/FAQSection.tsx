@@ -12,37 +12,37 @@ const FAQS: FAQItem[] = [
   {
     question: "What is SmartGearPicks?",
     answer:
-      "SmartGearPicks is an independent affiliate product-discovery platform. We research, curate, and feature standout products across tech, workspace, lifestyle, and home essentials so you can discover useful items without endless scrolling.",
+      "SmartGearPicks is an independent affiliate product-discovery platform. We research, curate, and index products across technology, workspace tools, lifestyle accessories, and home essentials, organizing them with direct merchant pricing and specifications.",
   },
   {
     question: "How do you select products?",
     answer:
-      "We select products based on design clarity, everyday utility, material durability, and reliable customer feedback. Our curations prioritize items that deliver genuine practical value over fleeting trends.",
+      "We select products based on design clarity, everyday utility, material durability, and reliable customer feedback. Our curations prioritize items that deliver practical daily value rather than fleeting trends.",
   },
   {
     question: "Where do I purchase the products?",
     answer:
-      "All purchases are completed directly on trusted third-party retailer websites, such as Amazon or official brand stores. When you click a product button, you are redirected to the retailer to complete your order securely.",
+      "All purchases are completed directly on third-party retailer websites, such as Amazon or official brand stores. When you click a product link, you are redirected to the merchant checkout page to complete your order securely.",
   },
   {
     question: "Do I purchase directly from SmartGearPicks?",
     answer:
-      "No. SmartGearPicks is a discovery catalog and curation service, not a direct seller. We do not process payments, fulfill orders, or manage shipping directly.",
+      "No. SmartGearPicks is a discovery catalog and curation service, not a retailer. We do not process payments, fulfill orders, maintain physical inventory, or manage shipping directly.",
   },
   {
     question: "Are product prices updated automatically?",
     answer:
-      "Prices displayed on SmartGearPicks are approximate guide prices noted during curation. Retailer prices, promotional discounts, and stock levels change frequently, so please verify the exact current price on the retailer's page.",
+      "Prices displayed on SmartGearPicks are approximate reference guide prices noted during curation. Retailer prices, discounts, and inventory fluctuate frequently, so please verify the exact current price on the merchant's checkout page.",
   },
   {
     question: "How does SmartGearPicks earn money?",
     answer:
-      "We earn referral commissions through affiliate partnerships, including the Amazon Associates program. When you click our links and make a qualifying purchase, we may receive a small commission from the retailer at zero additional cost to you.",
+      "We earn referral commissions through affiliate partnerships, including the Amazon Associates program. When you click our links and make a qualifying purchase, we may receive a commission from the retailer at zero additional cost to you.",
   },
   {
     question: "Are product recommendations sponsored?",
     answer:
-      "No. Our curations are editorially independent. We do not accept paid promotions to feature products that fail our standards of quality, utility, and craftsmanship.",
+      "No. Our recommendations are editorially independent. We do not accept paid promotions, sponsored placements, or advertising payments to feature products in our index.",
   },
 ];
 
@@ -95,7 +95,7 @@ export default function FAQSection() {
                   aria-expanded={isOpen}
                   aria-controls={contentId}
                   onClick={() => toggleIndex(index)}
-                  className="flex w-full items-center justify-between gap-4 text-left font-display text-base sm:text-lg font-medium text-[#22231F] transition-colors hover:text-[#354538] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#354538]"
+                  className="flex w-full items-center justify-between gap-4 text-left font-display text-base sm:text-lg font-medium text-[#22231F] transition-colors hover:text-[#354538] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#354538] cursor-pointer"
                 >
                   <span>{faq.question}</span>
                   <span
@@ -129,4 +129,3 @@ export default function FAQSection() {
     </section>
   );
 }
-

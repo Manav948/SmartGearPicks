@@ -26,7 +26,7 @@ export default function NewsletterSection() {
         >
           {/* Eyebrow */}
           <p className="mb-2.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#B66F52]">
-            THE GOOD FINDS EDIT
+            WEEKLY DIGEST
           </p>
 
           {/* Headline */}
@@ -34,12 +34,12 @@ export default function NewsletterSection() {
             id="newsletter-heading"
             className="font-display text-3xl font-medium tracking-tight text-[#22231F] sm:text-4xl"
           >
-            Good finds, delivered.
+            Curated gear, delivered weekly.
           </h2>
 
-          {/* Description */}
+          {/* Description — without "worth exploring" tell */}
           <p className="mx-auto mt-3 max-w-lg text-sm sm:text-base leading-relaxed text-[#6B6B66]">
-            Discover useful products, fresh arrivals, and thoughtful picks worth exploring.
+            Get newly indexed products, practical tools, and catalog updates delivered directly to your inbox.
           </p>
 
           {/* Form */}
@@ -60,7 +60,6 @@ export default function NewsletterSection() {
                   <input
                     type="email"
                     required
-                    suppressHydrationWarning
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email address"
@@ -69,16 +68,16 @@ export default function NewsletterSection() {
                 </div>
                 <button
                   type="submit"
-                  className="inline-flex items-center justify-center gap-1.5 rounded-sm bg-[#22231F] px-5 py-2.5 text-xs sm:text-sm font-medium text-[#F6F4EF] transition-all hover:bg-[#354538] active:scale-95 shrink-0"
+                  className="inline-flex items-center justify-center gap-1.5 rounded-sm bg-[#22231F] px-5 py-2.5 text-xs sm:text-sm font-medium text-[#F6F4EF] transition-all hover:bg-[#354538] active:scale-95 shrink-0 cursor-pointer"
                 >
                   <span>Subscribe</span>
                   <ArrowRight size={14} />
                 </button>
               </div>
 
-              {/* Supporting text */}
+              {/* Supporting text — plain subscriber notice without "No clutter" slogan */}
               <p className="mt-3 text-[11px] text-[#6B6B66]">
-                No clutter. Just useful discoveries.
+                Published weekly. Unsubscribe at any time.
               </p>
             </form>
           )}
@@ -87,4 +86,3 @@ export default function NewsletterSection() {
     </section>
   );
 }
-

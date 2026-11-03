@@ -12,14 +12,14 @@ import PublicMotionProvider from "@/components/PublicMotionProvider";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "Learn about SmartGearPicks — an independent product discovery platform that curates standout tech, lifestyle, and everyday gear so you can skip the endless scrolling.",
+    "Learn about SmartGearPicks, an independent product discovery platform curating dependable tech, lifestyle, and workspace gear.",
   alternates: {
     canonical: "/about",
   },
   openGraph: {
     title: "About Us | SmartGearPicks",
     description:
-      "We discover and curate standout products across tech, workspace, lifestyle, and home categories. Learn how SmartGearPicks helps you find gear worth owning.",
+      "We discover and curate products across tech, workspace, lifestyle, and home categories. Learn how SmartGearPicks helps you find reliable gear.",
     url: "/about",
     type: "website",
   },
@@ -46,7 +46,7 @@ export default function AboutPage() {
 
         <LegalHero
           title="About Us"
-          subtitle="SmartGearPicks is an independent product discovery platform. We find, evaluate, and curate products worth your attention — so you spend less time scrolling and more time enjoying great gear."
+          subtitle="SmartGearPicks is an independent product discovery platform. We research, evaluate, and index practical products so you can find dependable gear without endless browsing."
           category="About SmartGearPicks"
           lastUpdated={lastUpdated}
           iconName="users"
@@ -65,38 +65,37 @@ export default function AboutPage() {
               {/* Section 1 */}
               <LegalSection id="who-we-are" title="1. Who We Are" iconName="users">
                 <p>
-                  SmartGearPicks is an online product discovery and recommendation platform. We browse,
-                  research, and evaluate products across multiple categories — including technology,
-                  workspace tools, lifestyle accessories, home and kitchen essentials, fashion, travel
-                  gear, and sports equipment — so our readers can discover standout items without sifting
-                  through thousands of listings.
+                  SmartGearPicks is an online product discovery and recommendation catalog. We research and
+                  evaluate products across multiple categories, including technology, workspace tools,
+                  lifestyle accessories, home and kitchen essentials, apparel, travel gear, and outdoor
+                  equipment, helping readers discover practical items without sifting through thousands of
+                  unfiltered listings.
                 </p>
                 <p>
-                  Our platform is built for anyone who values their time and wants honest, well-organized
-                  product recommendations. Whether you&apos;re setting up a home office, upgrading your
-                  daily carry, or searching for a thoughtful gift, SmartGearPicks helps you find products
-                  that are genuinely worth considering.
+                  Our platform is built for anyone who values straightforward, well-organized product
+                  recommendations. Whether you are setting up a home workspace, upgrading your daily carry,
+                  or looking for dependable accessories, SmartGearPicks indexes products chosen for build
+                  quality and everyday utility.
                 </p>
               </LegalSection>
 
               {/* Section 2 */}
               <LegalSection id="our-mission" title="2. Our Mission" iconName="compass">
                 <p>
-                  Our mission is straightforward: make product discovery easier and more enjoyable. The
-                  online marketplace is enormous, and finding quality products often means reading dozens
-                  of reviews, comparing specifications, and navigating confusing listings.
+                  Our mission is straightforward: make product discovery clear, reliable, and efficient.
+                  Finding quality products online often requires reading dozens of contradictory reviews,
+                  comparing technical specifications, and navigating promotional listings.
                 </p>
                 <p>
-                  SmartGearPicks exists to simplify that process. We aim to surface products that combine
-                  thoughtful design, practical utility, and genuine value — the kind of gear you&apos;d
-                  recommend to a friend.
+                  SmartGearPicks simplifies this process by organizing products that combine functional
+                  design, durable materials, and verified user satisfaction into structured collections.
                 </p>
-                <LegalHighlightBox title="What Drives Us" iconName="target">
+                <LegalHighlightBox title="Our Core Objectives" iconName="target">
                   <ul className="list-disc pl-4 space-y-1.5">
-                    <li>Help people discover useful, well-made products efficiently.</li>
-                    <li>Present products with honest descriptions — no hype, no exaggeration.</li>
-                    <li>Organize recommendations so browsing is intuitive, not overwhelming.</li>
-                    <li>Maintain editorial transparency about how we operate and earn revenue.</li>
+                    <li>Help readers find durable, functional gear efficiently.</li>
+                    <li>Present objective product descriptions without promotional hype.</li>
+                    <li>Organize recommendations so browsing is clear and intuitive.</li>
+                    <li>Maintain transparent affiliate disclosures across every page.</li>
                   </ul>
                 </LegalHighlightBox>
               </LegalSection>
@@ -104,75 +103,69 @@ export default function AboutPage() {
               {/* Section 3 */}
               <LegalSection id="how-we-curate" title="3. How We Curate" iconName="search">
                 <p>
-                  Every product featured on SmartGearPicks goes through a deliberate selection process.
-                  We don&apos;t list everything — we choose items that meet a standard of quality, design,
-                  and usefulness.
+                  Every product featured on SmartGearPicks is evaluated under consistent editorial criteria.
+                  We select items that meet documented standards for build quality, materials, and everyday
+                  utility.
                 </p>
                 <p>Our curation process involves:</p>
                 <ul className="list-disc pl-5 space-y-2">
                   <li>
                     <strong className="text-[#22231F]">Category Research:</strong> We monitor product
-                    releases, trending categories, and emerging brands across major retail platforms to
-                    identify what deserves attention.
+                    releases, category updates, and established brands across major retail platforms to
+                    identify notable equipment.
                   </li>
                   <li>
-                    <strong className="text-[#22231F]">Review Analysis:</strong> We analyze customer
-                    reviews, ratings, and feedback patterns to assess real-world product satisfaction —
-                    not just marketing claims.
+                    <strong className="text-[#22231F]">Review Analysis:</strong> We analyze verified customer
+                    feedback, long-term durability reports, and user satisfaction patterns to evaluate
+                    real-world reliability.
                   </li>
                   <li>
-                    <strong className="text-[#22231F]">Design & Utility Evaluation:</strong> We consider
-                    build quality, materials, practical functionality, and aesthetic appeal when
-                    selecting products for our catalog.
+                    <strong className="text-[#22231F]">Design &amp; Utility Evaluation:</strong> We evaluate
+                    material choices, functional ergonomics, repairability, and aesthetic longevity before
+                    adding an item to our index.
                   </li>
                   <li>
-                    <strong className="text-[#22231F]">Value Assessment:</strong> We look at price
-                    relative to quality and utility. Expensive doesn&apos;t always mean better, and
-                    affordable products can be excellent.
+                    <strong className="text-[#22231F]">Value Assessment:</strong> We compare price points
+                    relative to material quality and feature sets to confirm fair retail value.
                   </li>
                 </ul>
                 <p>
-                  Our goal is to present a focused, manageable selection of products — not an exhaustive
-                  database. If a product appears on SmartGearPicks, it&apos;s because we believe it&apos;s
-                  worth a closer look.
+                  Our goal is to maintain a focused catalog of evaluated products. When an item appears on
+                  SmartGearPicks, it is because it meets our criteria for durability and practical daily use.
                 </p>
               </LegalSection>
 
               {/* Section 4 */}
               <LegalSection id="editorial-independence" title="4. Editorial Independence" iconName="shield">
                 <p>
-                  SmartGearPicks maintains editorial independence. Product selections are made by our
-                  team based on research, analysis, and editorial judgment. We do not accept payment
-                  from brands or manufacturers in exchange for product placement or favorable
-                  descriptions.
+                  SmartGearPicks maintains complete editorial independence. Product selections are made by our
+                  editorial team based on research, specifications, and customer feedback. We do not accept
+                  payment from brands or manufacturers in exchange for product placement or favorable coverage.
                 </p>
                 <p>
-                  While we participate in affiliate programs (described below), our curation decisions
-                  are made independently. Products are selected before affiliate links are applied, not
-                  the other way around.
+                  While we participate in affiliate programs (described below), products are selected prior to
+                  affiliate links being applied.
                 </p>
-                <LegalHighlightBox title="Our Editorial Commitment" iconName="check">
-                  We never let affiliate commissions influence which products we choose to feature.
-                  Our recommendations are based on genuine evaluation, not financial incentive.
+                <LegalHighlightBox title="Editorial Commitment" iconName="check">
+                  Affiliate commissions never determine which products we choose to feature. Recommendations
+                  are based on objective evaluation, not referral compensation.
                 </LegalHighlightBox>
               </LegalSection>
 
               {/* Section 5 */}
               <LegalSection id="affiliate-model" title="5. How We Earn Revenue" iconName="link">
                 <p>
-                  SmartGearPicks is a free platform. We earn revenue through affiliate partnerships.
-                  When you click a product link on our site and make a purchase on the merchant&apos;s
-                  website (such as Amazon), we may receive a small commission at no extra cost to you.
+                  SmartGearPicks is free to browse. We fund our operations through affiliate partnerships. When
+                  you click a product link on our site and make a purchase on a merchant website (such as
+                  Amazon), we may receive a commission at no additional cost to you.
                 </p>
-                <LegalHighlightBox title="Amazon Associates Program" iconName="link">
-                  SmartGearPicks is a participant in the Amazon Services LLC Associates Program, an
-                  affiliate advertising program designed to provide a means for sites to earn
-                  advertising fees by advertising and linking to Amazon.com.
+                <LegalHighlightBox title="Amazon Associates Program Statement" iconName="link">
+                  SmartGearPicks is a participant in the Amazon Services LLC Associates Program, an affiliate
+                  advertising program designed to provide a means for sites to earn advertising fees by
+                  advertising and linking to Amazon.com.
                 </LegalHighlightBox>
                 <p>
-                  We may also participate in other affiliate networks as our platform grows. All
-                  affiliate relationships are disclosed transparently across the website, including
-                  in our{" "}
+                  All affiliate relationships are disclosed transparently across the website, including in our{" "}
                   <a href="/privacy" className="font-semibold text-[#354538] underline">
                     Privacy Policy
                   </a>{" "}
@@ -182,36 +175,35 @@ export default function AboutPage() {
                   </a>.
                 </p>
                 <p>
-                  Importantly, purchasing through our links costs you nothing extra. Affiliate
-                  commissions are paid by the merchant, not by you.
+                  Purchasing through an affiliate link does not increase your purchase price. Commissions are paid
+                  by the retailer out of standard referral marketing budgets.
                 </p>
               </LegalSection>
 
               {/* Section 6 */}
               <LegalSection id="what-we-are-not" title="6. What We Are Not" iconName="info">
                 <p>
-                  To set clear expectations, here is what SmartGearPicks is <strong className="text-[#22231F]">not</strong>:
+                  To set clear boundaries, here is what SmartGearPicks is <strong className="text-[#22231F]">not</strong>:
                 </p>
                 <ul className="list-disc pl-5 space-y-2">
                   <li>
-                    <strong className="text-[#22231F]">We are not a retailer.</strong> We do not sell,
-                    ship, or handle any products. All purchases are made directly on the merchant&apos;s
-                    website (e.g., Amazon).
+                    <strong className="text-[#22231F]">We are not a retailer.</strong> We do not sell, stock,
+                    ship, or handle physical products. All purchases take place directly on third-party merchant
+                    websites.
                   </li>
                   <li>
-                    <strong className="text-[#22231F]">We are not a price comparison tool.</strong>{" "}
-                    Prices shown on our site are indicative guide prices and may change. Always verify
-                    the current price on the merchant&apos;s website before purchasing.
+                    <strong className="text-[#22231F]">We are not a real-time price comparison tool.</strong>{" "}
+                    Prices displayed on our site are reference guide prices noted during curation and may change
+                    on the retailer platform. Always verify the current price on the merchant checkout page.
                   </li>
                   <li>
-                    <strong className="text-[#22231F]">We do not provide professional advice.</strong>{" "}
-                    Our content is informational and editorial. It is not a substitute for professional
-                    purchasing, technical, medical, or financial advice.
+                    <strong className="text-[#22231F]">We do not provide certified professional advice.</strong>{" "}
+                    Our content is informational and editorial. It is not a substitute for certified technical,
+                    medical, or financial advice.
                   </li>
                   <li>
-                    <strong className="text-[#22231F]">We do not guarantee product availability.</strong>{" "}
-                    Product availability, pricing, and specifications are controlled by the respective
-                    merchants and may change without notice.
+                    <strong className="text-[#22231F]">We do not control inventory availability.</strong> Product
+                    stock levels and delivery terms are determined exclusively by the respective merchants.
                   </li>
                 </ul>
               </LegalSection>
@@ -220,31 +212,27 @@ export default function AboutPage() {
               <LegalSection id="our-values" title="7. Our Values" iconName="heart">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-3">
                   <div className="bg-[#FFFFFF] border border-[#DDDCD3] rounded-sm p-4 shadow-2xs">
-                    <h4 className="font-semibold text-xs mb-1 text-[#22231F]">Honesty</h4>
+                    <h4 className="font-semibold text-xs mb-1 text-[#22231F]">Objectivity</h4>
                     <p className="text-xs text-[#6B6B66]">
-                      We describe products accurately. No inflated claims, no fake reviews, no
-                      misleading language.
+                      We describe products accurately based on verifiable specifications and customer feedback.
                     </p>
                   </div>
                   <div className="bg-[#FFFFFF] border border-[#DDDCD3] rounded-sm p-4 shadow-2xs">
                     <h4 className="font-semibold text-xs mb-1 text-[#22231F]">Transparency</h4>
                     <p className="text-xs text-[#6B6B66]">
-                      We disclose how we earn revenue and maintain clear policies about data,
-                      cookies, and advertising.
+                      We disclose how our platform is funded and maintain clear policies regarding data and cookies.
                     </p>
                   </div>
                   <div className="bg-[#FFFFFF] border border-[#DDDCD3] rounded-sm p-4 shadow-2xs">
-                    <h4 className="font-semibold text-xs mb-1 text-[#22231F]">Quality Over Quantity</h4>
+                    <h4 className="font-semibold text-xs mb-1 text-[#22231F]">Curatorial Focus</h4>
                     <p className="text-xs text-[#6B6B66]">
-                      We feature a curated selection rather than an overwhelming catalog. Every
-                      product earns its place.
+                      We prioritize a focused collection of durable items over an unmanageable volume of listings.
                     </p>
                   </div>
                   <div className="bg-[#FFFFFF] border border-[#DDDCD3] rounded-sm p-4 shadow-2xs">
-                    <h4 className="font-semibold text-xs mb-1 text-[#22231F]">User-First Design</h4>
+                    <h4 className="font-semibold text-xs mb-1 text-[#22231F]">Clear Presentation</h4>
                     <p className="text-xs text-[#6B6B66]">
-                      Our website is designed for ease of use — clean navigation, fast loading, and
-                      a pleasant browsing experience.
+                      Our website is designed for straightforward browsing, with fast loading and responsive navigation.
                     </p>
                   </div>
                 </div>
@@ -253,14 +241,13 @@ export default function AboutPage() {
               {/* Section 8 */}
               <LegalSection id="contact" title="8. Get in Touch" iconName="mail">
                 <p>
-                  We welcome questions, feedback, and suggestions. If you&apos;d like to reach us,
-                  you can use our contact page or email us directly.
+                  We welcome questions, product suggestions, and feedback from our readers.
                 </p>
                 <LegalContactCard
                   officeName="SmartGearPicks Editorial Team"
                   email="contact@smartgearpicks.com"
                   buttonLabel="Send Us an Email"
-                  description="Have a question, suggestion, or feedback? We'd love to hear from you."
+                  description="Have a question, suggestion, or feedback? Reach out directly to our editorial team."
                 />
               </LegalSection>
             </div>
@@ -272,4 +259,3 @@ export default function AboutPage() {
     </PublicMotionProvider>
   );
 }
-

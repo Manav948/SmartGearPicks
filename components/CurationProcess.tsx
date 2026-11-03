@@ -6,26 +6,26 @@ import { Search, Eye, SlidersHorizontal, ShoppingBag } from "lucide-react";
 const STEPS = [
   {
     step: "01",
-    label: "DISCOVER",
-    desc: "Find useful products across different categories.",
+    label: "RESEARCH",
+    desc: "We monitor product releases, category trends, and verified customer feedback.",
     icon: Search,
   },
   {
     step: "02",
-    label: "EXPLORE",
-    desc: "Review product details and available information.",
+    label: "EVALUATE",
+    desc: "We analyze materials, ergonomics, practical utility, and build quality.",
     icon: Eye,
   },
   {
     step: "03",
-    label: "COMPARE",
-    desc: "Consider available options before deciding.",
+    label: "INDEX",
+    desc: "We organize selected items into categorized collections with guide pricing.",
     icon: SlidersHorizontal,
   },
   {
     step: "04",
-    label: "CHOOSE",
-    desc: "Visit the retailer to complete your purchase.",
+    label: "REFER",
+    desc: "We provide direct links to trusted merchant checkouts with full affiliate disclosure.",
     icon: ShoppingBag,
   },
 ];
@@ -45,7 +45,7 @@ export default function CurationProcess() {
           className="mx-auto max-w-2xl text-center mb-12 sm:mb-16"
         >
           <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#B66F52]">
-            OUR PROCESS
+            EDITORIAL STANDARDS
           </p>
           <h2
             id="how-we-curate-heading"
@@ -54,7 +54,7 @@ export default function CurationProcess() {
             How We Curate
           </h2>
           <p className="mt-3 text-sm sm:text-base leading-relaxed text-[#6B6B66]">
-            A clear, transparent workflow to help you discover standout products without endless browsing.
+            A transparent workflow to help you discover and evaluate quality gear from verified retailers.
           </p>
         </div>
 

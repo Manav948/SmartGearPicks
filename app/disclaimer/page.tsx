@@ -70,7 +70,7 @@ export default function DisclaimerPage() {
                   The information provided on SmartGearPicks (smartgearpicks.com) is for general
                   informational and product discovery purposes only. While we strive to present
                   accurate, up-to-date, and useful information, we make no representations or
-                  warranties of any kind — express or implied — about the completeness, accuracy,
+                  warranties of any kind, express or implied, about the completeness, accuracy,
                   reliability, suitability, or availability of the information, products, services,
                   or related content on this website.
                 </p>
@@ -86,9 +86,9 @@ export default function DisclaimerPage() {
                 <LegalHighlightBox title="FTC Affiliate Disclosure" iconName="alert">
                   <p>
                     SmartGearPicks earns revenue through affiliate partnerships. When you click on
-                    product links on our website and make a qualifying purchase on the
-                    merchant&apos;s website, we may earn a commission. This does not increase the
-                    price you pay — affiliate commissions are paid by the merchant, not the buyer.
+                    product links on our website and make a qualifying purchase on the merchant&apos;s
+                    website, we may earn a commission. This does not increase the price you pay.
+                    Affiliate commissions are paid by the merchant, not the buyer.
                   </p>
                 </LegalHighlightBox>
 
@@ -241,8 +241,8 @@ export default function DisclaimerPage() {
                 <p>
                   If you require professional guidance in any of these areas, please consult a
                   qualified professional. Product descriptions on SmartGearPicks are intended to
-                  help you discover and evaluate products — not to replace expert judgment where
-                  applicable.
+                  help you discover and evaluate products, not to replace qualified professional
+                  judgment.
                 </p>
               </LegalSection>
 
@@ -308,4 +308,3 @@ export default function DisclaimerPage() {
     </PublicMotionProvider>
   );
 }
-
