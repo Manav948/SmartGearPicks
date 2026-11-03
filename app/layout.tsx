@@ -32,6 +32,11 @@ export const metadata: Metadata = {
   authors: [{ name: "SmartGearPicks Editorial Team", url: siteUrl }],
   creator: "SmartGearPicks",
   publisher: "SmartGearPicks",
+  icons: {
+    icon: '/logo.png',
+    shortcut: '/logo.png',
+    apple: '/logo.png',
+  },
   alternates: {
     canonical: "./",
   },
