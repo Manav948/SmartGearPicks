@@ -21,6 +21,8 @@ export default function PublicMotionProvider({ children }: { children: ReactNode
     const updateScrollTrigger = () => ScrollTrigger.update();
     const tick = (time: number) => lenis.raf(time * 1000);
 
+    if (!window.location.hash) lenis.scrollTo(0, { immediate: true });
+
     lenis.on("scroll", updateScrollTrigger);
     gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
